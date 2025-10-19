@@ -1,6 +1,7 @@
-data
+/data
 test_codes
 .venv
 frontend/node_modules/
 infra/volumes/
 **/__pycache__/
+.gitignore
