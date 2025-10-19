@@ -4,10 +4,10 @@
   <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="license"/>
 </p>
 
-<h1>
-  <img src="./frontend/src/assets/logo.svg" alt="DICE logo" width="80" style="vertical-align: middle; margin-right: 10px;"/>
-  DICE (Decision Intelligence Copilot)
-</h1>
+<div align="center">
+  <img src="./frontend/src/assets/logo.svg" alt="DICE logo" width="150" style="margin-bottom: 20px;">
+  <h1 style="margin: 0;">DICE (Decision Intelligence Copilot)</h1>
+</div>
 
 > ✨ Transform your marketing data into **actionable decisions** in seconds! ✨
 
@@ -92,3 +92,4 @@ RAG → LLM → UI
 ## 📄 License
 
 Distributed under the **MIT License**. See [LICENSE](LICENSE) for details.
+
