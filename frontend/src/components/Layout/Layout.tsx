@@ -36,7 +36,7 @@ export const Layout: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex">
+    <div className="min-h-screen bg-background flex">
       <Sidebar isOpen={sidebarOpen} onClose={closeSidebar} />
 
       <div className="w-full pl-0 flex flex-col">
