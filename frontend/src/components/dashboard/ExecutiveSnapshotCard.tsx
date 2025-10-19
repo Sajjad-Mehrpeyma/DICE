@@ -21,7 +21,7 @@ const ExecutiveSnapshotCard: React.FC = () => {
     <Card className="w-full">
       <CardHeader>
         <div className="flex justify-between items-center">
-          <CardTitle>Executive Snapshot — Immediate Actions</CardTitle>
+          <div></div>
           <div className="flex space-x-2">
             <Button variant="outline" size="sm" onClick={handleDownloadPdf}>
               <Download className="mr-2 h-4 w-4" />

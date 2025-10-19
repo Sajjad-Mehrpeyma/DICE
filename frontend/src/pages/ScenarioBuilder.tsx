@@ -1,146 +1,127 @@
 import React, { useState } from 'react';
-import { ScenarioForm } from '@/components/forms/ScenarioForm';
-import { Loader } from '@/components/widgets/Loader';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { Textarea } from '@/components/ui/textarea';
+import { Plus, X } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { chatHistoryData } from '@/data/chat-history';
+import { scenarioData } from '@/data/scenario';
 
-interface ScenarioResult {
-  parameter: string;
-  originalValue: number;
-  newValue: number;
-  impact: number;
-  confidence: number;
-}
-
-/**
- * Scenario Builder page component
- */
 export const ScenarioBuilder: React.FC = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [results, setResults] = useState<ScenarioResult[] | null>(null);
+  const [conditions, setConditions] = useState<string[]>(['']);
+  const [timeWindow, setTimeWindow] = useState<string>('1_month');
+  const [completedInfo, setCompletedInfo] = useState('');
+  const navigate = useNavigate();
 
-  const handleScenarioSubmit = async (data: any) => {
-    setIsLoading(true);
+  const handleAddCondition = () => {
+    if (conditions.length < 10) {
+      setConditions([...conditions, '']);
+    }
+  };
 
-    // Log the submitted data for debugging
-    console.log('Scenario data submitted:', data);
+  const handleRemoveCondition = (index: number) => {
+    const newConditions = [...conditions];
+    newConditions.splice(index, 1);
+    setConditions(newConditions);
+  };
 
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 2000));
+  const handleConditionChange = (index: number, value: string) => {
+    const newConditions = [...conditions];
+    newConditions[index] = value;
+    setConditions(newConditions);
+  };
 
-    // Mock results (in a real implementation, these would be based on the submitted data)
-    const mockResults: ScenarioResult[] = [
-      {
-        parameter: 'Price',
-        originalValue: 100,
-        newValue: 120,
-        impact: 15.2,
-        confidence: 0.85,
-      },
-      {
-        parameter: 'Marketing Budget',
-        originalValue: 5000,
-        newValue: 7500,
-        impact: 8.7,
-        confidence: 0.92,
-      },
-      {
-        parameter: 'Inventory',
-        originalValue: 1000,
-        newValue: 1200,
-        impact: 3.1,
-        confidence: 0.78,
-      },
-    ];
+  const handleCheckInfo = () => {
+    setCompletedInfo(scenarioData.completedInfo);
+  };
 
-    setResults(mockResults);
-    setIsLoading(false);
+  const handleCreateScenario = () => {
+    const newChatId = `chat-${Date.now()}`;
+    chatHistoryData.push({
+      id: newChatId,
+      title: 'Scenario: ' + conditions.join(', '),
+      type: 'scenario',
+      messages: [
+        { author: 'user', text: `What if ${conditions.join(' and ')} in ${timeWindow.replace('_', ' ')}?` },
+        { author: 'bot', text: completedInfo },
+      ],
+    });
+    navigate(`/copilot?contextId=${newChatId}`);
   };
 
   return (
-    <div className="max-w-4xl mx-auto space-y-6">
-      {/* Page Header */}
-      <div>
-        <h2 className="text-2xl font-bold text-gray-900">Scenario Builder</h2>
-        <p className="text-gray-600 mt-1">
-          Create and analyze different business scenarios to understand
-          potential outcomes
-        </p>
-      </div>
-
-      {/* Scenario Form */}
-      <div className="card">
-        <ScenarioForm onSubmit={handleScenarioSubmit} isLoading={isLoading} />
-      </div>
-
-      {/* Results Section */}
-      {isLoading && (
-        <div className="card">
-          <div className="flex items-center justify-center h-32">
-            <Loader size="lg" text="Analyzing scenario..." />
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <Card>
+        <CardHeader>
+          <CardTitle>Scenario Input</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div>
+            <Label>Time Window</Label>
+            <Select value={timeWindow} onValueChange={setTimeWindow}>
+              <SelectTrigger>
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="1_week">1 Week</SelectItem>
+                <SelectItem value="1_month">1 Month</SelectItem>
+                <SelectItem value="3_months">3 Months</SelectItem>
+                <SelectItem value="6_months">6 Months</SelectItem>
+                <SelectItem value="1_year">1 Year</SelectItem>
+                <SelectItem value="2_years">2 Years</SelectItem>
+                <SelectItem value="5_years">5 Years</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
-        </div>
-      )}
-
-      {results && (
-        <div className="card">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">
-            Scenario Results
-          </h3>
-
-          <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
-                <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Parameter
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Original Value
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    New Value
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Impact
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Confidence
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
-                {results.map((result, index) => (
-                  <tr key={index}>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                      {result.parameter}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      {result.originalValue.toLocaleString()}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      {result.newValue.toLocaleString()}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm">
-                      <span
-                        className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
-                          result.impact > 0
-                            ? 'bg-green-100 text-green-800'
-                            : 'bg-red-100 text-red-800'
-                        }`}
-                      >
-                        {result.impact > 0 ? '+' : ''}
-                        {result.impact.toFixed(1)}%
-                      </span>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      {(result.confidence * 100).toFixed(0)}%
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      )}
+          {conditions.map((condition, index) => (
+            <div key={index} className="flex items-center space-x-2">
+              <Input
+                value={condition}
+                onChange={(e) => handleConditionChange(index, e.target.value)}
+                placeholder={`Condition ${index + 1}`}
+              />
+              <Button
+                variant="destructive"
+                size="icon"
+                onClick={() => handleRemoveCondition(index)}
+              >
+                <X className="h-4 w-4" />
+              </Button>
+            </div>
+          ))}
+          <Button onClick={handleAddCondition} disabled={conditions.length >= 10}>
+            <Plus className="mr-2 h-4 w-4" />
+            Add Condition
+          </Button>
+          <Button onClick={handleCheckInfo} className="w-full">
+            Check Info
+          </Button>
+        </CardContent>
+      </Card>
+      <Card>
+        <CardHeader>
+          <CardTitle>Completed Information</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <Textarea
+            value={completedInfo}
+            onChange={(e) => setCompletedInfo(e.target.value)}
+            rows={10}
+          />
+          <Button onClick={handleCreateScenario} className="w-full mt-4">
+            Create Scenario
+          </Button>
+        </CardContent>
+      </Card>
     </div>
   );
 };

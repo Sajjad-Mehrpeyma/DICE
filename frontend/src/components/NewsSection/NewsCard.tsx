@@ -1,5 +1,6 @@
 import React from 'react';
 import { NewsItem } from '@/data/mockNews';
+import { AskButton } from '../common/AskButton';
 
 interface NewsCardProps {
   newsItem: NewsItem;
@@ -69,7 +70,7 @@ export const NewsCard: React.FC<NewsCardProps> = ({ newsItem, onClick }) => {
 
   return (
     <div
-      className="bg-white rounded-lg border border-gray-200 p-6 cursor-pointer transition-all duration-200 hover:shadow-lg hover:border-gray-300 hover:-translate-y-1"
+      className="bg-background rounded-lg border border-border p-6 cursor-pointer transition-all duration-200 hover:shadow-lg hover:border-gray-300 hover:-translate-y-1"
       onClick={() => onClick(newsItem)}
       role="button"
       tabIndex={0}
@@ -143,14 +144,14 @@ export const NewsCard: React.FC<NewsCardProps> = ({ newsItem, onClick }) => {
         </div>
 
         {/* Date */}
-        <span className="text-xs text-gray-500">
+        <span className="text-xs text-muted-foreground">
           {formatDate(newsItem.date)}
         </span>
       </div>
 
       {/* Title */}
       <h3
-        className="text-lg font-semibold text-gray-900 mb-2 overflow-hidden"
+        className="text-lg font-semibold text-foreground mb-2 overflow-hidden"
         style={{
           display: '-webkit-box',
           WebkitLineClamp: 2,
@@ -161,10 +162,13 @@ export const NewsCard: React.FC<NewsCardProps> = ({ newsItem, onClick }) => {
       </h3>
 
       {/* Source and Journal */}
-      <div className="flex items-center text-sm text-gray-600">
-        <span className="font-medium">{newsItem.source}</span>
-        <span className="mx-2">•</span>
-        <span className="text-gray-500">{newsItem.journal}</span>
+      <div className="flex items-center justify-between text-sm text-muted-foreground">
+        <div>
+          <span className="font-medium">{newsItem.source}</span>
+          <span className="mx-2">•</span>
+          <span>{newsItem.journal}</span>
+        </div>
+        <AskButton contextId={newsItem.id} />
       </div>
     </div>
   );

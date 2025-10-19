@@ -24,6 +24,8 @@ import { DecisionStudio } from '@/pages/DecisionStudio';
 import { Playbooks } from '@/pages/Playbooks';
 import { ActionTracker } from '@/pages/ActionTracker';
 import { Settings } from '@/pages/Settings';
+import { KpiDetailPage } from '@/pages/KpiDetailPage';
+import { Signals } from '@/pages/Signals';
 
 // Create a client
 const queryClient = new QueryClient({
@@ -60,6 +62,8 @@ const App: React.FC = () => {
                 <Route path="actions" element={<ActionTracker />} />
                 <Route path="settings" element={<Settings />} />
                 <Route path="reports" element={<Reports />} />
+                <Route path="kpi/:id" element={<KpiDetailPage />} />
+                <Route path="signals" element={<Signals />} />
               </Route>
             </Routes>
           </Router>

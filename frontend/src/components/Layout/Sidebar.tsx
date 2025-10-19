@@ -37,7 +37,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
   const { user, logout } = useAuth();
   const { highPriorityNews, removeNewsItem } = useHighPriorityNews();
 
-  const navigation: NavItem[] = [   
+  const navigation: NavItem[] = [
     {
       name: 'Dashboard',
       href: '/dashboard',
@@ -91,7 +91,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
       {/* Sidebar */}
       <div
         className={clsx(
-          'fixed inset-y-0 left-0 z-50 w-64 bg-white shadow-lg transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0',
+          'fixed inset-y-0 left-0 z-50 w-64 bg-background shadow-lg transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0',
           isOpen ? 'translate-x-0' : '-translate-x-full',
         )}
       >
@@ -99,13 +99,13 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
           {/* Logo */}
 
             <div className="flex flex-col items-center">
-            <div className="flex items-center justify-center h-16 px-4 border-b border-gray-200 gap-2">
+            <div className="flex items-center justify-center h-16 px-4 border-b border-border gap-2">
                 {/* Logo + Title + Subtitle */}
                 <div className="flex items-center gap-2">
-                <img src="./src/assets/logo.svg" alt="Logo" className="h-8 w-8" />
+                <img src="/src/assets/logo.svg" alt="Logo" className="h-8 w-8" />
                 <div className="flex flex-col leading-tight">
-                    <h1 className="text-xl font-bold text-primary-600">DICE</h1>
-                    <p className="text-[10px] text-gray-500">Decision Intelligence Copilot Engine</p>
+                    <h1 className="text-xl font-bold text-primary">DICE</h1>
+                    <p className="text-[10px] text-muted-foreground">Decision Intelligence Copilot Engine</p>
                 </div>
                 </div>
             </div>
@@ -150,7 +150,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
                         navigate('/news', { state: { openId: newsItem.id } });
                         onClose();
                       }}
-                      className="w-full bg-white p-2 rounded shadow-sm hover:shadow-md flex items-start space-x-2 text-left transition-shadow duration-200"
+                      className="w-full bg-background p-2 rounded shadow-sm hover:shadow-md flex items-start space-x-2 text-left transition-shadow duration-200"
                       aria-label={`Open news: ${newsItem.title}`}
                     >
                       <div className="flex-1 min-w-0">
@@ -158,14 +158,14 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
                           <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-primary-100 text-primary-800">
                             High Priority
                           </span>
-                          <span className="text-xs text-gray-500">
+                          <span className="text-xs text-muted-foreground">
                             {new Date(newsItem.date).toLocaleDateString()}
                           </span>
                         </div>
-                        <p className="text-sm text-gray-900 line-clamp-2 leading-tight">
+                        <p className="text-sm text-foreground line-clamp-2 leading-tight">
                           {newsItem.title}
                         </p>
-                        <p className="text-xs text-gray-600 mt-1">
+                        <p className="text-xs text-muted-foreground mt-1">
                           {newsItem.source}
                         </p>
                       </div>
@@ -182,7 +182,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
           </div> */}
 
           {/* User section */}
-          <div className="flex border-t border-gray-200 p-4">
+          <div className="flex border-t border-border p-4">
             <div className="flex items-center">
               <img
                 src={
@@ -193,10 +193,10 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
                 className="h-8 w-8 rounded-full"
               />
               <div className="ml-3">
-                <p className="text-sm font-medium text-gray-900">
+                <p className="text-sm font-medium text-foreground">
                   {user?.name}
                 </p>
-                <p className="text-xs text-gray-500">{user?.email}</p>
+                <p className="text-xs text-muted-foreground">{user?.email}</p>
               </div>
             </div>
 

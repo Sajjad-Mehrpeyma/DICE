@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
 import { Facebook, ShoppingCart } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { AskButton } from '../common/AskButton';
 
 interface AlertCardProps {
   alert: {
@@ -18,6 +20,8 @@ interface AlertCardProps {
 }
 
 const AlertCard: React.FC<AlertCardProps> = ({ alert }) => {
+  const [acknowledged, setAcknowledged] = useState(false);
+
   const getChannelIcon = (channel: string) => {
     switch (channel) {
       case 'facebook':
@@ -29,13 +33,17 @@ const AlertCard: React.FC<AlertCardProps> = ({ alert }) => {
     }
   };
 
+  const handleAcknowledge = () => {
+    setAcknowledged(true);
+  };
+
   return (
-    <Card>
+    <Card className={cn(acknowledged && 'opacity-50')}>
       <CardHeader>
         <div className="flex justify-between items-start">
           <div>
             <CardTitle className="text-lg">{alert.title}</CardTitle>
-            <div className="flex items-center space-x-2 text-sm text-gray-500 mt-1">
+            <div className="flex items-center space-x-2 text-sm text-muted-foreground mt-1">
               {getChannelIcon(alert.channel)}
               <span>{new Date(alert.time).toLocaleString()}</span>
               <span>Impact: {alert.impact}</span>
@@ -57,10 +65,15 @@ const AlertCard: React.FC<AlertCardProps> = ({ alert }) => {
             <span>Confidence: {alert.confidence}%</span>
           </div>
           <div className="flex space-x-2">
-            <Button variant="outline" size="sm">
-              View
+            <Link to={`/alerts/${alert.id}`}>
+              <Button variant="outline" size="sm">
+                View
+              </Button>
+            </Link>
+            <Button size="sm" onClick={handleAcknowledge} disabled={acknowledged}>
+              {acknowledged ? 'Acknowledged' : 'Acknowledge'}
             </Button>
-            <Button size="sm">Acknowledge</Button>
+            <AskButton contextId={alert.id} />
           </div>
         </div>
       </CardContent>
