@@ -1,139 +1,88 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { Send, Paperclip } from 'lucide-react';
-import { ChatBubble } from '@/components/widgets/ChatBubble';
-import { Loader } from '@/components/widgets/Loader';
-import { useCopilotMessages, useCopilotQuery } from '@/hooks/useCopilotQuery';
+import React, { useState, useEffect } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Textarea } from '@/components/ui/textarea';
+import { copilotData } from '@/data/copilot';
+import { Send } from 'lucide-react';
 
-/**
- * Copilot Chat page component
- */
 export const CopilotChat: React.FC = () => {
-  const [inputValue, setInputValue] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const [messages, setMessages] = useState<
+    { author: 'user' | 'bot'; text: string }[]
+  >([]);
+  const [input, setInput] = useState('');
+  const [streamingText, setStreamingText] = useState('');
 
-  const { data: messages = [], isLoading: messagesLoading } =
-    useCopilotMessages();
-  const { mutate: sendQuery } = useCopilotQuery();
+  const handleSend = () => {
+    if (input.trim() === '') return;
+    setMessages([...messages, { author: 'user', text: input }]);
+    setInput('');
+    setStreamingText('');
 
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    let index = 0;
+    const interval = setInterval(() => {
+      setStreamingText(copilotData.answer.substring(0, index));
+      index++;
+      if (index > copilotData.answer.length) {
+        clearInterval(interval);
+        setMessages(prev => [
+          ...prev,
+          { author: 'bot', text: copilotData.answer },
+        ]);
+        setStreamingText('');
+      }
+    }, 50);
   };
-
-  useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
-
-  const handleSendMessage = async () => {
-    if (!inputValue.trim() || isLoading) return;
-
-    const userMessage = inputValue.trim();
-    setInputValue('');
-    setIsLoading(true);
-
-    try {
-      // User message will be added by the mutation success callback
-
-      // Send query to copilot
-      sendQuery(
-        { query: userMessage },
-        {
-          onSuccess: () => {
-            setIsLoading(false);
-          },
-          onError: () => {
-            setIsLoading(false);
-          },
-        },
-      );
-    } catch (error) {
-      setIsLoading(false);
-    }
-  };
-
-  const handleKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault();
-      handleSendMessage();
-    }
-  };
-
-  if (messagesLoading) {
-    return (
-      <div className="flex items-center justify-center h-64">
-        <Loader size="lg" text="Loading chat history..." />
-      </div>
-    );
-  }
 
   return (
-    <div
-      className="flex flex-col bg-white rounded-lg shadow-sm"
-      style={{ height: 'calc(100vh - 200px)' }}
-    >
-      {/* Chat Header */}
-      <div className="flex-shrink-0 bg-white border-b border-gray-200 p-4">
-      <h2 className="text-2xl font-bold text-gray-900">Copilot</h2>
-        <p className="text-sm text-gray-600">
-          Hi, Ask questions about your data and get intelligent insights
-        </p>
-      </div>
-
-      {/* Messages Area */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-4 min-h-0">
-        {messages.map(message => (
-          <ChatBubble
-            key={message.id}
-            content={message.content}
-            owner={message.role}
-            timestamp={message.timestamp}
-            sources={message.sources}
-          />
-        ))}
-
-        {isLoading && (
-          <div className="flex justify-start">
-            <div className="bg-white border border-gray-200 rounded-lg px-4 py-2">
-              <Loader size="sm" text="Thinking..." />
+    <Card className="h-[calc(100vh-10rem)] flex flex-col">
+      <CardHeader>
+        <CardTitle>Copilot Chat</CardTitle>
+      </CardHeader>
+      <CardContent className="flex-grow overflow-y-auto">
+        <div className="space-y-4">
+          {messages.map((msg, index) => (
+            <div
+              key={index}
+              className={`flex ${
+                msg.author === 'user' ? 'justify-end' : 'justify-start'
+              }`}
+            >
+              <div
+                className={`p-3 rounded-lg ${
+                  msg.author === 'user'
+                    ? 'bg-primary-600 text-white'
+                    : 'bg-gray-200'
+                }`}
+              >
+                {msg.text}
+              </div>
             </div>
-          </div>
-        )}
-
-        <div ref={messagesEndRef} />
-      </div>
-
-      {/* Input Area */}
-      <div className="flex-shrink-0 bg-white border-t border-gray-200 p-4">
-        <div className="flex space-x-3">
-          <button className="p-2 text-gray-400 hover:text-gray-600">
-            <Paperclip className="h-5 w-5" />
-          </button>
-
-          <div className="flex flex-1">
-            <textarea
-              value={inputValue}
-              onChange={e => setInputValue(e.target.value)}
-              onKeyPress={handleKeyPress}
-              placeholder="Ask me anything about your data..."
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent resize-none"
-              rows={1}
-              style={{ minHeight: '40px', maxHeight: '120px' }}
-            />
-          </div>
-
-          <button
-            onClick={handleSendMessage}
-            disabled={!inputValue.trim() || isLoading}
-            className="btn-primary disabled:opacity-50 disabled:cursor-not-allowed p-2"
-          >
-            <Send className="h-5 w-5" />
-          </button>
+          ))}
+          {streamingText && (
+            <div className="flex justify-start">
+              <div className="p-3 rounded-lg bg-gray-200">{streamingText}</div>
+            </div>
+          )}
         </div>
-
-        <div className="mt-2 text-xs text-gray-500">
-          Press Enter to send, Shift+Enter for new line
+      </CardContent>
+      <div className="p-4 border-t">
+        <div className="flex items-center space-x-2">
+          <Textarea
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            placeholder="Ask a question..."
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                handleSend();
+              }
+            }}
+          />
+          <Button onClick={handleSend}>
+            <Send className="h-4 w-4" />
+          </Button>
         </div>
       </div>
-    </div>
+    </Card>
   );
 };

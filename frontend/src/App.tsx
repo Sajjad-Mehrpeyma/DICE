@@ -8,6 +8,7 @@ import {
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { AuthProvider } from '@/context/AuthContext';
 import { Layout } from '@/components/Layout/Layout';
+import { ThemeProvider } from '@/context/ThemeContext';
 
 // Page imports
 import { Onboarding } from '@/pages/Onboarding';
@@ -18,6 +19,11 @@ import { ScenarioBuilder } from '@/pages/ScenarioBuilder';
 import { DataSources } from '@/pages/DataSources';
 import { Alerts } from '@/pages/Alerts';
 import { Reports } from '@/pages/Reports';
+import { AlertDetailPage } from '@/pages/AlertDetailPage';
+import { DecisionStudio } from '@/pages/DecisionStudio';
+import { Playbooks } from '@/pages/Playbooks';
+import { ActionTracker } from '@/pages/ActionTracker';
+import { Settings } from '@/pages/Settings';
 
 // Create a client
 const queryClient = new QueryClient({
@@ -36,21 +42,28 @@ const App: React.FC = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
-        <Router>
-          <Routes>
-            <Route path="/" element={<Layout />}>
-              <Route index element={<Navigate to="/dashboard" replace />} />
-              <Route path="onboarding" element={<Onboarding />} />
-              <Route path="dashboard" element={<Dashboard />} />
-              <Route path="copilot" element={<CopilotChat />} />
-              <Route path="news" element={<NewsPage />} />
-              <Route path="scenario" element={<ScenarioBuilder />} />
-              <Route path="sources" element={<DataSources />} />
-              <Route path="alerts" element={<Alerts />} />
-              <Route path="reports" element={<Reports />} />
-            </Route>
-          </Routes>
-        </Router>
+        <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
+          <Router>
+            <Routes>
+              <Route path="/" element={<Layout />}>
+                <Route index element={<Navigate to="/dashboard" replace />} />
+                <Route path="onboarding" element={<Onboarding />} />
+                <Route path="dashboard" element={<Dashboard />} />
+                <Route path="copilot" element={<CopilotChat />} />
+                <Route path="news" element={<NewsPage />} />
+                <Route path="scenario" element={<ScenarioBuilder />} />
+                <Route path="sources" element={<DataSources />} />
+                <Route path="alerts" element={<Alerts />} />
+                <Route path="alerts/:id" element={<AlertDetailPage />} />
+                <Route path="decision-studio" element={<DecisionStudio />} />
+                <Route path="playbooks" element={<Playbooks />} />
+                <Route path="actions" element={<ActionTracker />} />
+                <Route path="settings" element={<Settings />} />
+                <Route path="reports" element={<Reports />} />
+              </Route>
+            </Routes>
+          </Router>
+        </ThemeProvider>
       </AuthProvider>
     </QueryClientProvider>
   );
