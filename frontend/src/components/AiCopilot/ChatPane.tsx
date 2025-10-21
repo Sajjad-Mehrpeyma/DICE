@@ -15,6 +15,9 @@ const ChatPane: React.FC = () => {
             sender={message.sender as 'user' | 'bot'}
             message={message.message}
             timestamp={message.timestamp}
+            confidence={(message as any).confidence}
+            modelVersion={(message as any).modelVersion}
+            dataSources={(message as any).dataSources}
           />
         ))}
       </div>

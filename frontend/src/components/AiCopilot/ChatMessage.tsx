@@ -4,9 +4,19 @@ interface ChatMessageProps {
   sender: 'user' | 'bot';
   message: string;
   timestamp: string;
+  confidence?: number;
+  modelVersion?: string;
+  dataSources?: string[];
 }
 
-const ChatMessage: React.FC<ChatMessageProps> = ({ sender, message, timestamp }) => {
+const ChatMessage: React.FC<ChatMessageProps> = ({
+  sender,
+  message,
+  timestamp,
+  confidence,
+  modelVersion,
+  dataSources,
+}) => {
   const isUser = sender === 'user';
 
   return (
@@ -17,6 +27,11 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ sender, message, timestamp })
         }`}
       >
         <p className="text-sm">{message}</p>
+        {confidence && (
+          <div className="text-xs mt-2 text-gray-500">
+            Confidence: {confidence * 100}% | Model: {modelVersion} | Data Sources: {dataSources?.join(', ')}
+          </div>
+        )}
         <div className={`text-xs mt-1 ${isUser ? 'text-right' : 'text-left'}`}>
           {timestamp}
         </div>
