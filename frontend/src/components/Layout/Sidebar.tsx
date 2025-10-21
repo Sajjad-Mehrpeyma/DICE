@@ -11,6 +11,13 @@ import {
   User,
   Newspaper,
   AlertTriangle,
+  LayoutGrid,
+  SlidersHorizontal,
+  BrainCircuit,
+  BarChart,
+  ShieldCheck,
+  Archive,
+  Factory,
 } from 'lucide-react';
 import clsx from 'clsx';
 import { useAuth } from '@/context/AuthContext';
@@ -38,42 +45,14 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
   const { highPriorityNews, removeNewsItem } = useHighPriorityNews();
 
   const navigation: NavItem[] = [
-    {
-      name: 'Dashboard',
-      href: '/dashboard',
-      icon: <Home className="h-5 w-5" />,
-    },
-    {
-        name: 'Onboarding',
-        href: '/onboarding',
-        icon: <User className="h-5 w-5" />,
-      },
-    {
-      name: 'Copilot',
-      href: '/copilot',
-      icon: <MessageSquare className="h-5 w-5" />,
-    },
-    {
-      name: 'News',
-      href: '/news',
-      icon: <Newspaper className="h-5 w-5" />,
-    },
-    {
-      name: 'Scenario Builder',
-      href: '/scenario',
-      icon: <Settings className="h-5 w-5" />,
-    },
-    {
-      name: 'Data Sources',
-      href: '/sources',
-      icon: <Database className="h-5 w-5" />,
-    },
-    { name: 'Alerts', href: '/alerts', icon: <Bell className="h-5 w-5" /> },
-    {
-      name: 'Reports',
-      href: '/reports',
-      icon: <FileText className="h-5 w-5" />,
-    },
+    { name: 'Command Center', href: '/command-center', icon: <LayoutGrid className="h-5 w-5" /> },
+    { name: 'Setup & Data Hub', href: '/setup-data-hub', icon: <Database className="h-5 w-5" /> },
+    { name: 'AI Copilot', href: '/ai-copilot', icon: <BrainCircuit className="h-5 w-5" /> },
+    { name: 'Scenario Orchestrator', href: '/scenario-orchestrator', icon: <SlidersHorizontal className="h-5 w-5" /> },
+    { name: 'Market Signals', href: '/market-signals', icon: <BarChart className="h-5 w-5" /> },
+    { name: 'Pulse & Alerts', href: '/pulse-alerts', icon: <Bell className="h-5 w-5" /> },
+    { name: 'Insights & Briefs', href: '/insights-briefs', icon: <FileText className="h-5 w-5" /> },
+    { name: 'Governance & Audit', href: '/governance-audit', icon: <ShieldCheck className="h-5 w-5" /> },
   ];
 
   const isActive = (href: string) => location.pathname === href;
@@ -130,56 +109,6 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
               </Link>
             ))}
           </nav>
-
-          {/* High-Priority News Section */}
-          {highPriorityNews.length > 0 && (
-            <div className="px-4 mb-4">
-              <div className="bg-primary-50 border border-primary-200 rounded-lg p-3">
-                <div className="flex items-center mb-2">
-                  <AlertTriangle className="h-4 w-4 text-primary-600 mr-2" />
-                  <h3 className="text-sm font-semibold text-primary-800">
-                    High-Priority News
-                  </h3>
-                </div>
-                <div className="space-y-2">
-                  {highPriorityNews.map(newsItem => (
-                    <button
-                      key={newsItem.id}
-                      onClick={() => {
-                        removeNewsItem(newsItem.id);
-                        navigate('/news', { state: { openId: newsItem.id } });
-                        onClose();
-                      }}
-                      className="w-full bg-background p-2 rounded shadow-sm hover:shadow-md flex items-start space-x-2 text-left transition-shadow duration-200"
-                      aria-label={`Open news: ${newsItem.title}`}
-                    >
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center justify-between mb-1">
-                          <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-primary-100 text-primary-800">
-                            High Priority
-                          </span>
-                          <span className="text-xs text-muted-foreground">
-                            {new Date(newsItem.date).toLocaleDateString()}
-                          </span>
-                        </div>
-                        <p className="text-sm text-foreground line-clamp-2 leading-tight">
-                          {newsItem.title}
-                        </p>
-                        <p className="text-xs text-muted-foreground mt-1">
-                          {newsItem.source}
-                        </p>
-                      </div>
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* News Widget */}
-          {/* <div className="px-4">
-            <NewsSidebarWidget />
-          </div> */}
 
           {/* User section */}
           <div className="flex border-t border-border p-4">
