@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { PlayCircle, Send, FileText } from 'lucide-react';
+import { PlayCircle, FileText } from 'lucide-react';
 
 const SimulationControls: React.FC = () => {
   return (

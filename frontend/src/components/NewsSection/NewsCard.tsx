@@ -20,18 +20,6 @@ export const NewsCard: React.FC<NewsCardProps> = ({ newsItem, onClick }) => {
     });
   };
 
-  const getSentimentBadgeColor = (sentiment: string) => {
-    switch (sentiment) {
-      case 'positive':
-        return 'bg-green-100 text-green-800 border-green-200';
-      case 'negative':
-        return 'bg-red-100 text-red-800 border-red-200';
-      case 'neutral':
-      default:
-        return 'bg-yellow-100 text-yellow-800 border-yellow-200';
-    }
-  };
-
   const getSentimentLabel = (sentiment: string) => {
     switch (sentiment) {
       case 'positive':
@@ -41,18 +29,6 @@ export const NewsCard: React.FC<NewsCardProps> = ({ newsItem, onClick }) => {
       case 'neutral':
       default:
         return 'Neutral news';
-    }
-  };
-
-  const getPriorityBadgeColor = (priority: string) => {
-    switch (priority) {
-      case 'high':
-        return 'bg-red-100 text-red-800 border-red-200';
-      case 'medium':
-        return 'bg-yellow-100 text-yellow-800 border-yellow-200';
-      case 'low':
-      default:
-        return 'bg-green-100 text-green-800 border-green-200';
     }
   };
 
