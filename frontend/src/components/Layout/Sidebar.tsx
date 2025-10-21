@@ -1,23 +1,15 @@
 import React from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import {
-  Home,
-  MessageSquare,
-  Settings,
   Database,
   Bell,
   FileText,
   LogOut,
-  User,
-  Newspaper,
-  AlertTriangle,
   LayoutGrid,
   SlidersHorizontal,
   BrainCircuit,
   BarChart,
   ShieldCheck,
-  Archive,
-  Factory,
 } from 'lucide-react';
 import clsx from 'clsx';
 import { useAuth } from '@/context/AuthContext';
@@ -38,7 +30,6 @@ interface NavItem {
  */
 export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
   const location = useLocation();
-  const navigate = useNavigate();
   const { user, logout } = useAuth();
 
   const navigation: NavItem[] = [

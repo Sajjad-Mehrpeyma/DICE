@@ -2,7 +2,7 @@ import React from 'react';
 
 const OnboardingStepper: React.FC = () => {
   const steps = ['Connect', 'Map', 'Validate', 'Assign Roles', 'Templates'];
-  const [currentStep, setCurrentStep] = React.useState(0);
+  const [currentStep] = React.useState(0);
 
   return (
     <div className="flex justify-between items-center mb-8">

@@ -19,12 +19,6 @@ import MarketSignals from '@/pages/MarketSignals';
 import PulseAlerts from '@/pages/PulseAlerts';
 import InsightsBriefs from '@/pages/InsightsBriefs';
 import GovernanceAudit from '@/pages/GovernanceAudit';
-import { DecisionStudio } from '@/pages/DecisionStudio';
-import { Playbooks } from '@/pages/Playbooks';
-import { ActionTracker } from '@/pages/ActionTracker';
-import { Settings } from '@/pages/Settings';
-import { KpiDetailPage } from '@/pages/KpiDetailPage';
-import { Signals } from '@/pages/Signals';
 
 // Create a client
 const queryClient = new QueryClient({
