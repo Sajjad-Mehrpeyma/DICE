@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import CopilotDrawer from '@/components/Copilot/CopilotDrawer';
 
 interface AlertCardProps {
   title: string;
@@ -11,6 +13,17 @@ interface AlertCardProps {
 }
 
 const AlertCard: React.FC<AlertCardProps> = ({ title, description, status, severity }) => {
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const handleAskCopilot = () => {
+    setIsDrawerOpen(true);
+  };
+
+  const handleCreateScenario = () => {
+    navigate('/scenario-orchestrator', { state: { alert: description } });
+  };
+
   const severityConfig = {
     High: 'bg-red-500',
     Medium: 'bg-yellow-500',
@@ -24,10 +37,11 @@ const AlertCard: React.FC<AlertCardProps> = ({ title, description, status, sever
   };
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>{title}</CardTitle>
-      </CardHeader>
+    <>
+      <Card>
+        <CardHeader>
+          <CardTitle>{title}</CardTitle>
+        </CardHeader>
       <CardContent>
         <p>{description}</p>
         <div className="flex items-center mt-4">
@@ -39,11 +53,20 @@ const AlertCard: React.FC<AlertCardProps> = ({ title, description, status, sever
         <Button variant="outline" size="sm" className="mr-2">
           Details
         </Button>
-        <Button variant="default" size="sm">
+        <Button variant="default" size="sm" onClick={handleCreateScenario} className="mr-2">
+          Create Scenario
+        </Button>
+        <Button variant="default" size="sm" onClick={handleAskCopilot}>
           Ask Copilot
         </Button>
       </CardFooter>
     </Card>
+    <CopilotDrawer
+      isOpen={isDrawerOpen}
+      onClose={() => setIsDrawerOpen(false)}
+      context={{ alert: title }}
+    />
+    </>
   );
 };
 

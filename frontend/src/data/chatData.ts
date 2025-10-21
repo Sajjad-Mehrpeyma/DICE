@@ -8,6 +8,9 @@ export const chatData = [
     sender: 'bot',
     message: 'It looks like the ROAS for the "Summer Sale" campaign decreased by 30%. This was primarily driven by a 20% increase in ad spend and a 10% decrease in conversions.',
     timestamp: '10:31 AM',
+    confidence: 0.95,
+    modelVersion: 'v1.4',
+    dataSources: ['Google Ads', 'Shopify (last 90d)'],
   },
   {
     sender: 'user',

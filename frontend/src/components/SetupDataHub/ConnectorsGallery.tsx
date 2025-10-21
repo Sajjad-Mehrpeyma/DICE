@@ -11,6 +11,8 @@ const ConnectorsGallery: React.FC = () => {
           name={connector.name}
           status={connector.status as 'Connected' | 'Disconnected'}
           logo={connector.logo}
+          health={connector.health as 'Good' | 'Warning' | 'Broken'}
+          lastSync={connector.lastSync}
         />
       ))}
     </div>
