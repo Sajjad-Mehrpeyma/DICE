@@ -1,21 +1,16 @@
 import React from 'react';
 import ChatPane from '@/components/AiCopilot/ChatPane';
-import PlanTaskList from '@/components/AiCopilot/PlanTaskList';
-import ExecutionSettings from '@/components/AiCopilot/ExecutionSettings';
+import { Card, CardContent } from '@/components/ui/card';
 
 const AiCopilot: React.FC = () => {
   return (
-    <div className="space-y-4">
-      <h1 className="text-2xl font-bold">AI Copilot</h1>
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-        <div className="lg:col-span-2">
+    <div className="h-full flex flex-col">
+      <h1 className="text-3xl font-bold mb-4">AI Copilot</h1>
+      <Card className="flex-1">
+        <CardContent className="h-full">
           <ChatPane />
-        </div>
-        <div className="space-y-4">
-          <PlanTaskList />
-          <ExecutionSettings />
-        </div>
-      </div>
+        </CardContent>
+      </Card>
     </div>
   );
 };

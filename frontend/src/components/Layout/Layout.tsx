@@ -23,14 +23,14 @@ export const Layout: React.FC = () => {
   const getPageTitle = () => {
     const path = location.pathname;
     const titles: Record<string, string> = {
-      '/onboarding': 'Onboarding',
-      '/dashboard': 'Dashboard',
-      '/copilot': 'Copilot Chat',
-      '/news': 'News',
-      '/scenario': 'Scenario Builder',
-      '/sources': 'Data Sources',
-      '/alerts': 'Alerts',
-      '/reports': 'Reports',
+      '/command-center': 'Command Center',
+      '/setup-data-hub': 'Setup & Data Hub',
+      '/ai-copilot': 'AI Copilot',
+      '/scenario-orchestrator': 'Scenario Orchestrator',
+      '/market-signals': 'Market Signals',
+      '/pulse-alerts': 'Pulse & Alerts',
+      '/insights-briefs': 'Insights & Briefs',
+      '/governance-audit': 'Governance & Audit',
     };
     return titles[path] || 'DICE';
   };

@@ -21,8 +21,6 @@ import {
 } from 'lucide-react';
 import clsx from 'clsx';
 import { useAuth } from '@/context/AuthContext';
-import { NewsSidebarWidget } from '../NewsSection/NewsSidebarWidget';
-import { useHighPriorityNews } from '@/hooks/useHighPriorityNews';
 
 interface SidebarProps {
   isOpen: boolean;
@@ -42,7 +40,6 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const { user, logout } = useAuth();
-  const { highPriorityNews, removeNewsItem } = useHighPriorityNews();
 
   const navigation: NavItem[] = [
     { name: 'Command Center', href: '/command-center', icon: <LayoutGrid className="h-5 w-5" /> },

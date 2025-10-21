@@ -1,13 +1,14 @@
 import React from 'react';
-import DecisionLog from '@/components/GovernanceAudit/DecisionLog';
-import ApprovalWorkflows from '@/components/GovernanceAudit/ApprovalWorkflows';
+import DecisionLogTable from '@/components/GovernanceAudit/DecisionLogTable';
 
 const GovernanceAudit: React.FC = () => {
   return (
-    <div className="space-y-4">
-      <h1 className="text-2xl font-bold">Governance & Audit</h1>
-      <DecisionLog />
-      <ApprovalWorkflows />
+    <div className="space-y-6">
+      <h1 className="text-3xl font-bold">Governance & Audit</h1>
+      <div>
+        <h2 className="text-xl font-semibold mb-4">Decision Log</h2>
+        <DecisionLogTable />
+      </div>
     </div>
   );
 };

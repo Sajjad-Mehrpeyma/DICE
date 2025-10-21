@@ -1,24 +1,23 @@
 import React from 'react';
 import KpiRibbon from '@/components/CommandCenter/KpiRibbon';
-import LiveAnomalyStrip from '@/components/CommandCenter/LiveAnomalyStrip';
+import AnomalyStrip from '@/components/CommandCenter/AnomalyStrip';
 import QuickTiles from '@/components/CommandCenter/QuickTiles';
-import RecentDecisions from '@/components/CommandCenter/RecentDecisions';
-import Shortcuts from '@/components/CommandCenter/Shortcuts';
 
 const CommandCenter: React.FC = () => {
   return (
-    <div className="space-y-4">
-      <h1 className="text-2xl font-bold">Command Center</h1>
-      <Shortcuts />
-      <KpiRibbon />
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-        <div className="lg:col-span-2 space-y-4">
-          <QuickTiles />
-        </div>
-        <div className="space-y-4">
-          <LiveAnomalyStrip />
-          <RecentDecisions />
-        </div>
+    <div className="space-y-6">
+      <h1 className="text-3xl font-bold">Command Center</h1>
+      <div>
+        <h2 className="text-xl font-semibold mb-4">Key Performance Indicators</h2>
+        <KpiRibbon />
+      </div>
+      <div>
+        <h2 className="text-xl font-semibold mb-4">Live Anomaly Strip</h2>
+        <AnomalyStrip />
+      </div>
+      <div>
+        <h2 className="text-xl font-semibold mb-4">Quick Tiles</h2>
+        <QuickTiles />
       </div>
     </div>
   );
