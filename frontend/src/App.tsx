@@ -11,21 +11,14 @@ import { Layout } from '@/components/Layout/Layout';
 import { ThemeProvider } from '@/context/ThemeContext';
 
 // Page imports
-import { Onboarding } from '@/pages/Onboarding';
-import { Dashboard } from '@/pages/Dashboard';
-import { CopilotChat } from '@/pages/CopilotChat';
-import { NewsPage } from '@/pages/NewsPage';
-import { ScenarioBuilder } from '@/pages/ScenarioBuilder';
-import { DataSources } from '@/pages/DataSources';
-import { Alerts } from '@/pages/Alerts';
-import { Reports } from '@/pages/Reports';
-import { AlertDetailPage } from '@/pages/AlertDetailPage';
-import { DecisionStudio } from '@/pages/DecisionStudio';
-import { Playbooks } from '@/pages/Playbooks';
-import { ActionTracker } from '@/pages/ActionTracker';
-import { Settings } from '@/pages/Settings';
-import { KpiDetailPage } from '@/pages/KpiDetailPage';
-import { Signals } from '@/pages/Signals';
+import CommandCenter from '@/pages/CommandCenter';
+import SetupDataHub from '@/pages/SetupDataHub';
+import AiCopilot from '@/pages/AiCopilot';
+import ScenarioOrchestrator from '@/pages/ScenarioOrchestrator';
+import MarketSignals from '@/pages/MarketSignals';
+import PulseAlerts from '@/pages/PulseAlerts';
+import InsightsBriefs from '@/pages/InsightsBriefs';
+import GovernanceAudit from '@/pages/GovernanceAudit';
 
 // Create a client
 const queryClient = new QueryClient({
@@ -48,22 +41,15 @@ const App: React.FC = () => {
           <Router>
             <Routes>
               <Route path="/" element={<Layout />}>
-                <Route index element={<Navigate to="/dashboard" replace />} />
-                <Route path="onboarding" element={<Onboarding />} />
-                <Route path="dashboard" element={<Dashboard />} />
-                <Route path="copilot" element={<CopilotChat />} />
-                <Route path="news" element={<NewsPage />} />
-                <Route path="scenario" element={<ScenarioBuilder />} />
-                <Route path="sources" element={<DataSources />} />
-                <Route path="alerts" element={<Alerts />} />
-                <Route path="alerts/:id" element={<AlertDetailPage />} />
-                <Route path="decision-studio" element={<DecisionStudio />} />
-                <Route path="playbooks" element={<Playbooks />} />
-                <Route path="actions" element={<ActionTracker />} />
-                <Route path="settings" element={<Settings />} />
-                <Route path="reports" element={<Reports />} />
-                <Route path="kpi/:id" element={<KpiDetailPage />} />
-                <Route path="signals" element={<Signals />} />
+                <Route index element={<Navigate to="/command-center" replace />} />
+                <Route path="command-center" element={<CommandCenter />} />
+                <Route path="setup-data-hub" element={<SetupDataHub />} />
+                <Route path="ai-copilot" element={<AiCopilot />} />
+                <Route path="scenario-orchestrator" element={<ScenarioOrchestrator />} />
+                <Route path="market-signals" element={<MarketSignals />} />
+                <Route path="pulse-alerts" element={<PulseAlerts />} />
+                <Route path="insights-briefs" element={<InsightsBriefs />} />
+                <Route path="governance-audit" element={<GovernanceAudit />} />
               </Route>
             </Routes>
           </Router>

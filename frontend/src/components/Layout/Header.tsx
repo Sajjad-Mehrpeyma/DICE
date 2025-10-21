@@ -8,13 +8,12 @@ import { Switch } from '@/components/ui/switch';
 
 interface HeaderProps {
   onMenuClick: () => void;
-  title: string;
 }
 
 /**
  * Header component with navigation and user actions
  */
-export const Header: React.FC<HeaderProps> = ({ onMenuClick, title }) => {
+export const Header: React.FC<HeaderProps> = ({ onMenuClick }) => {
   const { user, logout } = useAuth();
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const { theme, setTheme } = useTheme();
