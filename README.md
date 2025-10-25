@@ -20,6 +20,14 @@
 - **Anomaly Detection:** Get alerted to unexpected changes in your data and receive root-cause analysis.
 - **Seamless Data Integration:** Connect to various data sources, including Google Analytics, Google Ads, and Meta Ads.
 
+
+## Dashboard Preview
+
+<p align="center">
+  <img src="./docs/gallery/dashboard.png" alt="DICE Dashboard Preview" width="800" style="border-radius: 10px; margin-top: 10px;">
+</p>
+
+
 ## Tech Stack
 
 ### Frontend
@@ -101,4 +109,5 @@ npx vitest run
 ## Contributing
 
 Contributions are welcome! Please open an issue or submit a pull request.
+
 
