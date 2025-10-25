@@ -1,7 +1,6 @@
 <p align="center">
   <img src="https://img.shields.io/badge/Version-0.1.0-blue.svg" alt="version"/>
   <img src="https://img.shields.io/badge/Build-Passing-brightgreen.svg" alt="build"/>
-  <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="license"/>
 </p>
 
 <div align="center">
@@ -102,3 +101,4 @@ npx vitest run
 ## Contributing
 
 Contributions are welcome! Please open an issue or submit a pull request.
+
