@@ -1,7 +1,6 @@
 <p align="center">
   <img src="https://img.shields.io/badge/Version-0.1.0-blue.svg" alt="version"/>
   <img src="https://img.shields.io/badge/Build-Passing-brightgreen.svg" alt="build"/>
-  <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="license"/>
 </p>
 
 <div align="center">
@@ -9,87 +8,106 @@
   <h1 style="margin: 0;">DICE (Decision Intelligence Copilot)</h1>
 </div>
 
-> ✨ Transform your marketing data into **actionable decisions** in seconds! ✨
+> Transform your marketing data into **actionable decisions**!
 
 ---
 
-## ✨ Key Features
+## Features
 
-- 💬 **Chat-Based Decision Copilot**  
-  Ask natural-language questions on sales & ad data; receive data-backed insights, confidence scores & ready-to-run playbooks.
+- **AI-Powered Chat:** Engage with your data using natural language to get insights and suggestions.
+- **Scenario Simulation:** Forecast the impact of your marketing decisions before you make them.
+- **KPI Monitoring:** Keep a close eye on your key performance indicators with a comprehensive dashboard.
+- **Anomaly Detection:** Get alerted to unexpected changes in your data and receive root-cause analysis.
+- **Seamless Data Integration:** Connect to various data sources, including Google Analytics, Google Ads, and Meta Ads.
 
-- 🔮 **Scenario Simulation Engine**  
-  Run “what-if” experiments (budgets, discounts, channels) and forecast KPI impacts (Sales, CAC, LTV, Margin).
 
-- 📊 **KPI Dashboard & Alerts**  
-  Daily/weekly metrics (Sales, CAC, ROAS, Top Products) plus real-time anomaly alerts & root-cause recommendations.
-
-- 🔌 **Seamless Data Connectors**  
-  GA4, Google Ads, Meta Ads, CSV uploads (sales) & local Iranian e-commerce platforms—live insights in under an hour.
-
-- 📥 **Exportable Reports**  
-  Generate polished PDF or Markdown summaries including actionable playbooks for your team or clients.
-
----
-
-## ⚙️ High-Level Architecture
-
-```
-Frontend (React/TS)
-    ↓ 
-Backend (Django + DRF)
-    ↓ 
-ETL & Tasks (Python + Celery)
-    ↓ 
-Storage 
-  • PostgreSQL (metrics)
-  • S3-compatible (raw files)
-    ↓ 
-Vector DB (Milvus embeddings)
-    ↓ 
-RAG → LLM → UI
-
----
-
-## 🚀 Quick Start
-
-> **Prerequisites:** Docker, Docker Compose, Python 3.9+, Node 14+
-
-1. **Clone the repo**  
-   ```bash
-   git clone https://github.com/your-org/dice.git
-   cd dice
-   ```
-2. **Configure environment**  
-   ```bash
-   cp .env.example .env
-   # Fill in DB, S3, API keys…
-   ```
-3. **Launch all services**  
-   ```bash
-   docker-compose up --build
-   ```
-4. **Open the App**  
-   Navigate to <http://localhost:3000> and follow the onboarding wizard.
-
----
-
-## 📸 Gallery
+## Dashboard Preview
 
 <p align="center">
-  <img src="docs/gallery/dashboard.png" alt="Dashboard Preview" width="650"/>
+  <img src="./docs/gallery/dashboard.png" alt="DICE Dashboard Preview" width="800" style="border-radius: 10px; margin-top: 10px;">
 </p>
 
----
 
-## 🛠️ Next Steps & Contributing
+## Tech Stack
 
-- Dive deeper into [docs/](docs/) for API details & architecture guides.  
-- To contribute, read [docs/CONTRIBUTING.md](docs/CONTRIBUTING.md) and join our community.
+### Frontend
 
----
+- **Framework:** React
+- **Build Tool:** Vite
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS
+- **Component Library:** shadcn/ui
+- **State Management:** TanStack Query
+- **Routing:** React Router
+- **Testing:** Vitest, React Testing Library
 
-## 📄 License
+### Backend
 
-Distributed under the **MIT License**. See [LICENSE](LICENSE) for details.
+- **Framework:** Django, Django REST Framework
+- **Database:** SQLite (for development)
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js (v18 or higher)
+- npm (v8 or higher)
+- Python (v3.9 or higher)
+- pip
+
+### Frontend Setup
+
+1.  Navigate to the `frontend` directory:
+    ```bash
+    cd frontend
+    ```
+2.  Install the dependencies:
+    ```bash
+    npm install
+    ```
+3.  Start the development server:
+    ```bash
+    npm run dev
+    ```
+    The frontend will be available at `http://localhost:5173`.
+
+### Backend Setup
+
+1.  Navigate to the `backend` directory:
+    ```bash
+    cd backend
+    ```
+2.  Create a `requirements.txt` file with the following content:
+    ```
+    Django
+    djangorestframework
+    ```
+3.  Install the dependencies:
+    ```bash
+    pip install -r requirements.txt
+    ```
+4.  Start the development server:
+    ```bash
+    python manage.py runserver
+    ```
+    The backend will be available at `http://localhost:8000`.
+
+## Running Tests
+
+To run the frontend unit tests, navigate to the `frontend` directory and run the following command:
+
+```bash
+npx vitest run
+```
+
+## Project Structure
+
+- `frontend/`: Contains the React/Vite frontend application.
+- `backend/`: Contains the Django/DRF backend application.
+- `docs/`: Contains project documentation.
+
+## Contributing
+
+Contributions are welcome! Please open an issue or submit a pull request.
+
 
