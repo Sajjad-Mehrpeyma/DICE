@@ -1,249 +1,427 @@
 /* Setup & Data Hub Page Styles - BEM Architecture */
 
 .setup-page {
-  @apply min-h-screen bg-background space-y-6;
+  min-height: 100vh;
+  background-color: hsl(var(--background));
 }
 
-.setup-page__header {
-  @apply space-y-2;
+.setup-page > * + * {
+  margin-top: 1.5rem;
+}
+
+.setup-page__header > * + * {
+  margin-top: 0.5rem;
 }
 
 .setup-page__title {
-  @apply text-3xl font-bold text-foreground;
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+  font-weight: 700;
+  color: hsl(var(--foreground));
 }
 
 .setup-page__description {
-  @apply text-muted-foreground;
+  color: hsl(var(--muted-foreground));
 }
 
-.setup-page__connectors {
-  @apply space-y-6;
+.setup-page__connectors > * + * {
+  margin-top: 1.5rem;
 }
 
-.setup-page__connectors-header {
-  @apply space-y-2;
+.setup-page__connectors-header > * + * {
+  margin-top: 0.5rem;
 }
 
 .setup-page__connectors-title {
-  @apply text-2xl font-semibold text-foreground;
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 600;
+  color: hsl(var(--foreground));
 }
 
 .setup-page__connectors-description {
-  @apply text-muted-foreground;
+  color: hsl(var(--muted-foreground));
 }
 
 .setup-page__connectors-grid {
-  @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4;
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 1rem;
 }
 
-.setup-page__upload {
-  @apply space-y-6;
+@media (min-width: 768px) {
+  .setup-page__connectors-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
-.setup-page__upload-header {
-  @apply space-y-2;
+@media (min-width: 1024px) {
+  .setup-page__connectors-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.setup-page__upload > * + * {
+  margin-top: 1.5rem;
+}
+
+.setup-page__upload-header > * + * {
+  margin-top: 0.5rem;
 }
 
 .setup-page__upload-title {
-  @apply text-2xl font-semibold text-foreground;
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 600;
+  color: hsl(var(--foreground));
 }
 
 .setup-page__upload-description {
-  @apply text-muted-foreground;
+  color: hsl(var(--muted-foreground));
 }
 
 /* Connector Card Styles */
 .connector-card {
-  @apply card p-6 space-y-4 hover:shadow-md transition-shadow duration-200;
+  background-color: hsl(var(--card));
+  color: hsl(var(--card-foreground));
+  border-radius: 0.5rem;
+  border: 1px solid hsl(var(--border));
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  padding: 1.5rem;
+  transition: box-shadow 0.2s;
+}
+
+.connector-card > * + * {
+  margin-top: 1rem;
+}
+
+.connector-card:hover {
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
 }
 
 .connector-card--connected {
-  @apply border-green-200 bg-green-50/50 dark:border-green-800 dark:bg-green-900/10;
+  border-color: rgb(187 247 208);
+  background-color: rgb(240 253 244 / 0.5);
+}
+
+.dark .connector-card--connected {
+  border-color: rgb(22 101 52);
+  background-color: rgb(20 83 45 / 0.1);
 }
 
 .connector-card--disconnected {
-  @apply border-red-200 bg-red-50/50 dark:border-red-800 dark:bg-red-900/10;
+  border-color: rgb(254 202 202);
+  background-color: rgb(254 242 242 / 0.5);
+}
+
+.dark .connector-card--disconnected {
+  border-color: rgb(153 27 27);
+  background-color: rgb(127 29 29 / 0.1);
 }
 
 .connector-card--error {
-  @apply border-red-200 bg-red-50/50 dark:border-red-800 dark:bg-red-900/10;
+  border-color: rgb(254 202 202);
+  background-color: rgb(254 242 242 / 0.5);
+}
+
+.dark .connector-card--error {
+  border-color: rgb(153 27 27);
+  background-color: rgb(127 29 29 / 0.1);
 }
 
 .connector-card__header {
-  @apply flex items-center gap-3 mb-4;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
 }
 
 .connector-card__icon {
-  @apply w-12 h-12 rounded-lg bg-muted flex items-center justify-center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 0.5rem;
+  background-color: hsl(var(--muted));
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .connector-card__icon img {
-  @apply w-8 h-8;
+  width: 2rem;
+  height: 2rem;
 }
 
 .connector-card__info {
-  @apply flex-1;
+  flex: 1;
 }
 
 .connector-card__name {
-  @apply text-lg font-semibold text-foreground mb-1;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  font-weight: 600;
+  color: hsl(var(--foreground));
+  margin-bottom: 0.25rem;
 }
 
 .connector-card__status {
-  @apply flex items-center gap-2;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .connector-card__status-text {
-  @apply flex items-center gap-1;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
 }
 
 .connector-card__health-badge {
-  @apply px-2 py-1 text-xs font-medium rounded-full;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 500;
+  border-radius: 9999px;
 }
 
 .connector-card__health-badge--good {
-  @apply bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400;
+  background-color: rgb(220 252 231);
+  color: rgb(22 101 52);
+}
+
+.dark .connector-card__health-badge--good {
+  background-color: rgb(20 83 45 / 0.2);
+  color: rgb(74 222 128);
 }
 
 .connector-card__health-badge--warning {
-  @apply bg-yellow-100 text-yellow-800 dark:bg-yellow-900/20 dark:text-yellow-400;
+  background-color: rgb(254 249 195);
+  color: rgb(133 77 14);
+}
+
+.dark .connector-card__health-badge--warning {
+  background-color: rgb(133 77 14 / 0.2);
+  color: rgb(250 204 21);
 }
 
 .connector-card__health-badge--error {
-  @apply bg-red-100 text-red-800 dark:bg-red-900/20 dark:text-red-400;
+  background-color: rgb(254 226 226);
+  color: rgb(153 27 27);
+}
+
+.dark .connector-card__health-badge--error {
+  background-color: rgb(127 29 29 / 0.2);
+  color: rgb(248 113 113);
 }
 
 .connector-card__details {
-  @apply space-y-2 mb-4;
+  margin-bottom: 1rem;
+}
+
+.connector-card__details > * + * {
+  margin-top: 0.5rem;
 }
 
 .connector-card__detail {
-  @apply flex justify-between text-sm;
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
 }
 
 .connector-card__detail-label {
-  @apply text-muted-foreground;
+  color: hsl(var(--muted-foreground));
 }
 
 .connector-card__detail-value {
-  @apply text-foreground font-medium;
+  color: hsl(var(--foreground));
+  font-weight: 500;
 }
 
 .connector-card__actions {
-  @apply flex gap-2;
+  display: flex;
+  gap: 0.5rem;
 }
 
 .connector-card__error {
-  @apply mt-3 p-2 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded text-sm text-red-600 dark:text-red-400;
+  margin-top: 0.75rem;
+  padding: 0.5rem;
+  background-color: rgb(254 242 242);
+  border: 1px solid rgb(254 202 202);
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: rgb(220 38 38);
+}
+
+.dark .connector-card__error {
+  background-color: rgb(127 29 29 / 0.2);
+  border-color: rgb(153 27 27);
+  color: rgb(248 113 113);
 }
 
 .connector-card__data-types {
-  @apply mt-3;
+  margin-top: 0.75rem;
 }
 
 .connector-card__data-types-label {
-  @apply text-xs text-muted-foreground mb-1;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  color: hsl(var(--muted-foreground));
+  margin-bottom: 0.25rem;
 }
 
 .connector-card__data-types-list {
-  @apply flex flex-wrap gap-1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
 }
 
 .connector-card__data-type-tag {
-  @apply px-2 py-1 text-xs bg-muted text-muted-foreground rounded;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  background-color: hsl(var(--muted));
+  color: hsl(var(--muted-foreground));
+  border-radius: 0.25rem;
 }
 
 /* File Upload Styles */
-.file-upload {
-  @apply space-y-4;
+.file-upload > * + * {
+  margin-top: 1rem;
 }
 
 .file-upload__zone {
-  @apply border-2 border-dashed border-primary/30 rounded-lg p-8 text-center;
-  @apply hover:border-primary/50 hover:bg-primary/5 transition-all duration-200;
-  @apply focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2;
+  border: 2px dashed hsl(var(--primary) / 0.3);
+  border-radius: 0.5rem;
+  padding: 2rem;
+  text-align: center;
+  transition: all 0.2s;
+}
+
+.file-upload__zone:hover {
+  border-color: hsl(var(--primary) / 0.5);
+  background-color: hsl(var(--primary) / 0.05);
+}
+
+.file-upload__zone:focus-within {
+  box-shadow: 0 0 0 2px hsl(var(--primary)), 0 0 0 4px hsl(var(--background));
 }
 
 .file-upload__zone--dragover {
-  @apply border-primary bg-primary/10;
+  border-color: hsl(var(--primary));
+  background-color: hsl(var(--primary) / 0.1);
 }
 
 .file-upload__icon {
-  @apply w-12 h-12 mx-auto mb-4 text-primary;
+  width: 3rem;
+  height: 3rem;
+  margin: 0 auto 1rem;
+  color: hsl(var(--primary));
 }
 
 .file-upload__text {
-  @apply text-lg font-medium text-foreground mb-2;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  font-weight: 500;
+  color: hsl(var(--foreground));
+  margin-bottom: 0.5rem;
 }
 
 .file-upload__hint {
-  @apply text-xs text-muted-foreground;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  color: hsl(var(--muted-foreground));
 }
 
 .file-upload__button {
-  @apply mt-4;
+  margin-top: 1rem;
 }
 
 .file-upload__files {
-  @apply mt-4 space-y-2;
+  margin-top: 1rem;
+}
+
+.file-upload__files > * + * {
+  margin-top: 0.5rem;
 }
 
 .file-upload__files-title {
-  @apply text-sm font-medium text-foreground mb-2;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+  color: hsl(var(--foreground));
+  margin-bottom: 0.5rem;
 }
 
 .file-upload__file {
-  @apply flex items-center gap-3 p-3 bg-muted/50 border border-border rounded-lg;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  background-color: hsl(var(--muted) / 0.5);
+  border: 1px solid hsl(var(--border));
+  border-radius: 0.5rem;
 }
 
 .file-upload__file-icon {
-  @apply w-8 h-8 text-muted-foreground;
+  width: 2rem;
+  height: 2rem;
+  color: hsl(var(--muted-foreground));
 }
 
 .file-upload__file-info {
-  @apply flex-1;
+  flex: 1;
 }
 
 .file-upload__file-name {
-  @apply text-sm font-medium text-foreground;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+  color: hsl(var(--foreground));
 }
 
 .file-upload__file-size {
-  @apply text-xs text-muted-foreground;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  color: hsl(var(--muted-foreground));
 }
 
 .file-upload__file-remove {
-  @apply p-1;
+  padding: 0.25rem;
 }
 
 /* Mobile responsive */
 @media (max-width: 768px) {
   .setup-page__connectors-grid {
-    @apply grid-cols-1;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
   }
   
   .connector-card__actions {
-    @apply flex-col;
+    flex-direction: column;
   }
 }
 
 /* Dark mode specific adjustments */
 .dark .connector-card--connected {
-  @apply border-green-800 bg-green-900/10;
+  border-color: rgb(22 101 52);
+  background-color: rgb(20 83 45 / 0.1);
 }
 
 .dark .connector-card--disconnected {
-  @apply border-red-800 bg-red-900/10;
+  border-color: rgb(153 27 27);
+  background-color: rgb(127 29 29 / 0.1);
 }
 
 .dark .file-upload__zone {
-  @apply border-primary/30;
+  border-color: hsl(var(--primary) / 0.3);
 }
 
 .dark .file-upload__zone:hover {
-  @apply border-primary/50 bg-primary/5;
+  border-color: hsl(var(--primary) / 0.5);
+  background-color: hsl(var(--primary) / 0.05);
 }
 
 .dark .file-upload__file {
-  @apply bg-muted/30 border-border;
+  background-color: hsl(var(--muted) / 0.3);
+  border-color: hsl(var(--border));
 }

@@ -1,237 +1,387 @@
 /* Future Planning Page Styles - BEM Architecture */
 
 .planning-page {
-  @apply min-h-screen bg-background space-y-6;
+  min-height: 100vh;
+  background-color: hsl(var(--background));
 }
 
-.planning-page__header {
-  @apply space-y-2;
+.planning-page > * + * {
+  margin-top: 1.5rem;
+}
+
+.planning-page__header > * + * {
+  margin-top: 0.5rem;
 }
 
 .planning-page__title {
-  @apply text-3xl font-bold text-foreground;
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+  font-weight: 700;
+  color: hsl(var(--foreground));
 }
 
 .planning-page__description {
-  @apply text-muted-foreground;
+  color: hsl(var(--muted-foreground));
 }
 
 .planning-page__container {
-  @apply grid grid-cols-1 lg:grid-cols-2 gap-6;
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 1.5rem;
 }
 
-.planning-page__left-panel {
-  @apply space-y-4;
+@media (min-width: 1024px) {
+  .planning-page__container {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
-.planning-page__right-panel {
-  @apply space-y-4;
+.planning-page__left-panel > * + * {
+  margin-top: 1rem;
+}
+
+.planning-page__right-panel > * + * {
+  margin-top: 1rem;
 }
 
 .planning-page__roadmap {
-  @apply mt-6;
+  margin-top: 1.5rem;
 }
 
 /* Condition Builder Styles */
-.condition-builder {
-  @apply space-y-4;
+.condition-builder > * + * {
+  margin-top: 1rem;
 }
 
 .condition-builder__header {
-  @apply p-4 bg-card border border-border rounded-lg shadow-sm;
+  padding: 1rem;
+  background-color: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
 }
 
 .condition-builder__title {
-  @apply text-lg font-semibold text-foreground mb-2;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  font-weight: 600;
+  color: hsl(var(--foreground));
+  margin-bottom: 0.5rem;
 }
 
 .condition-builder__description {
-  @apply text-sm text-muted-foreground;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: hsl(var(--muted-foreground));
 }
 
-.condition-builder__conditions {
-  @apply space-y-3;
+.condition-builder__conditions > * + * {
+  margin-top: 0.75rem;
 }
 
 .condition-builder__condition-row {
-  @apply flex gap-2 items-center p-3 bg-muted/50 border border-border rounded-lg;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  padding: 0.75rem;
+  background-color: hsl(var(--muted) / 0.5);
+  border: 1px solid hsl(var(--border));
+  border-radius: 0.5rem;
 }
 
 .condition-builder__condition-input {
-  @apply flex-1;
+  flex: 1;
 }
 
 .condition-builder__condition-remove {
-  @apply p-2;
+  padding: 0.5rem;
 }
 
 .condition-builder__add-condition {
-  @apply w-full p-3 border-2 border-dashed border-primary/30 rounded-lg;
-  @apply text-primary hover:border-primary/50 hover:bg-primary/5 transition-all duration-200;
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px dashed hsl(var(--primary) / 0.3);
+  border-radius: 0.5rem;
+  color: hsl(var(--primary));
+  transition: all 0.2s;
+}
+
+.condition-builder__add-condition:hover {
+  border-color: hsl(var(--primary) / 0.5);
+  background-color: hsl(var(--primary) / 0.05);
 }
 
 .condition-builder__generate-section {
-  @apply p-4 bg-card border border-border rounded-lg shadow-sm space-y-3;
+  padding: 1rem;
+  background-color: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+}
+
+.condition-builder__generate-section > * + * {
+  margin-top: 0.75rem;
 }
 
 .condition-builder__generate-button {
-  @apply w-full;
+  width: 100%;
 }
 
 /* Generated Plan Styles */
-.generated-plan {
-  @apply space-y-4;
+.generated-plan > * + * {
+  margin-top: 1rem;
 }
 
 .generated-plan__header {
-  @apply p-4 bg-card border border-border rounded-lg shadow-sm flex items-center justify-between;
+  padding: 1rem;
+  background-color: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .generated-plan__title {
-  @apply text-lg font-semibold text-foreground;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  font-weight: 600;
+  color: hsl(var(--foreground));
 }
 
 .generated-plan__actions {
-  @apply flex gap-2;
+  display: flex;
+  gap: 0.5rem;
 }
 
 .generated-plan__content {
-  @apply p-4 bg-muted/50 border border-border rounded-lg;
+  padding: 1rem;
+  background-color: hsl(var(--muted) / 0.5);
+  border: 1px solid hsl(var(--border));
+  border-radius: 0.5rem;
 }
 
 .generated-plan__loading {
-  @apply flex items-center justify-center py-12;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 0;
 }
 
 .generated-plan__textarea {
-  @apply h-64 resize-none;
+  height: 16rem;
+  resize: none;
 }
 
-  .generated-plan__text {
-    @apply text-sm max-w-none leading-relaxed;
-  }
+.generated-plan__text {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  max-width: none;
+  line-height: 1.625;
+}
 
 .generated-plan__empty {
-  @apply text-center py-12;
+  text-align: center;
+  padding: 3rem 0;
 }
 
 /* Roadmap Recommender Styles */
 .roadmap-recommender {
-  @apply p-4 bg-card border border-border rounded-lg shadow-sm;
+  padding: 1rem;
+  background-color: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
 }
 
 .roadmap-recommender__title {
-  @apply text-lg font-semibold text-foreground mb-4;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  font-weight: 600;
+  color: hsl(var(--foreground));
+  margin-bottom: 1rem;
 }
 
-.roadmap-recommender__input-section {
-  @apply space-y-3;
+.roadmap-recommender__input-section > * + * {
+  margin-top: 0.75rem;
 }
 
 .roadmap-recommender__input-group {
-  @apply flex gap-2;
+  display: flex;
+  gap: 0.5rem;
 }
 
 .roadmap-recommender__input {
-  @apply flex-1;
+  flex: 1;
 }
 
 .roadmap-recommender__button {
-  @apply px-4 py-2;
+  padding: 0.5rem 1rem;
 }
 
 .roadmap-recommender__list {
-  @apply mt-4 space-y-2;
+  margin-top: 1rem;
+}
+
+.roadmap-recommender__list > * + * {
+  margin-top: 0.5rem;
 }
 
 .roadmap-recommender__item {
-  @apply p-3 bg-muted/50 border border-border rounded-lg hover:bg-muted/70 transition-colors duration-200;
+  padding: 0.75rem;
+  background-color: hsl(var(--muted) / 0.5);
+  border: 1px solid hsl(var(--border));
+  border-radius: 0.5rem;
+  transition: all 0.2s;
+}
+
+.roadmap-recommender__item:hover {
+  background-color: hsl(var(--muted) / 0.7);
 }
 
 .roadmap-recommender__item-header {
-  @apply flex items-start justify-between;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
 }
 
 .roadmap-recommender__item-content {
-  @apply flex-1;
+  flex: 1;
 }
 
 .roadmap-recommender__item-title {
-  @apply font-medium text-foreground mb-1;
+  font-weight: 500;
+  color: hsl(var(--foreground));
+  margin-bottom: 0.25rem;
 }
 
 .roadmap-recommender__item-description {
-  @apply text-sm text-muted-foreground mb-2;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: hsl(var(--muted-foreground));
+  margin-bottom: 0.5rem;
 }
 
 .roadmap-recommender__item-meta {
-  @apply flex flex-wrap gap-2 mt-2;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
 }
 
 .roadmap-recommender__priority {
-  @apply px-2 py-1 text-xs font-medium rounded-full;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 500;
+  border-radius: 9999px;
 }
 
 .roadmap-recommender__priority--high {
-  @apply text-red-600 bg-red-100 dark:bg-red-900/20 dark:text-red-400;
+  color: rgb(220 38 38);
+  background-color: rgb(254 226 226);
+}
+
+.dark .roadmap-recommender__priority--high {
+  background-color: rgb(127 29 29 / 0.2);
+  color: rgb(248 113 113);
 }
 
 .roadmap-recommender__priority--medium {
-  @apply text-yellow-600 bg-yellow-100 dark:bg-yellow-900/20 dark:text-yellow-400;
+  color: rgb(202 138 4);
+  background-color: rgb(254 249 195);
+}
+
+.dark .roadmap-recommender__priority--medium {
+  background-color: rgb(133 77 14 / 0.2);
+  color: rgb(250 204 21);
 }
 
 .roadmap-recommender__priority--low {
-  @apply text-green-600 bg-green-100 dark:bg-green-900/20 dark:text-green-400;
+  color: rgb(22 163 74);
+  background-color: rgb(220 252 231);
+}
+
+.dark .roadmap-recommender__priority--low {
+  background-color: rgb(20 83 45 / 0.2);
+  color: rgb(74 222 128);
 }
 
 .roadmap-recommender__duration {
-  @apply flex items-center gap-1 text-xs text-muted-foreground;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  color: hsl(var(--muted-foreground));
 }
 
 .roadmap-recommender__teams {
-  @apply flex items-center gap-1 text-xs text-muted-foreground;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  color: hsl(var(--muted-foreground));
 }
 
 .roadmap-recommender__item-actions {
-  @apply flex gap-2;
+  display: flex;
+  gap: 0.5rem;
 }
 
 .roadmap-recommender__item-resources {
-  @apply mt-3;
+  margin-top: 0.75rem;
 }
 
 .roadmap-recommender__resources-title {
-  @apply text-xs font-medium text-muted-foreground mb-1;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 500;
+  color: hsl(var(--muted-foreground));
+  margin-bottom: 0.25rem;
 }
 
 .roadmap-recommender__resources-list {
-  @apply flex flex-wrap gap-1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
 }
 
 .roadmap-recommender__resource-tag {
-  @apply px-2 py-1 text-xs bg-muted text-muted-foreground rounded;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  background-color: hsl(var(--muted));
+  color: hsl(var(--muted-foreground));
+  border-radius: 0.25rem;
 }
 
 .roadmap-recommender__empty {
-  @apply text-center py-8;
+  text-align: center;
+  padding: 2rem 0;
 }
 
 /* Mobile responsive */
 @media (max-width: 1024px) {
   .planning__container {
-    @apply grid-cols-1;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
   }
 }
 
 /* Dark mode specific adjustments */
 .dark .planning__condition-row {
-  @apply bg-muted/30 border-border;
+  background-color: hsl(var(--muted) / 0.3);
+  border-color: hsl(var(--border));
 }
 
 .dark .planning__generated-plan-content {
-  @apply bg-muted/30 border-border;
+  background-color: hsl(var(--muted) / 0.3);
+  border-color: hsl(var(--border));
 }
 
 .dark .planning__roadmap-item {
-  @apply bg-muted/30 border-border;
+  background-color: hsl(var(--muted) / 0.3);
+  border-color: hsl(var(--border));
 }

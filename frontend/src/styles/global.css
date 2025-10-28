@@ -70,10 +70,11 @@
 
 @layer base {
   * {
-    @apply border-border;
+    border-color: hsl(var(--border));
   }
   body {
-    @apply bg-background text-foreground;
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
   }
   html {
     font-family: 'Inter', system-ui, sans-serif;
@@ -83,267 +84,542 @@
 @layer components {
   /* BEM Button Components */
   .btn {
-    @apply font-medium py-2 px-4 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    transition: all 0.2s;
+  }
+  
+  .btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px hsl(var(--background)), 0 0 0 4px currentColor;
   }
 
   .btn--primary {
-    @apply bg-primary text-primary-foreground hover:bg-primary/90 focus:ring-primary;
+    background-color: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+  }
+  
+  .btn--primary:hover {
+    background-color: hsl(var(--primary) / 0.9);
+  }
+  
+  .btn--primary:focus {
+    box-shadow: 0 0 0 2px hsl(var(--background)), 0 0 0 4px hsl(var(--primary));
   }
 
   .btn--secondary {
-    @apply bg-secondary text-secondary-foreground hover:bg-secondary/80 focus:ring-secondary;
+    background-color: hsl(var(--secondary));
+    color: hsl(var(--secondary-foreground));
+  }
+  
+  .btn--secondary:hover {
+    background-color: hsl(var(--secondary) / 0.8);
+  }
+  
+  .btn--secondary:focus {
+    box-shadow: 0 0 0 2px hsl(var(--background)), 0 0 0 4px hsl(var(--secondary));
   }
 
   .btn--ghost {
-    @apply hover:bg-accent hover:text-accent-foreground text-foreground focus:ring-accent;
+    color: hsl(var(--foreground));
+  }
+  
+  .btn--ghost:hover {
+    background-color: hsl(var(--accent));
+    color: hsl(var(--accent-foreground));
+  }
+  
+  .btn--ghost:focus {
+    box-shadow: 0 0 0 2px hsl(var(--background)), 0 0 0 4px hsl(var(--accent));
   }
 
   .btn--destructive {
-    @apply bg-destructive text-destructive-foreground hover:bg-destructive/90 focus:ring-destructive;
+    background-color: hsl(var(--destructive));
+    color: hsl(var(--destructive-foreground));
+  }
+  
+  .btn--destructive:hover {
+    background-color: hsl(var(--destructive) / 0.9);
+  }
+  
+  .btn--destructive:focus {
+    box-shadow: 0 0 0 2px hsl(var(--background)), 0 0 0 4px hsl(var(--destructive));
   }
 
   .btn--sm {
-    @apply py-1 px-3 text-sm;
+    padding: 0.25rem 0.75rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
   }
 
   .btn--lg {
-    @apply py-3 px-6 text-lg;
+    padding: 0.75rem 1.5rem;
+    font-size: 1.125rem;
+    line-height: 1.75rem;
   }
 
   /* BEM Input Components */
   .input {
-    @apply w-full px-3 py-2 border border-input rounded-lg bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent transition-colors duration-200;
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid hsl(var(--input));
+    border-radius: 0.5rem;
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    transition: all 0.2s;
+  }
+  
+  .input::placeholder {
+    color: hsl(var(--muted-foreground));
+  }
+  
+  .input:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px hsl(var(--ring));
+    border-color: transparent;
   }
 
   .input--error {
-    @apply border-destructive focus:ring-destructive;
+    border-color: hsl(var(--destructive));
+  }
+  
+  .input--error:focus {
+    box-shadow: 0 0 0 2px hsl(var(--destructive));
   }
 
   /* BEM Card Components */
   .card {
-    @apply bg-card text-card-foreground rounded-lg border border-border shadow-sm;
+    background-color: hsl(var(--card));
+    color: hsl(var(--card-foreground));
+    border-radius: 0.5rem;
+    border: 1px solid hsl(var(--border));
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   }
 
   .card__header {
-    @apply p-6 pb-0;
+    padding: 1.5rem;
+    padding-bottom: 0;
   }
 
   .card__content {
-    @apply p-6;
+    padding: 1.5rem;
   }
 
   .card__footer {
-    @apply p-6 pt-0;
+    padding: 1.5rem;
+    padding-top: 0;
   }
 
   /* BEM Sidebar Components */
   .sidebar {
-    @apply fixed inset-y-0 left-0 z-50 w-64 bg-background shadow-lg transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 50;
+    width: 16rem;
+    background-color: hsl(var(--background));
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    transform: translateX(0);
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  @media (min-width: 1024px) {
+    .sidebar {
+      transform: translateX(0);
+      position: static;
+      top: auto;
+      bottom: auto;
+    }
   }
 
   .sidebar--open {
-    @apply translate-x-0;
+    transform: translateX(0);
   }
 
   .sidebar--closed {
-    @apply -translate-x-full;
+    transform: translateX(-100%);
   }
 
   .sidebar__link {
-    @apply flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-colors duration-200;
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-weight: 500;
+    border-radius: 0.5rem;
+    transition: all 0.2s;
   }
 
   .sidebar__link--active {
-    @apply bg-accent text-accent-foreground;
+    background-color: hsl(var(--accent));
+    color: hsl(var(--accent-foreground));
   }
 
   .sidebar__link--inactive {
-    @apply text-muted-foreground hover:bg-accent hover:text-accent-foreground;
+    color: hsl(var(--muted-foreground));
+  }
+  
+  .sidebar__link--inactive:hover {
+    background-color: hsl(var(--accent));
+    color: hsl(var(--accent-foreground));
   }
 
   .sidebar__user-section {
-    @apply border-t border-border p-4 space-y-4;
+    border-top: 1px solid hsl(var(--border));
+    padding: 1rem;
+  }
+  
+  .sidebar__user-section > * + * {
+    margin-top: 1rem;
   }
 
   .sidebar__user-info {
-    @apply flex items-center gap-3;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
   }
 
   .sidebar__user-avatar {
-    @apply h-8 w-8 rounded-full;
+    height: 2rem;
+    width: 2rem;
+    border-radius: 9999px;
   }
 
   .sidebar__user-details {
-    @apply flex-1 min-w-0;
+    flex: 1;
+    min-width: 0;
   }
 
   .sidebar__user-name {
-    @apply text-sm font-medium text-foreground truncate;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-weight: 500;
+    color: hsl(var(--foreground));
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .sidebar__user-email {
-    @apply text-xs text-muted-foreground truncate;
+    font-size: 0.75rem;
+    line-height: 1rem;
+    color: hsl(var(--muted-foreground));
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .sidebar__logout-btn {
-    @apply w-full flex items-center px-3 py-2 text-sm font-medium rounded-lg;
-    @apply text-muted-foreground hover:bg-accent hover:text-accent-foreground;
-    @apply transition-colors duration-200;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-weight: 500;
+    border-radius: 0.5rem;
+    color: hsl(var(--muted-foreground));
+    transition: all 0.2s;
+  }
+  
+  .sidebar__logout-btn:hover {
+    background-color: hsl(var(--accent));
+    color: hsl(var(--accent-foreground));
   }
 
   /* BEM KPI Components */
   .kpi-card {
-    @apply card p-6 hover:shadow-md transition-shadow duration-200 cursor-pointer;
+    background-color: hsl(var(--card));
+    color: hsl(var(--card-foreground));
+    border-radius: 0.5rem;
+    border: 1px solid hsl(var(--border));
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    padding: 1.5rem;
+    transition: box-shadow 0.2s;
+    cursor: pointer;
+  }
+  
+  .kpi-card:hover {
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
   }
 
   .kpi-card__header {
-    @apply flex items-center justify-between mb-4;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
   }
 
   .kpi-card__title {
-    @apply text-sm font-medium text-muted-foreground;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-weight: 500;
+    color: hsl(var(--muted-foreground));
   }
 
   .kpi-card__value {
-    @apply text-2xl font-bold text-foreground;
+    font-size: 1.5rem;
+    line-height: 2rem;
+    font-weight: 700;
+    color: hsl(var(--foreground));
   }
 
   .kpi-card__delta {
-    @apply flex items-center text-sm;
+    display: flex;
+    align-items: center;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
   }
 
   .kpi-card__delta--positive {
-    @apply text-green-600;
+    color: rgb(22 163 74);
   }
 
   .kpi-card__delta--negative {
-    @apply text-red-600;
+    color: rgb(220 38 38);
   }
 
   /* BEM Signal Components */
   .signal-card {
-    @apply card p-4 hover:shadow-md transition-all duration-200 cursor-pointer;
+    background-color: hsl(var(--card));
+    color: hsl(var(--card-foreground));
+    border-radius: 0.5rem;
+    border: 1px solid hsl(var(--border));
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    padding: 1rem;
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+  
+  .signal-card:hover {
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
   }
 
   .signal-card__header {
-    @apply flex items-start justify-between mb-3;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
   }
 
   .signal-card__title {
-    @apply font-semibold text-foreground;
+    font-weight: 600;
+    color: hsl(var(--foreground));
   }
 
   .signal-card__priority {
-    @apply px-2 py-1 rounded-full text-xs font-medium;
+    padding: 0.25rem 0.5rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    line-height: 1rem;
+    font-weight: 500;
   }
 
   .signal-card__priority--high {
-    @apply bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200;
+    background-color: rgb(254 226 226);
+    color: rgb(153 27 27);
+  }
+  
+  .dark .signal-card__priority--high {
+    background-color: rgb(127 29 29);
+    color: rgb(254 202 202);
   }
 
   .signal-card__priority--medium {
-    @apply bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200;
+    background-color: rgb(254 249 195);
+    color: rgb(133 77 14);
+  }
+  
+  .dark .signal-card__priority--medium {
+    background-color: rgb(113 63 18);
+    color: rgb(254 240 138);
   }
 
   .signal-card__priority--low {
-    @apply bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200;
+    background-color: rgb(220 252 231);
+    color: rgb(20 83 45);
+  }
+  
+  .dark .signal-card__priority--low {
+    background-color: rgb(20 83 45);
+    color: rgb(187 247 208);
   }
 
   /* BEM Chat Components */
   .chat-pane {
-    @apply bg-card border border-border rounded-lg h-full flex flex-col;
+    background-color: hsl(var(--card));
+    border: 1px solid hsl(var(--border));
+    border-radius: 0.5rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
   }
 
   .chat-pane__header {
-    @apply p-4 border-b border-border;
+    padding: 1rem;
+    border-bottom: 1px solid hsl(var(--border));
   }
 
   .chat-pane__messages {
-    @apply flex-1 overflow-y-auto p-4 space-y-4;
+    flex: 1;
+    overflow-y: auto;
+    padding: 1rem;
+  }
+  
+  .chat-pane__messages > * + * {
+    margin-top: 1rem;
   }
 
   .chat-pane__input {
-    @apply p-4 border-t border-border;
+    padding: 1rem;
+    border-top: 1px solid hsl(var(--border));
   }
 
   .chat-message {
-    @apply flex gap-3;
+    display: flex;
+    gap: 0.75rem;
   }
 
   .chat-message--user {
-    @apply flex-row-reverse;
+    flex-direction: row-reverse;
   }
 
   .chat-message--assistant {
-    @apply flex-row;
+    flex-direction: row;
   }
 
   .chat-message__bubble {
-    @apply max-w-xs lg:max-w-md px-4 py-2 rounded-lg;
+    max-width: 20rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+  }
+  
+  @media (min-width: 1024px) {
+    .chat-message__bubble {
+      max-width: 28rem;
+    }
   }
 
   .chat-message__bubble--user {
-    @apply bg-primary text-primary-foreground;
+    background-color: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
   }
 
   .chat-message__bubble--assistant {
-    @apply bg-muted text-muted-foreground;
+    background-color: hsl(var(--muted));
+    color: hsl(var(--muted-foreground));
   }
 
   /* BEM Filter Components */
   .filter-toolbar {
-    @apply flex flex-wrap gap-4 p-4 bg-card border border-border rounded-lg mb-6;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: 1rem;
+    background-color: hsl(var(--card));
+    border: 1px solid hsl(var(--border));
+    border-radius: 0.5rem;
+    margin-bottom: 1.5rem;
   }
 
   .filter-group {
-    @apply flex flex-col gap-2;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
   }
 
   .filter-group__label {
-    @apply text-sm font-medium text-muted-foreground;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-weight: 500;
+    color: hsl(var(--muted-foreground));
   }
 
   .filter-group__input {
-    @apply input;
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid hsl(var(--input));
+    border-radius: 0.5rem;
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    transition: all 0.2s;
+  }
+  
+  .filter-group__input::placeholder {
+    color: hsl(var(--muted-foreground));
+  }
+  
+  .filter-group__input:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px hsl(var(--ring));
+    border-color: transparent;
   }
 
   .filter-group__select {
-    @apply input;
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid hsl(var(--input));
+    border-radius: 0.5rem;
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    transition: all 0.2s;
+  }
+  
+  .filter-group__select::placeholder {
+    color: hsl(var(--muted-foreground));
+  }
+  
+  .filter-group__select:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px hsl(var(--ring));
+    border-color: transparent;
   }
 
   /* Accessibility enhancements */
   .focus-visible {
-    @apply focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2;
+    outline: none;
+    box-shadow: 0 0 0 2px hsl(var(--ring)), 0 0 0 4px hsl(var(--background));
   }
 
   .sr-only {
-    @apply absolute w-px h-px p-0 -m-px overflow-hidden whitespace-nowrap border-0;
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    white-space: nowrap;
+    border: 0;
   }
 
   /* Smooth transitions for all interactive elements */
   * {
-    @apply transition-colors duration-200;
+    transition: color 0.2s;
   }
 
   /* High contrast mode support */
   @media (prefers-contrast: high) {
     .btn--primary {
-      @apply border-2 border-primary;
+      border: 2px solid hsl(var(--primary));
     }
     
     .btn--secondary {
-      @apply border-2 border-secondary;
+      border: 2px solid hsl(var(--secondary));
     }
   }
 
   /* Reduced motion support */
   @media (prefers-reduced-motion: reduce) {
     * {
-      @apply transition-none;
+      transition: none;
     }
     
     .animate-spin {
-      @apply animate-none;
+      animation: none;
     }
   }
 }
+

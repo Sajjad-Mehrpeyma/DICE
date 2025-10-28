@@ -290,15 +290,7 @@ const CopilotChatPane: React.FC<CopilotChatPaneProps> = ({
 
   if (!isOpen && !isEmbedded) {
     return (
-      <div className="copilot-sidebar copilot-sidebar--closed">
-        <button
-          onClick={onToggle}
-          className="btn btn--primary copilot-sidebar__toggle"
-          aria-label="Open Copilot Chat"
-        >
-          <Bot className="w-6 h-6" />
-          <span>Open Copilot</span>
-        </button>
+      <div>
       </div>
     );
   }
