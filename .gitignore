@@ -1,0 +1,59 @@
+# Data directories
+/data
+test_codes
+
+# Python
+.venv
+venv/
+**/__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+
+# Django
+*.log
+db.sqlite3
+db.sqlite3-journal
+/backend/media/
+/backend/staticfiles/
+/backend/logs/
+.env
+*.env
+!.env.example
+!backend/env.example
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.env.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+.cursor/
+
+# Infrastructure
+infra/volumes/
+*.pem
+*.key
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Testing
+.coverage
+htmlcov/
+.pytest_cache/
+
+# Notes
+/notes.txt
+
+# Docker
+docker-compose.override.yml
