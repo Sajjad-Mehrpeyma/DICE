@@ -1,0 +1,249 @@
+/* Setup & Data Hub Page Styles - BEM Architecture */
+
+.setup-page {
+  @apply min-h-screen bg-background space-y-6;
+}
+
+.setup-page__header {
+  @apply space-y-2;
+}
+
+.setup-page__title {
+  @apply text-3xl font-bold text-foreground;
+}
+
+.setup-page__description {
+  @apply text-muted-foreground;
+}
+
+.setup-page__connectors {
+  @apply space-y-6;
+}
+
+.setup-page__connectors-header {
+  @apply space-y-2;
+}
+
+.setup-page__connectors-title {
+  @apply text-2xl font-semibold text-foreground;
+}
+
+.setup-page__connectors-description {
+  @apply text-muted-foreground;
+}
+
+.setup-page__connectors-grid {
+  @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4;
+}
+
+.setup-page__upload {
+  @apply space-y-6;
+}
+
+.setup-page__upload-header {
+  @apply space-y-2;
+}
+
+.setup-page__upload-title {
+  @apply text-2xl font-semibold text-foreground;
+}
+
+.setup-page__upload-description {
+  @apply text-muted-foreground;
+}
+
+/* Connector Card Styles */
+.connector-card {
+  @apply card p-6 space-y-4 hover:shadow-md transition-shadow duration-200;
+}
+
+.connector-card--connected {
+  @apply border-green-200 bg-green-50/50 dark:border-green-800 dark:bg-green-900/10;
+}
+
+.connector-card--disconnected {
+  @apply border-red-200 bg-red-50/50 dark:border-red-800 dark:bg-red-900/10;
+}
+
+.connector-card--error {
+  @apply border-red-200 bg-red-50/50 dark:border-red-800 dark:bg-red-900/10;
+}
+
+.connector-card__header {
+  @apply flex items-center gap-3 mb-4;
+}
+
+.connector-card__icon {
+  @apply w-12 h-12 rounded-lg bg-muted flex items-center justify-center;
+}
+
+.connector-card__icon img {
+  @apply w-8 h-8;
+}
+
+.connector-card__info {
+  @apply flex-1;
+}
+
+.connector-card__name {
+  @apply text-lg font-semibold text-foreground mb-1;
+}
+
+.connector-card__status {
+  @apply flex items-center gap-2;
+}
+
+.connector-card__status-text {
+  @apply flex items-center gap-1;
+}
+
+.connector-card__health-badge {
+  @apply px-2 py-1 text-xs font-medium rounded-full;
+}
+
+.connector-card__health-badge--good {
+  @apply bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400;
+}
+
+.connector-card__health-badge--warning {
+  @apply bg-yellow-100 text-yellow-800 dark:bg-yellow-900/20 dark:text-yellow-400;
+}
+
+.connector-card__health-badge--error {
+  @apply bg-red-100 text-red-800 dark:bg-red-900/20 dark:text-red-400;
+}
+
+.connector-card__details {
+  @apply space-y-2 mb-4;
+}
+
+.connector-card__detail {
+  @apply flex justify-between text-sm;
+}
+
+.connector-card__detail-label {
+  @apply text-muted-foreground;
+}
+
+.connector-card__detail-value {
+  @apply text-foreground font-medium;
+}
+
+.connector-card__actions {
+  @apply flex gap-2;
+}
+
+.connector-card__error {
+  @apply mt-3 p-2 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded text-sm text-red-600 dark:text-red-400;
+}
+
+.connector-card__data-types {
+  @apply mt-3;
+}
+
+.connector-card__data-types-label {
+  @apply text-xs text-muted-foreground mb-1;
+}
+
+.connector-card__data-types-list {
+  @apply flex flex-wrap gap-1;
+}
+
+.connector-card__data-type-tag {
+  @apply px-2 py-1 text-xs bg-muted text-muted-foreground rounded;
+}
+
+/* File Upload Styles */
+.file-upload {
+  @apply space-y-4;
+}
+
+.file-upload__zone {
+  @apply border-2 border-dashed border-primary/30 rounded-lg p-8 text-center;
+  @apply hover:border-primary/50 hover:bg-primary/5 transition-all duration-200;
+  @apply focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2;
+}
+
+.file-upload__zone--dragover {
+  @apply border-primary bg-primary/10;
+}
+
+.file-upload__icon {
+  @apply w-12 h-12 mx-auto mb-4 text-primary;
+}
+
+.file-upload__text {
+  @apply text-lg font-medium text-foreground mb-2;
+}
+
+.file-upload__hint {
+  @apply text-xs text-muted-foreground;
+}
+
+.file-upload__button {
+  @apply mt-4;
+}
+
+.file-upload__files {
+  @apply mt-4 space-y-2;
+}
+
+.file-upload__files-title {
+  @apply text-sm font-medium text-foreground mb-2;
+}
+
+.file-upload__file {
+  @apply flex items-center gap-3 p-3 bg-muted/50 border border-border rounded-lg;
+}
+
+.file-upload__file-icon {
+  @apply w-8 h-8 text-muted-foreground;
+}
+
+.file-upload__file-info {
+  @apply flex-1;
+}
+
+.file-upload__file-name {
+  @apply text-sm font-medium text-foreground;
+}
+
+.file-upload__file-size {
+  @apply text-xs text-muted-foreground;
+}
+
+.file-upload__file-remove {
+  @apply p-1;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .setup-page__connectors-grid {
+    @apply grid-cols-1;
+  }
+  
+  .connector-card__actions {
+    @apply flex-col;
+  }
+}
+
+/* Dark mode specific adjustments */
+.dark .connector-card--connected {
+  @apply border-green-800 bg-green-900/10;
+}
+
+.dark .connector-card--disconnected {
+  @apply border-red-800 bg-red-900/10;
+}
+
+.dark .file-upload__zone {
+  @apply border-primary/30;
+}
+
+.dark .file-upload__zone:hover {
+  @apply border-primary/50 bg-primary/5;
+}
+
+.dark .file-upload__file {
+  @apply bg-muted/30 border-border;
+}

@@ -1,4 +1,4 @@
-import React from 'react';
+import { ReactNode } from 'react';
 import { TrendingUp, TrendingDown } from 'lucide-react';
 import clsx from 'clsx';
 
@@ -6,20 +6,17 @@ interface KPIWidgetProps {
   title: string;
   value: string | number;
   percentChange?: number;
-  icon?: React.ReactNode;
+  icon?: ReactNode;
   className?: string;
 }
 
-/**
- * KPI Widget component for displaying key performance indicators
- */
-export const KPIWidget: React.FC<KPIWidgetProps> = ({
+export const KPIWidget = ({
   title,
   value,
   percentChange,
   icon,
   className,
-}) => {
+}: KPIWidgetProps) => {
   const isPositive = percentChange && percentChange > 0;
   const isNegative = percentChange && percentChange < 0;
 

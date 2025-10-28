@@ -1,4 +1,3 @@
-import React from 'react';
 import { chatHistoryData } from '@/data/chat-history';
 import { MessageSquare, AlertTriangle, RadioTower } from 'lucide-react';
 
@@ -6,7 +5,7 @@ interface ChatHistoryProps {
   onSelectChat: (chatId: string) => void;
 }
 
-export const ChatHistory: React.FC<ChatHistoryProps> = ({ onSelectChat }) => {
+export const ChatHistory = ({ onSelectChat }) => {
   const getIcon = (type: string) => {
     switch (type) {
       case 'alert':

@@ -1,9 +1,8 @@
-import React from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { PlusCircle } from 'lucide-react';
 
-const CustomReportBuilder: React.FC = () => {
+const CustomReportBuilder = () => {
   return (
     <Card className="p-4">
       <h3 className="text-sm font-medium mb-2">Custom Report Builder</h3>

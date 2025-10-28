@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { AlertTriangle } from 'lucide-react';
-import CopilotDrawer from '@/components/Copilot/CopilotDrawer';
+import CopilotDrawer from '@/components/copilot/CopilotDrawer';
 
 interface AnomalyCardProps {
   severity: 'High' | 'Medium' | 'Low';
@@ -11,7 +11,7 @@ interface AnomalyCardProps {
   source: string;
 }
 
-const AnomalyCard: React.FC<AnomalyCardProps> = ({ severity, description, timestamp, source }) => {
+const AnomalyCard = ({ severity, description, timestamp, source }) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const handleAskCopilot = () => {

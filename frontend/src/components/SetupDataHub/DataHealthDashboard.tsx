@@ -1,4 +1,3 @@
-import React from 'react';
 import { Card } from '@/components/ui/card';
 
 interface DataHealthMetric {
@@ -14,7 +13,7 @@ const metrics: DataHealthMetric[] = [
   { title: 'Duplicates', value: '0', status: 'Good' },
 ];
 
-const DataHealthDashboard: React.FC = () => {
+const DataHealthDashboard = () => {
   return (
     <Card className="p-4">
       <h3 className="text-sm font-medium mb-2">Data Health</h3>

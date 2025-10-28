@@ -1,4 +1,3 @@
-import React from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { PlusCircle } from 'lucide-react';
@@ -16,7 +15,7 @@ const templates: AlertTemplate[] = [
   { id: '4', name: 'Data Drift', description: 'Detect and get alerted about unexpected changes in your data.' },
 ];
 
-const AlertTemplates: React.FC = () => {
+const AlertTemplates = () => {
   return (
     <Card className="p-4">
       <h3 className="text-sm font-medium mb-2">Pre-built Alert Templates</h3>

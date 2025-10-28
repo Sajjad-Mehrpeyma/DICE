@@ -1,11 +1,10 @@
-import React from 'react';
 import { scenarioData } from '@/data/scenarioData';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Slider } from '@/components/ui/slider';
 import { Switch } from '@/components/ui/switch';
 
-const ScenarioCanvas: React.FC = () => {
+const ScenarioCanvas = () => {
   return (
     <div className="grid gap-6 lg:grid-cols-3">
       {/* Levers */}

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 
@@ -12,7 +11,13 @@ interface ConnectorCardProps {
   lastSync: string;
 }
 
-const ConnectorCard: React.FC<ConnectorCardProps> = ({ name, status, logo, health, lastSync }) => {
+const ConnectorCard = ({
+  name,
+  status,
+  logo,
+  health,
+  lastSync,
+}: ConnectorCardProps) => {
   const isConnected = status === 'Connected';
 
   const healthConfig = {
@@ -27,11 +32,23 @@ const ConnectorCard: React.FC<ConnectorCardProps> = ({ name, status, logo, healt
         <img src={logo} alt={`${name} logo`} className="h-12 w-12 mb-4" />
         <h3 className="text-lg font-semibold">{name}</h3>
         <div className="flex items-center mt-2">
-          <Badge className={`${healthConfig[health]} text-white`}>{health}</Badge>
-          <p className={`text-sm ml-2 ${isConnected ? 'text-green-500' : 'text-red-500'}`}>{status}</p>
+          <Badge className={`${healthConfig[health]} text-white`}>
+            {health}
+          </Badge>
+          <p
+            className={`text-sm ml-2 ${isConnected ? 'text-green-500' : 'text-red-500'}`}
+          >
+            {status}
+          </p>
         </div>
-        <p className="text-xs text-muted-foreground mt-2">Last sync: {lastSync}</p>
-        <Button variant={isConnected ? 'outline' : 'default'} size="sm" className="mt-4">
+        <p className="text-xs text-muted-foreground mt-2">
+          Last sync: {lastSync}
+        </p>
+        <Button
+          variant={isConnected ? 'outline' : 'default'}
+          size="sm"
+          className="mt-4"
+        >
           {isConnected ? 'Manage' : 'Connect'}
         </Button>
       </CardContent>

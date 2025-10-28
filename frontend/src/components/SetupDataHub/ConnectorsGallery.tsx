@@ -1,8 +1,7 @@
-import React from 'react';
 import ConnectorCard from './ConnectorCard';
 import { connectorData } from '@/data/connectorData';
 
-const ConnectorsGallery: React.FC = () => {
+const ConnectorsGallery = () => {
   return (
     <div className="grid gap-4 md:grid-cols-3 lg:grid-cols-5">
       {connectorData.map((connector, index) => (

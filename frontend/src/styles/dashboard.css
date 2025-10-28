@@ -1,0 +1,864 @@
+/* ============================================
+   DASHBOARD STYLES - BEM Architecture
+   ============================================ */
+
+/* ============================================
+   1. BASE DASHBOARD LAYOUT
+   ============================================ */
+
+.dashboard {
+  @apply min-h-screen bg-background;
+  display: flex;
+  flex-direction: column;
+}
+
+.dashboard__container {
+  @apply space-y-8 p-6;
+}
+
+/* KPI Detail View Layout */
+.dashboard__kpi-detail-layout {
+  @apply flex flex-1;
+  min-height: 100vh;
+  position: relative;
+  gap: 0;
+}
+
+.dashboard__kpi-details {
+  @apply flex-1;
+  min-height: 100vh;
+  max-width: calc(100% - 400px);
+  padding-right: 2rem;
+}
+
+.dashboard__copilot-panel {
+  @apply flex-1 px-4 py-6 space-y-2 bg-card border-l border-border;
+  flex-shrink: 0;
+  overflow-y: auto;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  align-self: flex-start;
+  max-width: 400px;
+  min-width: 380px;
+}
+
+/* Section Layouts */
+.dashboard__priority-section {
+  @apply grid grid-cols-1 lg:grid-cols-2 gap-8;
+}
+
+.dashboard__alerts-column,
+.dashboard__signals-column {
+  @apply space-y-6;
+}
+
+.dashboard__kpi-section,
+.dashboard__alerts-section,
+.dashboard__signals-section {
+  @apply space-y-6;
+}
+
+/* Section Headers */
+.dashboard__section-header {
+  @apply space-y-2;
+}
+
+.dashboard__section-title {
+  @apply text-2xl font-bold text-foreground;
+}
+
+.dashboard__section-subtitle {
+  @apply text-muted-foreground;
+}
+
+/* Section Grids */
+.dashboard__alerts-grid,
+.dashboard__signals-grid {
+  @apply grid grid-cols-1 gap-3;
+}
+
+
+/* ============================================
+   2. KPI PANEL & CARDS
+   ============================================ */
+
+/* KPI Panel */
+.kpi-panel {
+  @apply space-y-6;
+}
+
+.kpi-panel__header {
+  @apply space-y-2;
+}
+
+.kpi-panel__title {
+  @apply text-2xl font-bold text-foreground;
+}
+
+.kpi-panel__subtitle {
+  @apply text-muted-foreground;
+}
+
+.kpi-panel__grid {
+  @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4;
+}
+
+/* KPI Card */
+.kpi-card {
+  @apply card p-6 hover:shadow-md transition-all duration-300 cursor-pointer;
+  @apply hover:border-primary/20 hover:scale-[1.02];
+}
+
+.kpi-card--active {
+  @apply border-primary shadow-lg ring-2 ring-primary/10;
+}
+
+.kpi-card__header {
+  @apply flex items-center justify-between mb-4;
+}
+
+.kpi-card__title {
+  @apply text-sm font-medium text-muted-foreground;
+}
+
+.kpi-card__icon {
+  @apply h-4 w-4 text-muted-foreground;
+}
+
+.kpi-card__content {
+  @apply space-y-4;
+}
+
+.kpi-card__value {
+  @apply text-3xl font-bold text-foreground;
+}
+
+.kpi-card__delta {
+  @apply flex items-center text-sm;
+}
+
+.kpi-card__delta--positive {
+  @apply text-green-600 dark:text-green-400;
+}
+
+.kpi-card__delta--negative {
+  @apply text-red-600 dark:text-red-400;
+}
+
+.kpi-card__sparkline {
+  @apply h-8 w-full;
+}
+
+
+/* ============================================
+   3. KPI DETAIL OVERLAY
+   ============================================ */
+
+/* Base Overlay */
+.kpi-overlay {
+  @apply bg-card border border-border rounded-lg shadow-2xl max-w-6xl w-full max-h-[100%] overflow-hidden;
+  @apply flex flex-col;
+  z-index: 40;
+}
+
+/* Embedded Variant */
+.kpi-overlay--embedded {
+  @apply bg-card flex flex-col;
+  @apply w-full mx-0 my-0;
+  min-height: 100vh;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  max-width: 100%;
+}
+
+.kpi-overlay--embedded .kpi-overlay__header {
+  @apply p-6 border-b border-border bg-muted/30;
+  flex-shrink: 0;
+}
+
+.kpi-overlay--embedded .kpi-overlay__content {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Overlay Header */
+.kpi-overlay__header {
+  @apply flex items-center justify-between p-6 border-b border-border bg-muted/30;
+  padding: 2rem;
+}
+
+.kpi-overlay__title-section {
+  @apply flex-1;
+}
+
+.kpi-overlay__title {
+  @apply text-2xl font-bold text-foreground mb-2;
+}
+
+.kpi-overlay__description {
+  @apply text-muted-foreground;
+}
+
+.kpi-overlay__actions {
+  @apply flex items-center gap-3;
+}
+
+.kpi-overlay__copilot-btn {
+  @apply flex items-center;
+}
+
+.kpi-overlay__close-btn {
+  @apply p-2;
+  z-index: 1;
+}
+
+/* Overlay Content */
+.kpi-overlay__content {
+  @apply flex-1 overflow-y-auto p-6 space-y-8;
+  padding-top: 0.5rem;
+  padding-left: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+/* Metrics Section */
+.kpi-overlay__metrics {
+  @apply grid grid-cols-1 md:grid-cols-3 gap-6;
+  flex-shrink: 0;
+}
+
+.kpi-overlay__metric-card {
+  @apply bg-muted/30 rounded-lg p-6 text-center;
+}
+
+.kpi-overlay__metric-label {
+  @apply text-sm text-muted-foreground mb-3;
+}
+
+.kpi-overlay__metric-value {
+  @apply text-3xl font-bold text-foreground mb-3;
+}
+
+.kpi-overlay__metric-change {
+  @apply text-sm font-medium mt-1;
+}
+
+.kpi-overlay__metric-change--positive {
+  @apply text-green-600 dark:text-green-400;
+}
+
+.kpi-overlay__metric-change--negative {
+  @apply text-red-600 dark:text-red-400;
+}
+
+.kpi-overlay__metric-trend {
+  @apply flex items-center justify-center gap-2 mt-2;
+}
+
+.kpi-overlay__metric-performance {
+  @apply px-4 py-2 rounded-full text-sm font-medium;
+}
+
+/* Charts Section */
+.kpi-overlay__charts {
+  @apply grid grid-cols-1 lg:grid-cols-2 gap-6;
+  flex-shrink: 1;
+  min-height: 0;
+}
+
+.kpi-overlay__chart-container {
+  @apply space-y-4;
+  min-height: 0;
+}
+
+.kpi-overlay__chart-container--full {
+  @apply lg:col-span-2;
+}
+
+.kpi-overlay__chart-title {
+  @apply text-base font-semibold text-foreground mb-2;
+}
+
+.kpi-overlay__chart {
+  @apply bg-muted/20 rounded-lg p-5 border border-border/50;
+}
+
+.kpi-overlay__chart--gradient {
+  @apply bg-gradient-to-br from-muted/10 to-muted/30;
+}
+
+/* Insights Section */
+.kpi-overlay__insights {
+  @apply grid grid-cols-1 md:grid-cols-2 gap-6;
+  flex-shrink: 1;
+  min-height: 0;
+}
+
+.kpi-overlay__insights-section {
+  @apply space-y-5;
+}
+
+.kpi-overlay__insights-header {
+  @apply flex items-center justify-between mb-2;
+}
+
+.kpi-overlay__insights-title {
+  @apply flex items-center text-lg font-semibold text-foreground;
+}
+
+.kpi-overlay__insights-list {
+  @apply space-y-3;
+}
+
+.kpi-overlay__insights-list-enhanced {
+  @apply space-y-3;
+  overflow-y: auto;
+  max-height: 400px;
+}
+
+.kpi-overlay__insights-card {
+  @apply flex gap-4 p-4 bg-muted/30 rounded-lg border border-border/50;
+  @apply hover:bg-muted/50 transition-colors duration-200;
+}
+
+.kpi-overlay__insights-card--recommendation {
+  @apply bg-blue-50/50 dark:bg-blue-900/10 border-blue-200/50 dark:border-blue-800/50;
+}
+
+.kpi-overlay__insights-card-icon {
+  @apply flex-shrink-0 w-10 h-10 rounded-full bg-background flex items-center justify-center;
+  @apply border border-border;
+}
+
+.kpi-overlay__insights-card-number {
+  @apply flex-shrink-0 w-10 h-10 rounded-full bg-blue-500 text-white flex items-center justify-center;
+  @apply font-bold text-sm;
+}
+
+.kpi-overlay__insights-card-text {
+  @apply text-sm text-foreground leading-relaxed flex-1;
+  line-height: 1.6;
+}
+
+.kpi-overlay__insights-item {
+  @apply text-sm text-muted-foreground pl-6 relative;
+}
+
+.kpi-overlay__insights-item::before {
+  content: "•";
+  @apply absolute left-0 text-primary font-bold;
+}
+
+/* Benchmarks Section */
+.kpi-overlay__benchmarks {
+  @apply space-y-5;
+  flex-shrink: 0;
+}
+
+.kpi-overlay__benchmarks-title {
+  @apply text-lg font-semibold text-foreground mb-2;
+}
+
+.kpi-overlay__benchmarks-grid {
+  @apply grid grid-cols-1 md:grid-cols-3 gap-6;
+}
+
+.kpi-overlay__benchmark-item {
+  @apply bg-muted/30 rounded-lg p-6 text-center;
+}
+
+.kpi-overlay__benchmark-label {
+  @apply text-sm text-muted-foreground mb-3;
+}
+
+.kpi-overlay__benchmark-value {
+  @apply text-xl font-bold text-foreground mt-1;
+}
+
+
+/* ============================================
+   4. COPILOT SIDEBAR
+   ============================================ */
+
+/* Base Sidebar */
+.copilot-sidebar {
+  @apply transform transition-transform duration-300 ease-in-out;
+  @apply flex flex-col;
+  top: 100px;
+  bottom: 93px;
+  z-index: 30;
+}
+
+.copilot-sidebar--closed {
+  @apply translate-x-full;
+}
+
+.copilot-sidebar--open {
+  @apply translate-x-0;
+}
+
+/* Embedded Variant */
+.copilot-sidebar--embedded {
+  position: fixed;
+  right: 1.5rem;
+  top: 100px;
+  bottom: 100px;
+  width: 26rem;
+  max-width: 26rem;
+  
+  @apply bg-card/95 backdrop-blur-sm;
+  @apply border border-border/60 rounded-xl shadow-2xl;
+  @apply flex flex-col;
+  @apply transition-all duration-300 ease-in-out;
+  
+  transform: none;
+  overflow: visible; /* Allow children to overflow */
+  
+  /* Enhanced shadow for depth */
+  box-shadow: 
+    0 20px 25px -5px rgb(0 0 0 / 0.1),
+    0 10px 10px -5px rgb(0 0 0 / 0.04);
+  
+  /* Lower z-index than popup */
+  z-index: 30;
+}
+
+/* Sidebar Components */
+.copilot-sidebar__backdrop {
+  @apply fixed inset-0 z-40 bg-black/50 backdrop-blur-sm;
+}
+
+.copilot-sidebar__toggle {
+  @apply fixed bottom-6 right-6 z-30 shadow-lg;
+  @apply flex items-center gap-2 px-4 py-3;
+}
+
+.copilot-sidebar__header {
+  @apply flex items-center justify-between px-5 py-4 border-b border-border bg-muted/20;
+  @apply flex-shrink-0;
+  border-top-left-radius: 0.75rem;
+  border-top-right-radius: 0.75rem;
+}
+
+.copilot-sidebar--embedded .copilot-sidebar__header {
+  @apply px-5 py-4;
+  @apply border-b border-border/60;
+  @apply bg-gradient-to-r from-primary/5 via-primary/5 to-transparent;
+  flex-shrink: 0;
+  flex-grow: 0;
+}
+
+.copilot-sidebar__title {
+  @apply text-lg font-bold text-foreground flex items-center gap-2;
+}
+
+
+.copilot-sidebar__close {
+  @apply p-2;
+}
+
+/* Messages Area */
+.copilot-sidebar__messages {
+  @apply flex-1 overflow-y-auto px-4 py-5 space-y-5;
+  scrollbar-width: thin;
+  scrollbar-color: hsl(var(--border)) transparent;
+}
+
+.copilot-sidebar--embedded .copilot-sidebar__messages {
+  @apply px-5 py-5 space-y-5;
+  overflow-y: auto;
+  overflow-x: visible; /* Allow popups to overflow horizontally */
+  flex: 1 1 auto;
+  min-height: 0;
+  
+  /* Enhanced scrollbar for embedded */
+  scrollbar-width: thin;
+  scrollbar-color: hsl(var(--border)) transparent;
+}
+
+/* Scrollbar Styling */
+.copilot-sidebar__messages::-webkit-scrollbar,
+.copilot-sidebar--embedded .copilot-sidebar__messages::-webkit-scrollbar {
+  width: 6px;
+}
+
+.copilot-sidebar__messages::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.copilot-sidebar--embedded .copilot-sidebar__messages::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 3px;
+}
+
+.copilot-sidebar__messages::-webkit-scrollbar-thumb {
+  background: hsl(var(--border));
+  border-radius: 3px;
+}
+
+.copilot-sidebar--embedded .copilot-sidebar__messages::-webkit-scrollbar-thumb {
+  background: hsl(var(--border) / 0.6);
+  border-radius: 3px;
+}
+
+.copilot-sidebar__messages::-webkit-scrollbar-thumb:hover,
+.copilot-sidebar--embedded .copilot-sidebar__messages::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--border));
+}
+
+/* Input Area */
+.copilot-sidebar__input {
+  @apply px-4 pb-4 pt-3 border-t border-border bg-background/50;
+  @apply flex-shrink-0;
+}
+
+.copilot-sidebar--embedded .copilot-sidebar__input {
+  @apply px-5 py-4;
+  @apply border-t border-border/60;
+  @apply bg-muted/20;
+  flex-shrink: 0;
+  flex-grow: 0;
+}
+
+.copilot-sidebar__input-container {
+  @apply flex gap-2 items-end;
+}
+
+.copilot-sidebar__input-field {
+  @apply flex-1 resize-none px-3 py-2.5 rounded-lg;
+  @apply border border-border bg-background;
+  @apply focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary;
+  @apply transition-all duration-200;
+  min-height: 42px;
+  max-height: 120px;
+}
+
+.copilot-sidebar__input-field::placeholder {
+  @apply text-muted-foreground/60;
+}
+
+.copilot-sidebar__send-button {
+  @apply px-4 py-2.5 rounded-lg;
+  @apply flex items-center justify-center;
+  @apply bg-primary text-primary-foreground;
+  @apply hover:bg-primary/90 active:scale-95;
+  @apply transition-all duration-200;
+  @apply disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-primary;
+  min-height: 42px;
+}
+
+
+/* ============================================
+   5. CHAT PANE & MESSAGES
+   ============================================ */
+
+/* Chat Pane */
+.chat-pane {
+  @apply bg-card border border-border rounded-lg shadow-sm h-full flex flex-col;
+}
+
+.chat-pane--closed {
+  @apply hidden lg:block;
+}
+
+.chat-pane--open {
+  @apply block;
+}
+
+.chat-pane__toggle {
+  @apply w-full p-4 flex items-center justify-center gap-2;
+}
+
+.chat-pane__header {
+  @apply p-4 border-b border-border flex items-center justify-between;
+}
+
+.chat-pane__title {
+  @apply text-lg font-semibold text-foreground;
+}
+
+.chat-pane__close {
+  @apply p-2;
+}
+
+.chat-pane__messages {
+  @apply flex-1 overflow-y-auto p-4 space-y-4;
+}
+
+.chat-pane__input {
+  @apply p-4 border-t border-border;
+}
+
+.chat-pane__input-container {
+  @apply flex gap-2;
+}
+
+.chat-pane__input-field {
+  @apply flex-1 resize-none;
+}
+
+.chat-pane__send-button {
+  @apply px-4 py-2;
+}
+
+/* Chat Messages */
+.chat-message {
+  @apply flex gap-3;
+}
+
+.chat-message--user {
+  @apply flex-row-reverse;
+}
+
+.chat-message--assistant {
+  @apply flex-row;
+}
+
+/* Message Avatars */
+.chat-message__avatar {
+  @apply w-8 h-8 rounded-full bg-muted flex items-center justify-center flex-shrink-0;
+}
+
+.chat-message__avatar--user {
+  @apply bg-primary text-primary-foreground;
+}
+
+.chat-message__avatar--assistant {
+  @apply bg-muted text-muted-foreground;
+}
+
+/* Message Bubbles */
+.chat-message__bubble {
+  @apply max-w-xs lg:max-w-md px-4 py-2 rounded-lg;
+}
+
+.chat-message__bubble--user {
+  @apply bg-primary text-primary-foreground;
+}
+
+.chat-message__bubble--assistant {
+  @apply bg-muted text-muted-foreground;
+}
+
+.chat-message__text {
+  @apply text-sm;
+}
+
+/* Message Sources */
+.chat-message__sources {
+  @apply flex gap-1 mt-2;
+}
+
+.chat-message__source-icon {
+  @apply w-6 h-6 bg-accent rounded-full flex items-center justify-center text-xs;
+  @apply hover:bg-accent/80 transition-colors duration-200;
+}
+
+/* Message Evidence */
+.chat-message__evidence {
+  @apply mt-2;
+}
+
+.chat-message__evidence-button {
+  @apply text-xs;
+}
+
+.chat-message__evidence-dropdown {
+  @apply mt-1 p-2 bg-background border border-border rounded text-xs space-y-1;
+}
+
+.chat-message__evidence-item {
+  @apply text-xs;
+}
+
+/* Hoverable Evidence */
+.chat-message__evidence-hover-container {
+  @apply relative inline-block mt-2;
+}
+
+.chat-message__evidence-trigger {
+  @apply text-xs text-primary font-medium cursor-default px-2 py-1 rounded;
+  @apply hover:bg-primary/10 transition-colors duration-200;
+}
+
+.chat-message__evidence-tooltip {
+  @apply absolute left-0 bottom-full mb-2 w-64 p-3 bg-background border border-border rounded-lg shadow-lg;
+  @apply opacity-0 invisible transition-all duration-200;
+  @apply z-50;
+}
+
+.chat-message__evidence-hover-container:hover .chat-message__evidence-tooltip {
+  @apply opacity-100 visible;
+}
+
+.chat-message__evidence-tooltip-title {
+  @apply text-xs font-semibold text-foreground mb-2 pb-2 border-b border-border;
+}
+
+.chat-message__evidence-source-item {
+  @apply text-xs text-muted-foreground py-1 px-2 bg-muted/30 rounded mb-1;
+}
+
+.chat-message__evidence-divider {
+  @apply h-px bg-border my-2;
+}
+
+/* Message Badges */
+.chat-message__badges {
+  @apply flex gap-2 mt-2;
+}
+
+.chat-message__badge {
+  @apply px-2 py-1 rounded-full text-xs font-medium;
+}
+
+.chat-message__badge--cost {
+  @apply bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200;
+}
+
+.chat-message__badge--impact {
+  @apply bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200;
+}
+
+.chat-message__badge--confidence {
+  @apply bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200;
+}
+
+/* Message Meta */
+.chat-message__meta {
+  @apply text-xs mt-2 opacity-70;
+}
+
+.chat-message__meta--user {
+  @apply text-right;
+}
+
+.chat-message__meta--assistant {
+  @apply text-left;
+}
+
+/* Loading State */
+.chat-message__loading {
+  @apply flex items-center gap-2 text-sm;
+}
+
+.chat-message__spinner {
+  @apply w-4 h-4 border-2 border-muted-foreground border-t-transparent rounded-full animate-spin;
+}
+
+
+/* ============================================
+   6. ALERT & SIGNAL CARDS
+   ============================================ */
+
+.alert-card__action-button,
+.signal-card__action-button {
+  @apply flex items-center gap-2;
+}
+
+
+/* ============================================
+   7. RESPONSIVE DESIGN (MOBILE)
+   ============================================ */
+
+@media (max-width: 768px) {
+  /* Dashboard Layout */
+  .dashboard__container {
+    @apply p-4 space-y-6;
+  }
+  
+  .dashboard__kpi-detail-layout {
+    @apply flex-col;
+  }
+  
+  .dashboard__kpi-details {
+    max-width: 100%;
+  }
+  
+  .dashboard__copilot-panel {
+    @apply w-full px-4 py-6;
+    position: relative;
+    height: auto;
+    min-height: 400px;
+    max-width: 100%;
+    min-width: auto;
+  }
+  
+  /* KPI Panel */
+  .kpi-panel__grid {
+    @apply grid-cols-1;
+  }
+  
+  /* Grids */
+  .dashboard__alerts-grid,
+  .dashboard__signals-grid {
+    @apply grid-cols-1;
+  }
+  
+  /* KPI Overlay */
+  .kpi-overlay {
+    @apply max-w-full mx-4 max-h-[95vh];
+  }
+  
+  .kpi-overlay__content {
+    @apply p-4 space-y-6;
+  }
+  
+  .kpi-overlay__metrics,
+  .kpi-overlay__charts,
+  .kpi-overlay__insights {
+    @apply grid-cols-1;
+  }
+  
+  .kpi-overlay__benchmarks-grid {
+    @apply grid-cols-1;
+  }
+  
+  /* Copilot Sidebar */
+  .copilot-sidebar {
+    @apply w-full;
+  }
+  
+  .copilot-sidebar--embedded {
+    @apply rounded-none;
+  }
+  
+  .copilot-sidebar__toggle {
+    @apply bottom-4 right-4;
+  }
+  
+  /* Chat Messages */
+  .chat-message__bubble {
+    @apply max-w-full;
+  }
+  
+  .chat-message__source-tooltip {
+    @apply min-w-[200px] max-w-[280px];
+  }
+  
+  .chat-message__sources-popup {
+    @apply max-w-[90vw];
+    right: 0;
+    left: auto;
+  }
+}
+
+
+/* ============================================
+   8. DARK MODE OVERRIDES
+   ============================================ */
+
+.dark .dashboard__kpi-card {
+  @apply bg-card border-border;
+}
+
+.dark .dashboard__kpi-card:hover {
+  @apply border-primary/30;
+}
+
+.dark .dashboard__copilot-pane {
+  @apply bg-card border-border;
+}

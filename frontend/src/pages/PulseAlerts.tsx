@@ -1,7 +1,6 @@
-import React from 'react';
 import AlertInbox from '@/components/PulseAlerts/AlertInbox';
 
-const PulseAlerts: React.FC = () => {
+const PulseAlerts = () => {
   return (
     <div className="space-y-6">
       <h1 className="text-3xl font-bold">Pulse & Alerts</h1>

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -15,7 +14,7 @@ const tasks: Task[] = [
   { id: '3', description: 'Pause underperforming ad groups', status: 'Pending' },
 ];
 
-const PlanTaskList: React.FC = () => {
+const PlanTaskList = () => {
   return (
     <Card className="p-4">
       <h3 className="text-sm font-medium mb-2">Plan & Task List</h3>

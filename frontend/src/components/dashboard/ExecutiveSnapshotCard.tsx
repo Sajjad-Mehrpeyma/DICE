@@ -1,11 +1,10 @@
-import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { executiveSnapshotData } from '@/data/executive-snapshot';
 import jsPDF from 'jspdf';
 import { Download, Slack, BarChart } from 'lucide-react';
 
-const ExecutiveSnapshotCard: React.FC = () => {
+const ExecutiveSnapshotCard = () => {
   const handleDownloadPdf = () => {
     const doc = new jsPDF();
     doc.text('Executive Snapshot', 10, 10);

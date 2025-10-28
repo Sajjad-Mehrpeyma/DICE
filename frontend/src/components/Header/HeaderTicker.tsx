@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { mockNews } from '@/data/mockNews';
 import { mockNotifications } from '@/data/mockNotifications';
@@ -16,7 +16,7 @@ interface TickerItem {
 /**
  * HeaderTicker component displays animated vertical ticker with news, notifications, and events
  */
-export const HeaderTicker: React.FC = () => {
+export const HeaderTicker = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
   const navigate = useNavigate();

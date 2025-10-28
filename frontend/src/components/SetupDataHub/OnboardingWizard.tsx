@@ -1,8 +1,7 @@
-import React from 'react';
 import OnboardingStepper from './OnboardingStepper';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
-const OnboardingWizard: React.FC = () => {
+const OnboardingWizard = () => {
   return (
     <Card>
       <CardHeader>

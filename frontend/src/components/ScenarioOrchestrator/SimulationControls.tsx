@@ -1,9 +1,8 @@
-import React from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { PlayCircle, FileText } from 'lucide-react';
 
-const SimulationControls: React.FC = () => {
+const SimulationControls = () => {
   return (
     <Card className="p-4 flex justify-end space-x-2">
       <Button variant="outline" size="sm">

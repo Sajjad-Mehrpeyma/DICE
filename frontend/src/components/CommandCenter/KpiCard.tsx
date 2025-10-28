@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { AreaChart, Area, ResponsiveContainer } from 'recharts';
 import { Button } from '@/components/ui/button';
 import { MessageSquare } from 'lucide-react';
-import CopilotDrawer from '@/components/Copilot/CopilotDrawer';
+import CopilotDrawer from '@/components/copilot/CopilotDrawer';
 
 interface KpiCardProps {
   title: string;
@@ -13,7 +13,7 @@ interface KpiCardProps {
   sparkline: number[];
 }
 
-const KpiCard: React.FC<KpiCardProps> = ({ title, value, change, changeType, sparkline }) => {
+const KpiCard = ({ title, value, change, changeType, sparkline }) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const chartData = sparkline.map((value, index) => ({ name: index, value }));
   const changeColor = changeType === 'positive' ? 'text-green-500' : 'text-red-500';

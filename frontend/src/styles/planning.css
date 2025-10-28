@@ -1,0 +1,237 @@
+/* Future Planning Page Styles - BEM Architecture */
+
+.planning-page {
+  @apply min-h-screen bg-background space-y-6;
+}
+
+.planning-page__header {
+  @apply space-y-2;
+}
+
+.planning-page__title {
+  @apply text-3xl font-bold text-foreground;
+}
+
+.planning-page__description {
+  @apply text-muted-foreground;
+}
+
+.planning-page__container {
+  @apply grid grid-cols-1 lg:grid-cols-2 gap-6;
+}
+
+.planning-page__left-panel {
+  @apply space-y-4;
+}
+
+.planning-page__right-panel {
+  @apply space-y-4;
+}
+
+.planning-page__roadmap {
+  @apply mt-6;
+}
+
+/* Condition Builder Styles */
+.condition-builder {
+  @apply space-y-4;
+}
+
+.condition-builder__header {
+  @apply p-4 bg-card border border-border rounded-lg shadow-sm;
+}
+
+.condition-builder__title {
+  @apply text-lg font-semibold text-foreground mb-2;
+}
+
+.condition-builder__description {
+  @apply text-sm text-muted-foreground;
+}
+
+.condition-builder__conditions {
+  @apply space-y-3;
+}
+
+.condition-builder__condition-row {
+  @apply flex gap-2 items-center p-3 bg-muted/50 border border-border rounded-lg;
+}
+
+.condition-builder__condition-input {
+  @apply flex-1;
+}
+
+.condition-builder__condition-remove {
+  @apply p-2;
+}
+
+.condition-builder__add-condition {
+  @apply w-full p-3 border-2 border-dashed border-primary/30 rounded-lg;
+  @apply text-primary hover:border-primary/50 hover:bg-primary/5 transition-all duration-200;
+}
+
+.condition-builder__generate-section {
+  @apply p-4 bg-card border border-border rounded-lg shadow-sm space-y-3;
+}
+
+.condition-builder__generate-button {
+  @apply w-full;
+}
+
+/* Generated Plan Styles */
+.generated-plan {
+  @apply space-y-4;
+}
+
+.generated-plan__header {
+  @apply p-4 bg-card border border-border rounded-lg shadow-sm flex items-center justify-between;
+}
+
+.generated-plan__title {
+  @apply text-lg font-semibold text-foreground;
+}
+
+.generated-plan__actions {
+  @apply flex gap-2;
+}
+
+.generated-plan__content {
+  @apply p-4 bg-muted/50 border border-border rounded-lg;
+}
+
+.generated-plan__loading {
+  @apply flex items-center justify-center py-12;
+}
+
+.generated-plan__textarea {
+  @apply h-64 resize-none;
+}
+
+  .generated-plan__text {
+    @apply text-sm max-w-none leading-relaxed;
+  }
+
+.generated-plan__empty {
+  @apply text-center py-12;
+}
+
+/* Roadmap Recommender Styles */
+.roadmap-recommender {
+  @apply p-4 bg-card border border-border rounded-lg shadow-sm;
+}
+
+.roadmap-recommender__title {
+  @apply text-lg font-semibold text-foreground mb-4;
+}
+
+.roadmap-recommender__input-section {
+  @apply space-y-3;
+}
+
+.roadmap-recommender__input-group {
+  @apply flex gap-2;
+}
+
+.roadmap-recommender__input {
+  @apply flex-1;
+}
+
+.roadmap-recommender__button {
+  @apply px-4 py-2;
+}
+
+.roadmap-recommender__list {
+  @apply mt-4 space-y-2;
+}
+
+.roadmap-recommender__item {
+  @apply p-3 bg-muted/50 border border-border rounded-lg hover:bg-muted/70 transition-colors duration-200;
+}
+
+.roadmap-recommender__item-header {
+  @apply flex items-start justify-between;
+}
+
+.roadmap-recommender__item-content {
+  @apply flex-1;
+}
+
+.roadmap-recommender__item-title {
+  @apply font-medium text-foreground mb-1;
+}
+
+.roadmap-recommender__item-description {
+  @apply text-sm text-muted-foreground mb-2;
+}
+
+.roadmap-recommender__item-meta {
+  @apply flex flex-wrap gap-2 mt-2;
+}
+
+.roadmap-recommender__priority {
+  @apply px-2 py-1 text-xs font-medium rounded-full;
+}
+
+.roadmap-recommender__priority--high {
+  @apply text-red-600 bg-red-100 dark:bg-red-900/20 dark:text-red-400;
+}
+
+.roadmap-recommender__priority--medium {
+  @apply text-yellow-600 bg-yellow-100 dark:bg-yellow-900/20 dark:text-yellow-400;
+}
+
+.roadmap-recommender__priority--low {
+  @apply text-green-600 bg-green-100 dark:bg-green-900/20 dark:text-green-400;
+}
+
+.roadmap-recommender__duration {
+  @apply flex items-center gap-1 text-xs text-muted-foreground;
+}
+
+.roadmap-recommender__teams {
+  @apply flex items-center gap-1 text-xs text-muted-foreground;
+}
+
+.roadmap-recommender__item-actions {
+  @apply flex gap-2;
+}
+
+.roadmap-recommender__item-resources {
+  @apply mt-3;
+}
+
+.roadmap-recommender__resources-title {
+  @apply text-xs font-medium text-muted-foreground mb-1;
+}
+
+.roadmap-recommender__resources-list {
+  @apply flex flex-wrap gap-1;
+}
+
+.roadmap-recommender__resource-tag {
+  @apply px-2 py-1 text-xs bg-muted text-muted-foreground rounded;
+}
+
+.roadmap-recommender__empty {
+  @apply text-center py-8;
+}
+
+/* Mobile responsive */
+@media (max-width: 1024px) {
+  .planning__container {
+    @apply grid-cols-1;
+  }
+}
+
+/* Dark mode specific adjustments */
+.dark .planning__condition-row {
+  @apply bg-muted/30 border-border;
+}
+
+.dark .planning__generated-plan-content {
+  @apply bg-muted/30 border-border;
+}
+
+.dark .planning__roadmap-item {
+  @apply bg-muted/30 border-border;
+}

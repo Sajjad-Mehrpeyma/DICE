@@ -1,4 +1,3 @@
-import React from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 
@@ -14,7 +13,7 @@ const decisions: Decision[] = [
   { id: '3', description: 'Launched new ad creative for Campaign X', timestamp: '2 days ago' },
 ];
 
-const RecentDecisions: React.FC = () => {
+const RecentDecisions = () => {
   return (
     <Card className="p-4">
       <h3 className="text-sm font-medium mb-2">Recent Decisions & Actions</h3>

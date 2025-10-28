@@ -1,4 +1,3 @@
-import React from 'react';
 import ScenarioCanvas from '@/components/ScenarioOrchestrator/ScenarioCanvas';
 
 const ScenarioOrchestrator: React.FC = () => {

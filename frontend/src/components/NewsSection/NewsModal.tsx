@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { X, ExternalLink } from 'lucide-react';
 import { NewsItem } from '@/data/mockNews';
 
@@ -11,7 +11,7 @@ interface NewsModalProps {
 /**
  * NewsModal component displays full news article details in an accessible modal
  */
-export const NewsModal: React.FC<NewsModalProps> = ({
+export const NewsModal = ({
   newsItem,
   isOpen,
   onClose,

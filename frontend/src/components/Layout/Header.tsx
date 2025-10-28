@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Menu, Bell, Search, User, LogOut, Moon, Sun } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import { HeaderTicker } from '../Header/HeaderTicker';
@@ -10,16 +10,13 @@ interface HeaderProps {
   onMenuClick: () => void;
 }
 
-/**
- * Header component with navigation and user actions
- */
-export const Header: React.FC<HeaderProps> = ({ onMenuClick }) => {
+export const Header = ({ onMenuClick }: HeaderProps) => {
   const { user, logout } = useAuth();
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const { theme, setTheme } = useTheme();
 
   return (
-    <header className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-4 py-3 lg:px-6">
+    <header className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-4 py-3 lg:px-6 sticky top-0 z-50">
       <div className="flex items-center justify-between">
         {/* Left side */}
         <div className="flex items-center">
@@ -45,7 +42,9 @@ export const Header: React.FC<HeaderProps> = ({ onMenuClick }) => {
             <Sun className="h-5 w-5" />
             <Switch
               checked={theme === 'dark'}
-              onCheckedChange={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+              onCheckedChange={() =>
+                setTheme(theme === 'dark' ? 'light' : 'dark')
+              }
             />
             <Moon className="h-5 w-5" />
           </div>
@@ -95,7 +94,9 @@ export const Header: React.FC<HeaderProps> = ({ onMenuClick }) => {
                     <p className="text-sm font-medium text-gray-900 dark:text-gray-100">
                       {user?.name}
                     </p>
-                    <p className="text-xs text-gray-500 dark:text-gray-400">{user?.email}</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">
+                      {user?.email}
+                    </p>
                   </div>
 
                   <button className="w-full px-4 py-2 text-left text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center">

@@ -1,10 +1,9 @@
-import React from 'react';
 import { Card } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { Input } from '@/components/ui/input';
 
-const ExecutionSettings: React.FC = () => {
+const ExecutionSettings = () => {
   return (
     <Card className="p-4">
       <h3 className="text-sm font-medium mb-4">Execution Settings</h3>

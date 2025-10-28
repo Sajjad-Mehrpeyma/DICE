@@ -1,4 +1,3 @@
-import React from 'react';
 import { Button } from '@/components/ui/button';
 import { X } from 'lucide-react';
 import ChatPane from '@/components/AiCopilot/ChatPane';
@@ -9,7 +8,7 @@ interface CopilotDrawerProps {
   context: any;
 }
 
-const CopilotDrawer: React.FC<CopilotDrawerProps> = ({ isOpen, onClose, context }) => {
+const CopilotDrawer = ({ isOpen, onClose, context }: CopilotDrawerProps) => {
   if (!isOpen) {
     return null;
   }

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -28,7 +27,10 @@ export const DecisionStudio: React.FC = () => {
         <CardContent className="space-y-4">
           <div>
             <Label htmlFor="title">Title of decision</Label>
-            <Input id="title" placeholder="e.g., Move 30% budget FB -> Google" />
+            <Input
+              id="title"
+              placeholder="e.g., Move 30% budget FB -> Google"
+            />
           </div>
           <div>
             <Label htmlFor="type">Type</Label>
@@ -37,7 +39,9 @@ export const DecisionStudio: React.FC = () => {
                 <SelectValue placeholder="Select decision type" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="ad_realloc">Ad Budget Reallocation</SelectItem>
+                <SelectItem value="ad_realloc">
+                  Ad Budget Reallocation
+                </SelectItem>
                 <SelectItem value="pause_campaign">Pause Campaign</SelectItem>
                 <SelectItem value="price_change">Price Change</SelectItem>
               </SelectContent>

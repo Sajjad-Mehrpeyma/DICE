@@ -1,4 +1,3 @@
-import React from 'react';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 
@@ -8,7 +7,7 @@ interface BriefCardProps {
   summary: string;
 }
 
-const BriefCard: React.FC<BriefCardProps> = ({ title, date, summary }) => {
+const BriefCard = ({ title, date, summary }) => {
   return (
     <Card>
       <CardHeader>

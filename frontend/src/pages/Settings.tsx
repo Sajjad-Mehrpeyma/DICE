@@ -1,12 +1,6 @@
-import React from 'react';
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from '@/components/ui/tabs';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
-export const Settings: React.FC = () => {
+export const Settings = () => {
   return (
     <div className="space-y-6">
       <div>
@@ -19,7 +13,6 @@ export const Settings: React.FC = () => {
         <TabsList>
           <TabsTrigger value="account">Account</TabsTrigger>
           <TabsTrigger value="integrations">Integrations</TabsTrigger>
-          <TabsTrigger value="audit">Audit Log</TabsTrigger>
           <TabsTrigger value="pilot">Pilot</TabsTrigger>
         </TabsList>
         <TabsContent value="account">
@@ -27,9 +20,6 @@ export const Settings: React.FC = () => {
         </TabsContent>
         <TabsContent value="integrations">
           <p>Integrations settings content goes here.</p>
-        </TabsContent>
-        <TabsContent value="audit">
-          <p>Audit log content goes here.</p>
         </TabsContent>
         <TabsContent value="pilot">
           <p>Pilot settings content goes here.</p>

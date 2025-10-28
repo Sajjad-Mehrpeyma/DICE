@@ -1,4 +1,3 @@
-import React from 'react';
 import clsx from 'clsx';
 
 interface ChatBubbleProps {
@@ -9,16 +8,13 @@ interface ChatBubbleProps {
   className?: string;
 }
 
-/**
- * Chat bubble component for displaying messages in the copilot chat
- */
-export const ChatBubble: React.FC<ChatBubbleProps> = ({
+export const ChatBubble = ({
   content,
   owner,
   timestamp,
   sources,
   className,
-}) => {
+}: ChatBubbleProps) => {
   const isUser = owner === 'user';
 
   return (

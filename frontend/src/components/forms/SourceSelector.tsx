@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { ChevronDown, Database, FileText, Link } from 'lucide-react';
 import clsx from 'clsx';
 
@@ -7,7 +7,7 @@ interface DataSourceOption {
   name: string;
   type: 'csv' | 'google_analytics' | 'api';
   description: string;
-  icon: React.ReactNode;
+  icon: ReactNode;
 }
 
 interface SourceSelectorProps {
@@ -18,10 +18,7 @@ interface SourceSelectorProps {
 /**
  * Component for selecting data source type
  */
-export const SourceSelector: React.FC<SourceSelectorProps> = ({
-  onSourceSelect,
-  className,
-}) => {
+export const SourceSelector = ({ onSourceSelect, className }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedSource, setSelectedSource] = useState<DataSourceOption | null>(
     null,

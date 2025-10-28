@@ -1,4 +1,3 @@
-import React from 'react';
 import { useForm, useFieldArray } from 'react-hook-form';
 import { Plus, Trash2 } from 'lucide-react';
 import clsx from 'clsx';
@@ -25,11 +24,7 @@ interface ScenarioFormProps {
 /**
  * Form component for creating and editing scenarios
  */
-export const ScenarioForm: React.FC<ScenarioFormProps> = ({
-  onSubmit,
-  isLoading = false,
-  className,
-}) => {
+export const ScenarioForm = ({ onSubmit, isLoading = false, className }) => {
   const {
     register,
     control,

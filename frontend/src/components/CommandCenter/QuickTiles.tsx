@@ -1,8 +1,7 @@
-import React from 'react';
 import QuickTile from './QuickTile';
 import { quickTileData } from '@/data/quickTileData';
 
-const QuickTiles: React.FC = () => {
+const QuickTiles = () => {
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
       {quickTileData.map((tile, index) => (

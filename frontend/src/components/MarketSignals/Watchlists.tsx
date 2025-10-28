@@ -1,4 +1,3 @@
-import React from 'react';
 import { Card } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Switch } from '@/components/ui/switch';
@@ -16,7 +15,7 @@ const watchlistItems: WatchlistItem[] = [
   { sku: 'SKU-789', competitor: 'Competitor C', competitorPrice: '$99.99', delta: '0.00%' },
 ];
 
-const Watchlists: React.FC = () => {
+const Watchlists = () => {
   return (
     <Card className="p-4">
       <h3 className="text-sm font-medium mb-2">Watchlists</h3>

@@ -1,4 +1,3 @@
-import React from 'react';
 import clsx from 'clsx';
 
 interface LoaderProps {
@@ -7,14 +6,7 @@ interface LoaderProps {
   text?: string;
 }
 
-/**
- * Loading spinner component
- */
-export const Loader: React.FC<LoaderProps> = ({
-  size = 'md',
-  className,
-  text,
-}) => {
+export const Loader = ({ size = 'md', className, text }: LoaderProps) => {
   const sizeClasses = {
     sm: 'h-4 w-4',
     md: 'h-8 w-8',

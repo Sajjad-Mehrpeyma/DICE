@@ -11,14 +11,12 @@ import { Layout } from '@/components/Layout/Layout';
 import { ThemeProvider } from '@/context/ThemeContext';
 
 // Page imports
-import CommandCenter from '@/pages/CommandCenter';
+import Dashboard from '@/pages/Dashboard';
 import SetupDataHub from '@/pages/SetupDataHub';
 import AiCopilot from '@/pages/AiCopilot';
-import ScenarioOrchestrator from '@/pages/ScenarioOrchestrator';
-import MarketSignals from '@/pages/MarketSignals';
-import PulseAlerts from '@/pages/PulseAlerts';
+import Planning from '@/pages/Planning';
+import Signals from '@/pages/Signals';
 import InsightsBriefs from '@/pages/InsightsBriefs';
-import GovernanceAudit from '@/pages/GovernanceAudit';
 
 // Create a client
 const queryClient = new QueryClient({
@@ -41,15 +39,13 @@ const App: React.FC = () => {
           <Router>
             <Routes>
               <Route path="/" element={<Layout />}>
-                <Route index element={<Navigate to="/command-center" replace />} />
-                <Route path="command-center" element={<CommandCenter />} />
-                <Route path="setup-data-hub" element={<SetupDataHub />} />
-                <Route path="ai-copilot" element={<AiCopilot />} />
-                <Route path="scenario-orchestrator" element={<ScenarioOrchestrator />} />
-                <Route path="market-signals" element={<MarketSignals />} />
-                <Route path="pulse-alerts" element={<PulseAlerts />} />
-                <Route path="insights-briefs" element={<InsightsBriefs />} />
-                <Route path="governance-audit" element={<GovernanceAudit />} />
+                <Route index element={<Navigate to="/dashboard" replace />} />
+                <Route path="dashboard" element={<Dashboard />} />
+                <Route path="setup" element={<SetupDataHub />} />
+                <Route path="copilot" element={<AiCopilot />} />
+                <Route path="planning" element={<Planning />} />
+                <Route path="signals" element={<Signals />} />
+                <Route path="insights" element={<InsightsBriefs />} />
               </Route>
             </Routes>
           </Router>

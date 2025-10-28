@@ -1,4 +1,3 @@
-import React from 'react';
 import { NewsItem } from '@/data/mockNews';
 import { AskButton } from '../common/AskButton';
 
@@ -10,7 +9,7 @@ interface NewsCardProps {
 /**
  * NewsCard component displays a single news item with sentiment badge
  */
-export const NewsCard: React.FC<NewsCardProps> = ({ newsItem, onClick }) => {
+export const NewsCard = ({ newsItem, onClick }) => {
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return date.toLocaleDateString('en-US', {

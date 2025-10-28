@@ -1,13 +1,10 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import { Sidebar } from './Sidebar';
 import { Header } from './Header';
 import { Footer } from './Footer';
 
-/**
- * Main layout component that wraps all pages
- */
-export const Layout: React.FC = () => {
+export const Layout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const location = useLocation();
 
@@ -23,14 +20,12 @@ export const Layout: React.FC = () => {
   const getPageTitle = () => {
     const path = location.pathname;
     const titles: Record<string, string> = {
-      '/command-center': 'Command Center',
-      '/setup-data-hub': 'Setup & Data Hub',
-      '/ai-copilot': 'AI Copilot',
-      '/scenario-orchestrator': 'Scenario Orchestrator',
-      '/market-signals': 'Market Signals',
-      '/pulse-alerts': 'Pulse & Alerts',
-      '/insights-briefs': 'Insights & Briefs',
-      '/governance-audit': 'Governance & Audit',
+      '/dashboard': 'Dashboard',
+      '/setup': 'Setup & Data Hub',
+      '/copilot': 'AI Copilot',
+      '/planning': 'Future Planning',
+      '/signals': 'Signals & Alerts',
+      '/insights': 'Insights & Briefs',
     };
     return titles[path] || 'DICE';
   };

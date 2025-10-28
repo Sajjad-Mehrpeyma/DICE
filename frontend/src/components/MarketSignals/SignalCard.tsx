@@ -1,10 +1,16 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { MessageSquare } from 'lucide-react';
-import CopilotDrawer from '@/components/Copilot/CopilotDrawer';
+import CopilotDrawer from '@/components/copilot/CopilotDrawer';
 
 interface SignalCardProps {
   headline: string;
@@ -13,7 +19,12 @@ interface SignalCardProps {
   timestamp: string;
 }
 
-const SignalCard: React.FC<SignalCardProps> = ({ headline, relevance, source, timestamp }) => {
+const SignalCard = ({
+  headline,
+  relevance,
+  source,
+  timestamp,
+}: SignalCardProps) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -37,31 +48,38 @@ const SignalCard: React.FC<SignalCardProps> = ({ headline, relevance, source, ti
         <CardHeader>
           <CardTitle>{headline}</CardTitle>
         </CardHeader>
-      <CardContent>
-        <div className="flex items-center">
-          <Badge className={`${relevanceConfig[relevance]} text-white`}>{relevance}</Badge>
-          <div className="ml-4 text-sm text-muted-foreground">
-            {source} - {timestamp}
+        <CardContent>
+          <div className="flex items-center">
+            <Badge className={`${relevanceConfig[relevance]} text-white`}>
+              {relevance}
+            </Badge>
+            <div className="ml-4 text-sm text-muted-foreground">
+              {source} - {timestamp}
+            </div>
           </div>
-        </div>
-      </CardContent>
-      <CardFooter>
-        <Button variant="outline" size="sm" className="mr-2">
-          Dismiss
-        </Button>
-        <Button variant="default" size="sm" onClick={handleCreateScenario}>
-          Create Scenario
-        </Button>
-        <Button variant="ghost" size="icon" onClick={handleAskCopilot} className="ml-auto">
-          <MessageSquare className="h-4 w-4" />
-        </Button>
-      </CardFooter>
-    </Card>
-    <CopilotDrawer
-      isOpen={isDrawerOpen}
-      onClose={() => setIsDrawerOpen(false)}
-      context={{ signal: headline }}
-    />
+        </CardContent>
+        <CardFooter>
+          <Button variant="outline" size="sm" className="mr-2">
+            Dismiss
+          </Button>
+          <Button variant="default" size="sm" onClick={handleCreateScenario}>
+            Create Scenario
+          </Button>
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={handleAskCopilot}
+            className="ml-auto"
+          >
+            <MessageSquare className="h-4 w-4" />
+          </Button>
+        </CardFooter>
+      </Card>
+      <CopilotDrawer
+        isOpen={isDrawerOpen}
+        onClose={() => setIsDrawerOpen(false)}
+        context={{ signal: headline }}
+      />
     </>
   );
 };

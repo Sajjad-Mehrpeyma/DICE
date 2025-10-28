@@ -1,9 +1,15 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import CopilotDrawer from '@/components/Copilot/CopilotDrawer';
+import CopilotDrawer from '@/components/copilot/CopilotDrawer';
 
 interface AlertCardProps {
   title: string;
@@ -12,7 +18,12 @@ interface AlertCardProps {
   severity: 'High' | 'Medium' | 'Low';
 }
 
-const AlertCard: React.FC<AlertCardProps> = ({ title, description, status, severity }) => {
+const AlertCard = ({
+  title,
+  description,
+  status,
+  severity,
+}: AlertCardProps) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -42,30 +53,39 @@ const AlertCard: React.FC<AlertCardProps> = ({ title, description, status, sever
         <CardHeader>
           <CardTitle>{title}</CardTitle>
         </CardHeader>
-      <CardContent>
-        <p>{description}</p>
-        <div className="flex items-center mt-4">
-          <Badge className={`${severityConfig[severity]} text-white mr-2`}>{severity}</Badge>
-          <Badge className={`${statusConfig[status]} text-white`}>{status}</Badge>
-        </div>
-      </CardContent>
-      <CardFooter>
-        <Button variant="outline" size="sm" className="mr-2">
-          Details
-        </Button>
-        <Button variant="default" size="sm" onClick={handleCreateScenario} className="mr-2">
-          Create Scenario
-        </Button>
-        <Button variant="default" size="sm" onClick={handleAskCopilot}>
-          Ask Copilot
-        </Button>
-      </CardFooter>
-    </Card>
-    <CopilotDrawer
-      isOpen={isDrawerOpen}
-      onClose={() => setIsDrawerOpen(false)}
-      context={{ alert: title }}
-    />
+        <CardContent>
+          <p>{description}</p>
+          <div className="flex items-center mt-4">
+            <Badge className={`${severityConfig[severity]} text-white mr-2`}>
+              {severity}
+            </Badge>
+            <Badge className={`${statusConfig[status]} text-white`}>
+              {status}
+            </Badge>
+          </div>
+        </CardContent>
+        <CardFooter>
+          <Button variant="outline" size="sm" className="mr-2">
+            Details
+          </Button>
+          <Button
+            variant="default"
+            size="sm"
+            onClick={handleCreateScenario}
+            className="mr-2"
+          >
+            Create Scenario
+          </Button>
+          <Button variant="default" size="sm" onClick={handleAskCopilot}>
+            Ask Copilot
+          </Button>
+        </CardFooter>
+      </Card>
+      <CopilotDrawer
+        isOpen={isDrawerOpen}
+        onClose={() => setIsDrawerOpen(false)}
+        context={{ alert: title }}
+      />
     </>
   );
 };

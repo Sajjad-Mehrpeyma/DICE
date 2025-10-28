@@ -1,7 +1,6 @@
-import React from 'react';
 import SignalsFeed from '@/components/MarketSignals/SignalsFeed';
 
-const MarketSignals: React.FC = () => {
+const MarketSignals = () => {
   return (
     <div className="space-y-6">
       <h1 className="text-3xl font-bold">Market Signals</h1>

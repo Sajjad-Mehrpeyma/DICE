@@ -6,11 +6,12 @@ export const chatData = [
   },
   {
     sender: 'bot',
-    message: 'It looks like the ROAS for the "Summer Sale" campaign decreased by 30%. This was primarily driven by a 20% increase in ad spend and a 10% decrease in conversions.',
+    message:
+      'It looks like the ROAS for the "Summer Sale" campaign decreased by 30%. This was primarily driven by a 20% increase in ad spend and a 10% decrease in conversions.',
     timestamp: '10:31 AM',
     confidence: 0.95,
-    modelVersion: 'v1.4',
-    dataSources: ['Google Ads', 'Shopify (last 90d)'],
+    modelVersion: 'gpt-4',
+    dataSources: ['Google Ads', 'Google Analytics', 'Shopify'],
   },
   {
     sender: 'user',
@@ -19,7 +20,11 @@ export const chatData = [
   },
   {
     sender: 'bot',
-    message: 'I recommend pausing the underperforming ad sets and reallocating the budget to the top-performing ones. I can create a plan for you to review.',
+    message:
+      'I recommend pausing the underperforming ad sets and reallocating the budget to the top-performing ones. I can create a plan for you to review.',
     timestamp: '10:33 AM',
+    confidence: 0.92,
+    modelVersion: 'gpt-4',
+    dataSources: ['Facebook Ads', 'Google Ads', 'Jira'],
   },
 ];

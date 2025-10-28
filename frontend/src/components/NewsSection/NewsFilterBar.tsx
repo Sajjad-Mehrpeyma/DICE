@@ -1,9 +1,5 @@
-import React from 'react';
 import { NewsFilter } from '@/hooks/useNewsFilter';
 
-/**
- * Props interface for NewsFilterBar component
- */
 interface NewsFilterBarProps {
   /** Current filter state */
   filters: NewsFilter;
@@ -19,7 +15,7 @@ interface NewsFilterBarProps {
  * NewsFilterBar component provides filtering controls for news items
  * Includes date range, priority, sentiment, journal filters, and search
  */
-export const NewsFilterBar: React.FC<NewsFilterBarProps> = ({
+export const NewsFilterBar = ({
   filters,
   onFilterChange,
   journalOptions,

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Filter, Search } from 'lucide-react';
 import { NewsCard } from './NewsCard';
@@ -16,7 +16,7 @@ import { fakeSummarizeAPI } from '@/utils/fakeApis';
 /**
  * NewsSection component displays filtered news cards in a column layout with filtering and summarization
  */
-export const NewsSection: React.FC = () => {
+export const NewsSection = () => {
   const [selectedNews, setSelectedNews] = useState<NewsItem | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [filters, setFilters] = useState<NewsFilter>({

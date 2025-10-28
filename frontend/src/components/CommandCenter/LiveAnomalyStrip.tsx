@@ -1,4 +1,3 @@
-import React from 'react';
 import { Card } from '@/components/ui/card';
 import { AlertTriangle } from 'lucide-react';
 
@@ -14,7 +13,7 @@ const anomalies: Anomaly[] = [
   { id: '3', description: 'Inventory for SKU #12345 is running low', severity: 'Low' },
 ];
 
-const LiveAnomalyStrip: React.FC = () => {
+const LiveAnomalyStrip = () => {
   return (
     <Card className="p-4">
       <h3 className="text-sm font-medium mb-2 flex items-center">

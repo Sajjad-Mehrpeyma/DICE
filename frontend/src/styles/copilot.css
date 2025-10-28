@@ -1,0 +1,916 @@
+/* AI Copilot Page Styles - BEM Architecture */
+
+.copilot-page {
+  @apply min-h-screen bg-background space-y-6;
+}
+
+.copilot-page__header {
+  @apply space-y-2;
+}
+
+.copilot-page__title {
+  @apply text-3xl font-bold text-foreground;
+}
+
+.copilot-page__description {
+  @apply text-muted-foreground;
+}
+
+.copilot-page__container {
+  @apply grid grid-cols-1 lg:grid-cols-2 gap-6;
+}
+
+.copilot-page__chat {
+  @apply space-y-4;
+}
+
+.copilot-page__evidence {
+  @apply space-y-4;
+}
+
+/* Chat Pane Styles */
+.chat-pane {
+  @apply bg-card border border-border rounded-lg shadow-sm h-full flex flex-col;
+}
+
+.chat-pane__header {
+  @apply p-4 border-b border-border flex items-center justify-between;
+}
+
+.chat-pane__title {
+  @apply text-lg font-semibold text-foreground;
+}
+
+.chat-pane__status {
+  @apply flex items-center gap-2;
+}
+
+.chat-pane__status-indicator {
+  @apply w-2 h-2 bg-green-500 rounded-full;
+}
+
+.chat-pane__status-text {
+  @apply text-xs text-muted-foreground;
+}
+
+.chat-pane__messages {
+  @apply flex-1 overflow-y-auto p-4 space-y-4;
+  max-height: calc(100vh - 200px);
+  min-height: 400px;
+}
+
+.chat-pane__input {
+  @apply p-4 border-t border-border;
+}
+
+.chat-pane__input-container {
+  @apply flex gap-2;
+}
+
+.chat-pane__input-field {
+  @apply flex-1;
+}
+
+.chat-pane__send-button {
+  @apply px-4 py-2;
+}
+
+/* Chat Message Styles */
+.chat-message {
+  @apply flex gap-3 items-start;
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.chat-message--user {
+  @apply flex-row-reverse;
+}
+
+.chat-message--bot,
+.chat-message--assistant {
+  @apply flex-row;
+}
+
+.chat-message__avatar {
+  @apply w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0;
+  @apply shadow-sm border-2 border-background;
+}
+
+.chat-message__avatar--user {
+  @apply bg-gradient-to-br from-primary to-primary/80 text-primary-foreground;
+}
+
+.chat-message__avatar--bot,
+.chat-message__avatar--assistant {
+  @apply bg-gradient-to-br from-muted to-muted/60 text-foreground;
+}
+
+.chat-message__bubble {
+  @apply max-w-[85%] px-4 py-3 rounded-2xl shadow-sm;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.copilot-sidebar--embedded .chat-message__bubble {
+  @apply max-w-full;
+}
+
+.chat-message__bubble--user {
+  @apply bg-gradient-to-br from-primary to-primary/90 text-primary-foreground;
+  @apply rounded-tr-sm;
+}
+
+.chat-message__bubble--bot,
+.chat-message__bubble--assistant {
+  @apply bg-card border border-border text-foreground;
+  @apply rounded-tl-sm;
+}
+
+.chat-message__text {
+  @apply text-sm leading-relaxed;
+  @apply whitespace-pre-wrap;
+}
+
+/* Sources Container - Curved Box Design */
+.chat-message__sources-container {
+  @apply mt-3 pt-3 border-t border-border/50;
+}
+
+.chat-message__sources-box {
+  @apply relative inline-block;
+}
+
+.chat-message__sources-box-content {
+  @apply flex items-center gap-2 px-4 py-2.5 bg-muted/40 border border-border/60 rounded-full;
+  @apply cursor-default transition-all duration-200;
+  @apply hover:bg-muted/60 hover:border-border hover:shadow-sm;
+}
+
+.chat-message__source-icon-compact {
+  @apply text-base;
+}
+
+.chat-message__sources-count {
+  @apply text-xs font-medium text-foreground;
+}
+
+/* Sources Popup - Evidence Sources Style */
+.chat-message__sources-popup {
+  @apply absolute bottom-full hidden;
+  @apply min-w-[320px] max-w-[380px] p-4 bg-popover border border-border rounded-xl shadow-2xl;
+  animation: fadeInUp 0.2s ease-out;
+  /* Position popup higher above the sources button */
+  margin-bottom: 8px;
+  padding-bottom: 1rem;
+  /* Position from right with offset to shift more right */
+  right: -60px;
+  left: auto;
+  /* High z-index to appear above sidebar and other elements */
+  z-index: 9999;
+}
+
+/* Embedded sidebar - popup appears to the left */
+.copilot-sidebar--embedded .chat-message__sources-popup {
+  /* Fixed position is set via inline styles */
+  margin-bottom: 0;
+  padding-bottom: 1rem;
+  margin-right: 0;
+  animation: fadeInLeft 0.2s ease-out;
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Show popup on hover of either box or popup itself */
+.chat-message__sources-box:hover .chat-message__sources-popup,
+.chat-message__sources-popup:hover {
+  @apply block;
+}
+
+/* In embedded sidebar, show based on state (managed by React) */
+.copilot-sidebar--embedded .chat-message__sources-box:hover .chat-message__sources-popup {
+  display: none; /* Disable CSS hover, use React state instead */
+}
+
+/* In wider layouts, allow left positioning */
+@media (min-width: 1024px) {
+  .copilot-page .chat-message__sources-popup,
+  .chat-pane .chat-message__sources-popup {
+    left: 0;
+    right: auto;
+  }
+}
+
+/* Ensure popup fits within sidebar and can overflow */
+.copilot-sidebar--embedded .chat-message__sources-popup {
+  @apply max-w-[340px];
+  /* Fixed positioning set via inline styles in React */
+}
+
+/* Container needs to trigger position calculation */
+.copilot-sidebar--embedded .chat-message__sources-box {
+  position: relative;
+}
+
+.chat-message__sources-popup-header {
+  @apply text-sm font-bold text-foreground mb-4 pb-3 border-b border-border;
+}
+
+.chat-message__sources-popup-list {
+  @apply space-y-4;
+  max-height: 400px;
+  overflow-y: auto;
+  
+  /* Scrollbar styling */
+  scrollbar-width: thin;
+  scrollbar-color: hsl(var(--border)) transparent;
+}
+
+.chat-message__sources-popup-list::-webkit-scrollbar {
+  width: 4px;
+}
+
+.chat-message__sources-popup-list::-webkit-scrollbar-thumb {
+  background: hsl(var(--border));
+  border-radius: 2px;
+}
+
+.chat-message__sources-popup-item {
+  @apply p-3 rounded-lg border border-border/50 bg-card/50;
+  @apply transition-all duration-200;
+  @apply space-y-2.5;
+}
+
+.chat-message__sources-popup-item--clickable {
+  @apply cursor-pointer;
+  @apply hover:border-primary/50 hover:bg-primary/5 hover:shadow-md;
+  @apply active:scale-[0.98];
+}
+
+.chat-message__sources-popup-item--clickable::after {
+  content: '→';
+  @apply absolute top-3 right-3 text-muted-foreground opacity-0;
+  @apply transition-opacity duration-200;
+  font-size: 16px;
+}
+
+.chat-message__sources-popup-item--clickable {
+  @apply relative;
+}
+
+.chat-message__sources-popup-item--clickable:hover::after {
+  @apply opacity-100;
+}
+
+.chat-message__sources-popup-item-header {
+  @apply flex items-start justify-between gap-3;
+}
+
+.chat-message__sources-popup-item-title {
+  @apply text-sm font-semibold text-foreground leading-snug flex-1;
+}
+
+.chat-message__sources-popup-item-relevance {
+  @apply px-2 py-0.5 text-xs font-medium rounded-full flex-shrink-0;
+}
+
+.chat-message__sources-popup-item-relevance--high {
+  @apply bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400;
+}
+
+.chat-message__sources-popup-item-relevance--medium {
+  @apply bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400;
+}
+
+.chat-message__sources-popup-item-relevance--low {
+  @apply bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400;
+}
+
+.chat-message__sources-popup-item-desc {
+  @apply text-xs text-muted-foreground leading-relaxed;
+}
+
+.chat-message__sources-popup-item-footer {
+  @apply flex items-center justify-between pt-2 border-t border-border/30;
+}
+
+.chat-message__sources-popup-item-source {
+  @apply text-xs font-medium text-foreground flex items-center gap-1;
+}
+
+.chat-message__sources-popup-item-date {
+  @apply text-xs text-muted-foreground;
+}
+
+/* Arrow for popup - positioned correctly with bridge */
+.chat-message__sources-popup::after {
+  content: '';
+  @apply absolute w-0 h-0;
+  bottom: 8px;
+  right: 20px;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 8px solid hsl(var(--border));
+}
+
+.chat-message__sources-popup::before {
+  content: '';
+  @apply absolute w-0 h-0;
+  bottom: 8px;
+  right: 20px;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 8px solid hsl(var(--popover));
+  margin-bottom: 1px;
+  z-index: 1;
+}
+
+/* Adjust arrow position for wider layouts */
+@media (min-width: 1024px) {
+  .copilot-page .chat-message__sources-popup::after,
+  .copilot-page .chat-message__sources-popup::before,
+  .chat-pane .chat-message__sources-popup::after,
+  .chat-pane .chat-message__sources-popup::before {
+    left: 20px;
+    right: auto;
+  }
+}
+
+/* Arrow position for embedded sidebar - points to the right */
+.copilot-sidebar--embedded .chat-message__sources-popup::after {
+  content: '';
+  @apply absolute w-0 h-0;
+  top: 16px;
+  left: calc(100% - 1px);
+  bottom: auto;
+  right: auto;
+  border-left: 8px solid hsl(var(--border));
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-right: none;
+}
+
+.copilot-sidebar--embedded .chat-message__sources-popup::before {
+  content: '';
+  @apply absolute w-0 h-0;
+  top: 16px;
+  left: calc(100% - 2px);
+  bottom: auto;
+  right: auto;
+  border-left: 8px solid hsl(var(--popover));
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-right: none;
+  z-index: 1;
+}
+
+/* Streamed Text Section */
+.chat-message__streamed-section {
+  @apply mt-4 pt-3 border-t border-border/30;
+}
+
+.chat-message__streamed-text {
+  @apply text-sm text-foreground leading-relaxed;
+  @apply whitespace-pre-wrap;
+}
+
+.chat-message__cursor {
+  @apply inline-block text-primary;
+  animation: blink 1s step-end infinite;
+  margin-left: 1px;
+}
+
+@keyframes blink {
+  0%, 50% {
+    opacity: 1;
+  }
+  51%, 100% {
+    opacity: 0;
+  }
+}
+
+.chat-message__evidence {
+  @apply mt-2;
+}
+
+.chat-message__evidence-button {
+  @apply text-xs flex items-center;
+}
+
+.chat-message__evidence-dropdown {
+  @apply mt-1 p-2 bg-background border border-border rounded text-xs space-y-1;
+}
+
+.chat-message__evidence-item {
+  @apply text-xs;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Source Detail Modal */
+.chat-message__source-modal-backdrop {
+  @apply fixed inset-0 bg-black/50 backdrop-blur-sm;
+  animation: fadeIn 0.2s ease-out;
+  z-index: 10000;
+}
+
+.chat-message__source-modal {
+  @apply fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2;
+  @apply w-full max-w-2xl max-h-[90vh] bg-card border border-border rounded-xl shadow-2xl;
+  @apply flex flex-col;
+  animation: modalSlideIn 0.3s ease-out;
+  z-index: 10001;
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -48%) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+.chat-message__source-modal-header {
+  @apply flex items-center justify-between p-6 border-b border-border;
+  @apply flex-shrink-0;
+}
+
+.chat-message__source-modal-title {
+  @apply text-xl font-bold text-foreground flex items-center gap-3;
+}
+
+.chat-message__source-modal-icon {
+  @apply text-2xl;
+}
+
+.chat-message__source-modal-close {
+  @apply p-2;
+}
+
+.chat-message__source-modal-content {
+  @apply flex-1 overflow-y-auto p-6 space-y-6;
+  scrollbar-width: thin;
+  scrollbar-color: hsl(var(--border)) transparent;
+}
+
+.chat-message__source-modal-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.chat-message__source-modal-content::-webkit-scrollbar-thumb {
+  background: hsl(var(--border));
+  border-radius: 3px;
+}
+
+.chat-message__source-modal-meta {
+  @apply flex items-center gap-3 pb-4 border-b border-border/50;
+}
+
+.chat-message__source-modal-date {
+  @apply text-sm text-muted-foreground;
+}
+
+.chat-message__source-modal-section {
+  @apply space-y-3;
+}
+
+.chat-message__source-modal-section-title {
+  @apply text-sm font-semibold text-muted-foreground uppercase tracking-wide;
+}
+
+.chat-message__source-modal-source {
+  @apply text-base font-medium text-foreground flex items-center gap-2;
+}
+
+.chat-message__source-modal-description {
+  @apply text-sm text-foreground leading-relaxed;
+}
+
+.chat-message__source-modal-details {
+  @apply text-sm text-muted-foreground leading-relaxed space-y-4;
+}
+
+.chat-message__source-modal-list {
+  @apply list-disc list-inside space-y-2 ml-2;
+}
+
+.chat-message__source-modal-list li {
+  @apply text-sm text-muted-foreground;
+}
+
+.chat-message__source-modal-footer {
+  @apply flex items-center justify-end gap-3 p-6 border-t border-border;
+  @apply flex-shrink-0;
+}
+
+.chat-message__badges {
+  @apply flex gap-2 mt-2;
+}
+
+.chat-message__badge {
+  @apply px-2 py-1 rounded-full text-xs font-medium;
+}
+
+.chat-message__badge--cost {
+  @apply bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200;
+}
+
+.chat-message__badge--impact {
+  @apply bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200;
+}
+
+.chat-message__badge--confidence {
+  @apply bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200;
+}
+
+.chat-message__meta {
+  @apply text-xs mt-2.5 opacity-70 flex items-center gap-1.5;
+}
+
+.chat-message__meta--user {
+  @apply justify-end;
+}
+
+.chat-message__meta--bot,
+.chat-message__meta--assistant {
+  @apply justify-start;
+}
+
+.chat-message__loading {
+  @apply flex items-center gap-3 text-sm;
+  @apply px-2 py-1;
+}
+
+.chat-message__spinner {
+  @apply w-4 h-4 border-2 border-primary/60 border-t-transparent rounded-full animate-spin;
+}
+
+/* Enhanced loading animation */
+@keyframes pulse-soft {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.chat-message__loading span {
+  animation: pulse-soft 2s ease-in-out infinite;
+}
+
+/* Legacy Copilot Chat Component Styles - BEM Architecture */
+
+.copilot-chat {
+  @apply flex flex-col h-full bg-background;
+}
+
+.copilot-chat__header {
+  @apply p-4 border-b border-border bg-card;
+}
+
+.copilot-chat__title {
+  @apply text-lg font-semibold text-foreground;
+}
+
+.copilot-chat__content {
+  @apply flex-1 overflow-y-auto p-4 space-y-4;
+}
+
+.copilot-chat__message {
+  @apply flex gap-3;
+}
+
+.copilot-chat__message--user {
+  @apply flex-row-reverse;
+}
+
+.copilot-chat__message--bot {
+  @apply flex-row;
+}
+
+.copilot-chat__avatar {
+  @apply w-8 h-8 rounded-full flex-shrink-0;
+}
+
+.copilot-chat__avatar--user {
+  @apply bg-primary text-primary-foreground flex items-center justify-center;
+}
+
+.copilot-chat__avatar--bot {
+  @apply bg-muted text-muted-foreground flex items-center justify-center;
+}
+
+.copilot-chat__bubble {
+  @apply max-w-[80%] rounded-2xl px-4 py-3 shadow-sm;
+}
+
+.copilot-chat__bubble--user {
+  @apply bg-primary text-primary-foreground;
+}
+
+.copilot-chat__bubble--bot {
+  @apply bg-card border border-border text-foreground;
+}
+
+.copilot-chat__message-text {
+  @apply text-sm leading-relaxed;
+}
+
+.copilot-chat__message-meta {
+  @apply flex items-center gap-2 mt-2 text-xs;
+}
+
+.copilot-chat__message-meta--user {
+  @apply justify-end text-primary-foreground/70;
+}
+
+.copilot-chat__message-meta--bot {
+  @apply text-muted-foreground;
+}
+
+.copilot-chat__sources {
+  @apply flex gap-1 mt-2;
+}
+
+.copilot-chat__source-icon {
+  @apply w-4 h-4 p-1 bg-muted rounded text-muted-foreground;
+  @apply hover:bg-primary/10 hover:text-primary transition-colors duration-200;
+  @apply cursor-default;
+}
+
+.copilot-chat__evidence {
+  @apply mt-2;
+}
+
+.copilot-chat__evidence-button {
+  @apply text-xs text-primary hover:text-primary/80 underline;
+  @apply focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2;
+}
+
+.copilot-chat__evidence-dropdown {
+  @apply mt-2 p-3 bg-muted/50 border border-border rounded-lg;
+}
+
+.copilot-chat__evidence-item {
+  @apply text-xs text-muted-foreground mb-1;
+}
+
+.copilot-chat__evidence-item:last-child {
+  @apply mb-0;
+}
+
+.copilot-chat__badges {
+  @apply flex gap-2 mt-2;
+}
+
+.copilot-chat__badge {
+  @apply px-2 py-1 text-xs font-medium rounded-full;
+}
+
+.copilot-chat__badge--cost {
+  @apply bg-blue-100 text-blue-800 dark:bg-blue-900/20 dark:text-blue-400;
+}
+
+.copilot-chat__badge--impact {
+  @apply bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400;
+}
+
+.copilot-chat__badge--confidence {
+  @apply bg-purple-100 text-purple-800 dark:bg-purple-900/20 dark:text-purple-400;
+}
+
+.copilot-chat__tasks {
+  @apply mt-4 p-4 bg-gradient-to-br from-muted/30 to-muted/10 border border-border rounded-xl;
+  @apply shadow-sm;
+}
+
+.copilot-chat__tasks-title {
+  @apply text-xs font-bold text-muted-foreground uppercase tracking-wider mb-3;
+  @apply flex items-center gap-2;
+}
+
+.copilot-chat__tasks-title::before {
+  content: '📋';
+  @apply text-sm;
+}
+
+.copilot-chat__task-list {
+  @apply space-y-2;
+}
+
+.copilot-chat__task-item {
+  @apply flex items-start gap-2.5 py-2 px-2.5 rounded-lg;
+  @apply transition-all duration-200;
+  @apply hover:bg-background/50;
+}
+
+.copilot-chat__task-checkbox {
+  @apply w-4 h-4 rounded border-2 border-primary text-primary;
+  @apply focus:ring-2 focus:ring-primary focus:ring-offset-2;
+}
+
+.copilot-chat__task-checkbox:checked {
+  @apply bg-primary border-primary;
+}
+
+.copilot-chat__task-text {
+  @apply text-sm text-foreground flex-1 leading-relaxed;
+  @apply transition-all duration-300;
+}
+
+.copilot-chat__task-text--completed {
+  @apply line-through text-muted-foreground opacity-50;
+}
+
+.copilot-chat__task-status {
+  @apply text-xs text-muted-foreground;
+}
+
+.copilot-chat__input {
+  @apply p-4 border-t border-border bg-card;
+}
+
+.copilot-chat__input-container {
+  @apply flex gap-2;
+}
+
+.copilot-chat__input-field {
+  @apply flex-1 px-4 py-2 border border-input rounded-lg bg-background text-foreground;
+  @apply focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent;
+  @apply resize-none;
+}
+
+.copilot-chat__send-button {
+  @apply px-4 py-2 bg-primary text-primary-foreground rounded-lg font-medium;
+  @apply hover:bg-primary/90 transition-colors duration-200;
+  @apply focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2;
+  @apply disabled:opacity-50 disabled:cursor-not-allowed;
+}
+
+.copilot-chat__loading {
+  @apply flex items-center justify-center p-4;
+}
+
+.copilot-chat__spinner {
+  @apply w-6 h-6 border-2 border-primary border-t-transparent rounded-full animate-spin;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .copilot-chat__bubble {
+    @apply max-w-[90%];
+  }
+  
+  .copilot-chat__sources {
+    @apply flex-wrap;
+  }
+  
+  .copilot-chat__badges {
+    @apply flex-wrap;
+  }
+}
+
+/* Evidence Panel Styles */
+.evidence-panel {
+  @apply h-full;
+}
+
+.evidence-list {
+  @apply space-y-3;
+}
+
+.evidence-item {
+  @apply p-4 border border-border rounded-lg cursor-pointer transition-all duration-200;
+  @apply hover:border-primary/30 hover:shadow-sm hover:bg-muted/30;
+}
+
+.evidence-item__header {
+  @apply flex items-center justify-between mb-2;
+}
+
+.evidence-item__title {
+  @apply text-sm font-semibold text-foreground;
+}
+
+.evidence-item__relevance {
+  @apply px-2 py-1 text-xs font-medium rounded-full;
+}
+
+.evidence-item__description {
+  @apply text-sm text-muted-foreground mb-3 line-clamp-2;
+}
+
+.evidence-item__meta {
+  @apply flex items-center justify-between text-xs text-muted-foreground;
+}
+
+.evidence-item__source {
+  @apply font-medium;
+}
+
+.evidence-detail {
+  @apply space-y-4;
+}
+
+.evidence-detail__header {
+  @apply flex items-center justify-between mb-4;
+}
+
+.evidence-detail__back-btn {
+  @apply flex items-center gap-2 text-sm text-primary hover:text-primary/80;
+  @apply transition-colors duration-200;
+}
+
+.evidence-detail__meta {
+  @apply flex items-center gap-4 text-xs text-muted-foreground;
+}
+
+.evidence-detail__title {
+  @apply text-lg font-semibold text-foreground mb-4;
+}
+
+.evidence-detail__content {
+  @apply text-sm text-muted-foreground leading-relaxed;
+}
+
+.evidence-detail__actions {
+  @apply pt-4 border-t border-border;
+}
+
+.evidence-detail__external-btn {
+  @apply flex items-center gap-2 text-sm text-primary hover:text-primary/80;
+  @apply transition-colors duration-200;
+}
+
+/* Evidence logos overlap */
+.evidence-logos-group {
+  @apply relative flex items-center;
+}
+.evidence-logo {
+  @apply w-6 h-6 rounded-full border-2 border-white dark:border-background;
+}
+.evidence-logo--overlap {
+  margin-left: -8px;
+}
+
+/* Dark mode specific adjustments */
+.dark .copilot-chat__bubble--bot {
+  @apply bg-card border-border;
+}
+
+.dark .copilot-chat__tasks {
+  @apply bg-muted/20 border-border;
+}
+
+.dark .copilot-chat__evidence-dropdown {
+  @apply bg-muted/30 border-border;
+}
+
+.dark .evidence-item {
+  @apply bg-card border-border;
+}
+
+.dark .evidence-item:hover {
+  @apply border-primary/30 bg-muted/20;
+}

@@ -1,8 +1,7 @@
-import React from 'react';
 import AnomalyCard from './AnomalyCard';
 import { anomalyData } from '@/data/anomalyData';
 
-const AnomalyStrip: React.FC = () => {
+const AnomalyStrip = () => {
   return (
     <div className="space-y-4">
       {anomalyData.map((anomaly) => (

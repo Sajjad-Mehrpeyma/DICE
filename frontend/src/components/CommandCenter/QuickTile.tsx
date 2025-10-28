@@ -1,4 +1,3 @@
-import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 interface QuickTileProps {
@@ -8,7 +7,7 @@ interface QuickTileProps {
   description?: string;
 }
 
-const QuickTile: React.FC<QuickTileProps> = ({ title, data, value, description }) => {
+const QuickTile = ({ title, data, value, description }) => {
   return (
     <Card>
       <CardHeader>

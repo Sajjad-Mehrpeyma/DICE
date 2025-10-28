@@ -1,4 +1,3 @@
-import React from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { PlusCircle } from 'lucide-react';
@@ -16,7 +15,7 @@ const events: Event[] = [
   { id: '3', name: 'Competitor X Sale', type: 'Competitor Action', date: '2025-11-24' },
 ];
 
-const EventsRegistry: React.FC = () => {
+const EventsRegistry = () => {
   return (
     <Card className="p-4">
       <div className="flex justify-between items-center mb-2">

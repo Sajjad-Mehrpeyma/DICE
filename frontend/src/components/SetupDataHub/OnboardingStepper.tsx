@@ -1,6 +1,5 @@
-import React from 'react';
 
-const OnboardingStepper: React.FC = () => {
+const OnboardingStepper = () => {
   const steps = ['Connect', 'Map', 'Validate', 'Assign Roles', 'Templates'];
   const [currentStep] = React.useState(0);
 

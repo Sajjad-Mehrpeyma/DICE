@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   Table,
   TableBody,
@@ -41,7 +40,7 @@ export const ActionTracker: React.FC = () => {
                     action.status === 'pending'
                       ? 'bg-yellow-500'
                       : 'bg-blue-500',
-                    'text-white'
+                    'text-white',
                   )}
                 >
                   {action.status}

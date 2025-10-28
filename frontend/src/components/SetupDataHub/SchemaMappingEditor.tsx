@@ -1,7 +1,6 @@
-import React from 'react';
 import { Card } from '@/components/ui/card';
 
-const SchemaMappingEditor: React.FC = () => {
+const SchemaMappingEditor = () => {
   return (
     <Card className="p-4">
       <h3 className="text-sm font-medium mb-2">Schema & Mapping Editor</h3>

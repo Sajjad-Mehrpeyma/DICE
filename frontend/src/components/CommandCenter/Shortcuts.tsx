@@ -1,8 +1,7 @@
-import React from 'react';
 import { Button } from '@/components/ui/button';
 import { PauseCircle, PlusCircle, MessageSquare } from 'lucide-react';
 
-const Shortcuts: React.FC = () => {
+const Shortcuts = () => {
   return (
     <div className="flex space-x-2">
       <Button variant="outline" size="sm">

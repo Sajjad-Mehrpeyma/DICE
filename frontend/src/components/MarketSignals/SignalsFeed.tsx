@@ -1,11 +1,10 @@
-import React from 'react';
 import SignalCard from './SignalCard';
 import { signalData } from '@/data/signalData';
 
-const SignalsFeed: React.FC = () => {
+const SignalsFeed = () => {
   return (
     <div className="space-y-4">
-      {signalData.map((signal) => (
+      {signalData.map(signal => (
         <SignalCard
           key={signal.id}
           headline={signal.headline}

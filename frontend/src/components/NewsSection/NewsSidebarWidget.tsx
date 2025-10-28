@@ -1,12 +1,8 @@
-import React from 'react';
 import { mockNews } from '@/data/mockNews';
 import { ChevronRight, ExternalLink } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
-/**
- * Compact news widget for sidebar display
- */
-export const NewsSidebarWidget: React.FC = () => {
+export const NewsSidebarWidget = () => {
   // Show only the first 3 news items
   const recentNews = mockNews.slice(0, 3);
 

@@ -1,11 +1,10 @@
-import React from 'react';
 import { Card } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Slider } from '@/components/ui/slider';
 import { Checkbox } from '@/components/ui/checkbox';
 
-const CreateScenarioCanvas: React.FC = () => {
+const CreateScenarioCanvas = () => {
   return (
     <Card className="p-4">
       <h3 className="text-sm font-medium mb-4">Create Scenario</h3>

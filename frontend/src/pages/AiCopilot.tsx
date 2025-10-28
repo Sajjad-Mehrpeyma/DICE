@@ -1,21 +1,24 @@
-import React from 'react';
+import { useState } from 'react';
 import ChatPane from '@/components/AiCopilot/ChatPane';
 import EvidencePanel from '@/components/AiCopilot/EvidencePanel';
-import TasksPanel from '@/components/AiCopilot/TasksPanel';
 
-const AiCopilot: React.FC = () => {
+const AiCopilot = () => {
+  const [evidenceItems, setEvidenceItems] = useState<any[]>([]);
   return (
-    <div className="h-full flex flex-col">
-      <h1 className="text-3xl font-bold mb-4">AI Copilot</h1>
-      <div className="grid grid-cols-3 gap-4 flex-1">
-        <div className="col-span-1">
-          <ChatPane />
+    <div className="copilot-page">
+      <div className="copilot-page__header">
+        <h1 className="copilot-page__title">AI Copilot</h1>
+        <p className="copilot-page__description">
+          Get AI-powered insights and assistance for your business decisions.
+        </p>
+      </div>
+
+      <div className="copilot-page__container">
+        <div className="copilot-page__evidence">
+          <EvidencePanel items={evidenceItems} />
         </div>
-        <div className="col-span-1">
-          <EvidencePanel />
-        </div>
-        <div className="col-span-1">
-          <TasksPanel />
+        <div className="copilot-page__chat">
+          <ChatPane onEvidenceUpdate={setEvidenceItems} />
         </div>
       </div>
     </div>

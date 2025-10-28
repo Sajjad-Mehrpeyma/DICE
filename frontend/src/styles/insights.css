@@ -1,0 +1,193 @@
+/* Insights & Briefs Page Styles - BEM Architecture */
+
+.insights-page {
+  @apply min-h-screen bg-background space-y-6;
+}
+
+.insights-page__header {
+  @apply space-y-2;
+}
+
+.insights-page__title {
+  @apply text-3xl font-bold text-foreground;
+}
+
+.insights-page__description {
+  @apply text-muted-foreground;
+}
+
+.insights-page__template-list {
+  @apply space-y-4;
+}
+
+/* Template Card Styles */
+.template-card {
+  @apply card p-6 hover:shadow-md transition-all duration-300;
+  @apply hover:border-primary/20 hover:scale-[1.01];
+}
+
+.template-card__header {
+  @apply flex items-start justify-between gap-4;
+}
+
+.template-card__info {
+  @apply flex-1 min-w-0;
+}
+
+.template-card__name {
+  @apply text-lg font-semibold text-foreground mb-2;
+}
+
+.template-card__description {
+  @apply text-sm text-muted-foreground mb-3;
+}
+
+.template-card__meta {
+  @apply flex flex-wrap gap-3;
+}
+
+.template-card__meta-item {
+  @apply flex items-center gap-1;
+}
+
+.template-card__actions {
+  @apply flex flex-col gap-2;
+}
+
+.template-card__tags {
+  @apply flex flex-wrap gap-1 mt-3;
+}
+
+.template-card__tag {
+  @apply flex items-center gap-1 px-2 py-1 text-xs bg-muted text-muted-foreground rounded;
+}
+
+/* Template Drawer Styles */
+.template-drawer {
+  @apply fixed inset-0 z-50 flex items-center justify-end;
+}
+
+.template-drawer__backdrop {
+  @apply absolute inset-0 bg-black/50 backdrop-blur-sm;
+}
+
+.template-drawer__content {
+  @apply relative w-full max-w-4xl h-full bg-background shadow-xl;
+  @apply transform transition-transform duration-300 ease-in-out;
+}
+
+.template-drawer__content--open {
+  @apply translate-x-0;
+}
+
+.template-drawer__content--closed {
+  @apply translate-x-full;
+}
+
+.template-drawer__header {
+  @apply flex items-center justify-between p-6 border-b border-border;
+}
+
+.template-drawer__title {
+  @apply text-xl font-semibold text-foreground;
+}
+
+.template-drawer__close {
+  @apply p-2;
+}
+
+.template-drawer__body {
+  @apply flex-1 overflow-y-auto p-6 space-y-6;
+}
+
+.template-drawer__preview {
+  @apply space-y-4;
+}
+
+.template-drawer__preview-title {
+  @apply text-lg font-medium text-foreground;
+}
+
+.template-drawer__preview-content {
+  @apply space-y-4;
+}
+
+.template-drawer__form {
+  @apply space-y-4;
+}
+
+.template-drawer__form-title {
+  @apply text-lg font-medium text-foreground;
+}
+
+.template-drawer__form-group {
+  @apply space-y-2;
+}
+
+.template-drawer__form-label {
+  @apply block text-sm font-medium text-foreground;
+}
+
+.template-drawer__form-input {
+  @apply w-full;
+}
+
+.template-drawer__form-textarea {
+  @apply w-full resize-none;
+}
+
+.template-drawer__form-select {
+  @apply w-full;
+}
+
+.template-drawer__add-section {
+  @apply border-2 border-dashed border-primary/30 text-primary hover:border-primary/50 hover:bg-primary/5;
+}
+
+.template-drawer__generate-section {
+  @apply p-4 bg-muted/50 border border-border rounded-lg space-y-3;
+}
+
+.template-drawer__generate-title {
+  @apply text-lg font-medium text-foreground;
+}
+
+.template-drawer__generate-description {
+  @apply text-sm text-muted-foreground;
+}
+
+.template-drawer__generate-button {
+  @apply w-full;
+}
+
+.template-drawer__actions {
+  @apply flex gap-3 p-6 border-t border-border bg-muted/20;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .template-drawer__content {
+    @apply max-w-full;
+  }
+  
+  .template-card__header {
+    @apply flex-col items-start;
+  }
+  
+  .template-card__actions {
+    @apply flex-row w-full;
+  }
+  
+  .template-drawer__actions {
+    @apply flex-col;
+  }
+}
+
+/* Dark mode specific adjustments */
+.dark .template-drawer__generate-section {
+  @apply bg-muted/30 border-border;
+}
+
+.dark .template-drawer__actions {
+  @apply bg-muted/30 border-border;
+}

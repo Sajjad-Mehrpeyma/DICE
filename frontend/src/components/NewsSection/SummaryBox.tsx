@@ -1,8 +1,3 @@
-import React from 'react';
-
-/**
- * Props interface for SummaryBox component
- */
 interface SummaryBoxProps {
   /** The summary text to display */
   summaryText: string;
@@ -14,10 +9,7 @@ interface SummaryBoxProps {
  * SummaryBox component displays a summary of filtered news items
  * Shows a loading spinner when loading is true, otherwise displays the summary text
  */
-export const SummaryBox: React.FC<SummaryBoxProps> = ({
-  summaryText,
-  loading,
-}) => {
+export const SummaryBox = ({ summaryText, loading }) => {
   if (loading) {
     return (
       <div

@@ -1,4 +1,3 @@
-import React from 'react';
 import { BarChart3 } from 'lucide-react';
 import clsx from 'clsx';
 
@@ -9,15 +8,12 @@ interface ChartPlaceholderProps {
   height?: string;
 }
 
-/**
- * Placeholder component for charts that will be implemented later
- */
-export const ChartPlaceholder: React.FC<ChartPlaceholderProps> = ({
+export const ChartPlaceholder = ({
   title = 'Chart Visualization',
   description = 'Interactive chart will be displayed here',
   className,
   height = 'h-64',
-}) => {
+}: ChartPlaceholderProps) => {
   return (
     <div className={clsx('card', className)}>
       <div
