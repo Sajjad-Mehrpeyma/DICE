@@ -17,6 +17,7 @@ import AiCopilot from '@/pages/AiCopilot';
 import Planning from '@/pages/Planning';
 import Signals from '@/pages/Signals';
 import InsightsBriefs from '@/pages/InsightsBriefs';
+import { Settings } from '@/pages/Settings';
 
 // Create a client
 const queryClient = new QueryClient({
@@ -46,6 +47,7 @@ const App: React.FC = () => {
                 <Route path="planning" element={<Planning />} />
                 <Route path="signals" element={<Signals />} />
                 <Route path="insights" element={<InsightsBriefs />} />
+                <Route path="settings" element={<Settings />} />
               </Route>
             </Routes>
           </Router>

@@ -1,0 +1,266 @@
+/* Settings Page Styles - BEM Architecture */
+
+.settings-page {
+  @apply min-h-screen bg-background space-y-6;
+}
+
+.settings-page__header {
+  @apply space-y-2 mb-8;
+}
+
+.settings-page__title {
+  @apply text-3xl font-bold text-foreground;
+}
+
+.settings-page__description {
+  @apply text-muted-foreground;
+}
+
+.settings-page__tabs {
+  @apply space-y-6;
+}
+
+.settings-page__tab-content {
+  @apply mt-6;
+}
+
+/* Tab Header */
+.settings__tab-header {
+  @apply flex items-start justify-between mb-8 pb-6 border-b border-border;
+}
+
+.settings__tab-title {
+  @apply text-2xl font-bold text-foreground;
+}
+
+.settings__tab-description {
+  @apply text-muted-foreground mt-1;
+}
+
+/* Section Styles */
+.settings__section-header {
+  @apply mb-6;
+}
+
+.settings__section-title {
+  @apply text-lg font-semibold text-foreground mb-2;
+}
+
+.settings__section-description {
+  @apply text-sm text-muted-foreground;
+}
+
+.settings__divider {
+  @apply border-t border-border my-8;
+}
+
+/* Business Goals Container */
+.settings__goals-container {
+  @apply mb-8;
+}
+
+.settings__goals-grid {
+  @apply grid grid-cols-1 lg:grid-cols-3 gap-6;
+}
+
+/* Goals Section */
+.settings__goals-section {
+  @apply card p-6 space-y-5;
+}
+
+.settings__goals-header {
+  @apply flex items-start gap-3 pb-4 border-b border-border;
+}
+
+.settings__goals-icon-wrapper {
+  @apply w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0;
+}
+
+.settings__goals-title {
+  @apply text-base font-semibold text-foreground;
+}
+
+.settings__goals-description {
+  @apply text-xs text-muted-foreground mt-0.5;
+}
+
+/* Goals Prompt Input */
+.settings__goals-prompt {
+  @apply space-y-3;
+}
+
+.settings__goals-prompt-input-wrapper {
+  @apply relative;
+}
+
+.settings__goals-prompt-input {
+  @apply w-full pl-10 pr-4 py-3 border border-border rounded-lg;
+  @apply bg-background text-foreground text-sm;
+  @apply focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary;
+  @apply resize-none;
+  @apply transition-colors duration-200;
+}
+
+.settings__goals-prompt-input:disabled {
+  @apply opacity-50 cursor-not-allowed;
+}
+
+/* Goals List */
+.settings__goals-list {
+  @apply space-y-3;
+}
+
+.settings__goal-item {
+  @apply flex items-start justify-between gap-3 p-4 bg-muted/30 rounded-lg;
+  @apply border border-border/50;
+  @apply hover:bg-muted/50 transition-colors duration-200;
+}
+
+.settings__goal-content {
+  @apply flex-1 space-y-1;
+}
+
+.settings__goal-text {
+  @apply text-sm text-foreground leading-relaxed;
+}
+
+.settings__goal-meta {
+  @apply text-xs text-muted-foreground;
+}
+
+.settings__goal-actions {
+  @apply flex items-center gap-2;
+}
+
+.settings__goal-action-btn {
+  @apply p-2 rounded-lg text-muted-foreground hover:text-foreground;
+  @apply hover:bg-background transition-colors duration-200;
+}
+
+.settings__goal-action-btn--danger {
+  @apply hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20;
+}
+
+/* Goal Edit */
+.settings__goal-edit {
+  @apply flex-1 space-y-3;
+}
+
+.settings__goal-edit-input {
+  @apply w-full p-3 border border-border rounded-lg;
+  @apply bg-background text-foreground text-sm;
+  @apply focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary;
+  @apply resize-none;
+}
+
+.settings__goal-edit-actions {
+  @apply flex items-center gap-2;
+}
+
+/* Goals Empty State */
+.settings__goals-empty {
+  @apply text-center py-8;
+}
+
+/* Alert Priority Section */
+.settings__priority-section {
+  @apply space-y-6;
+}
+
+.settings__priority-list {
+  @apply grid grid-cols-1 lg:grid-cols-2 gap-4;
+}
+
+.settings__priority-item {
+  @apply p-5 rounded-lg border;
+  @apply transition-all duration-200;
+}
+
+.settings__priority-header {
+  @apply flex items-start gap-3 mb-4;
+}
+
+.settings__priority-icon {
+  @apply flex-shrink-0;
+}
+
+.settings__priority-name {
+  @apply text-base font-semibold text-foreground mb-1;
+}
+
+.settings__priority-desc {
+  @apply text-xs text-muted-foreground;
+}
+
+.settings__priority-toggles {
+  @apply space-y-3 pl-11;
+}
+
+.settings__toggle-item {
+  @apply flex items-center justify-between py-2 px-3 bg-white/50 dark:bg-gray-900/30 rounded-lg;
+  @apply cursor-pointer hover:bg-white/80 dark:hover:bg-gray-900/50;
+  @apply transition-colors duration-200;
+}
+
+.settings__toggle-label {
+  @apply text-sm font-medium text-foreground;
+}
+
+.settings__toggle {
+  @apply w-11 h-6 bg-gray-200 dark:bg-gray-700 rounded-full;
+  @apply relative cursor-pointer appearance-none;
+  @apply transition-colors duration-200;
+  @apply checked:bg-primary;
+  @apply disabled:opacity-50 disabled:cursor-not-allowed;
+}
+
+.settings__toggle::after {
+  content: '';
+  @apply absolute top-1 left-1 w-4 h-4 bg-white rounded-full;
+  @apply transition-transform duration-200;
+  @apply shadow-sm;
+}
+
+.settings__toggle:checked::after {
+  @apply translate-x-5;
+}
+
+/* Save Footer */
+.settings__save-footer {
+  @apply flex justify-end pt-6 mt-8 border-t border-border;
+}
+
+/* Placeholder */
+.settings__placeholder {
+  @apply p-8 text-center bg-muted/30 rounded-lg border border-border;
+}
+
+/* Goals & Targets Tab */
+.settings__goals-targets-tab {
+  @apply space-y-8;
+}
+
+/* Mobile Responsive */
+@media (max-width: 1024px) {
+  .settings__goals-grid {
+    @apply grid-cols-1;
+  }
+
+  .settings__priority-list {
+    @apply grid-cols-1;
+  }
+}
+
+/* Dark mode adjustments */
+.dark .settings__goal-item {
+  @apply bg-card border-border;
+}
+
+.dark .settings__goal-item:hover {
+  @apply bg-muted/30;
+}
+
+.dark .settings__priority-item {
+  @apply bg-card/50;
+}
+

@@ -26,6 +26,7 @@ export const Layout = () => {
       '/planning': 'Future Planning',
       '/signals': 'Signals & Alerts',
       '/insights': 'Insights & Briefs',
+      '/settings': 'Settings',
     };
     return titles[path] || 'DICE';
   };

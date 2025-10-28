@@ -1,9 +1,12 @@
 import { useState, useMemo } from 'react';
-import { Search, Filter, AlertTriangle, TrendingUp, Clock } from 'lucide-react';
+import { Search, ChevronDown } from 'lucide-react';
 import { signalData, Signal } from '@/data/signalData';
 import { alertData, Alert } from '@/data/alertData';
 import SignalCard from '@/components/signals/SignalCard';
 import AlertCard from '@/components/signals/AlertCard';
+import SignalDetailOverlay from '@/components/signals/SignalDetailOverlay';
+import AlertDetailOverlay from '@/components/signals/AlertDetailOverlay';
+import CopilotChatPane from '@/components/dashboard/CopilotChatPane';
 
 type FilterType = 'all' | 'signals' | 'alerts';
 type PriorityFilter = 'all' | 'Critical' | 'High' | 'Medium' | 'Low';
@@ -30,7 +33,12 @@ const Signals = () => {
   const [sortBy, setSortBy] = useState<'timestamp' | 'priority' | 'relevance'>(
     'timestamp',
   );
-  const [prioritizeQuery, setPrioritizeQuery] = useState('');
+
+  // Detail view state
+  const [selectedSignal, setSelectedSignal] = useState<Signal | null>(null);
+  const [selectedAlert, setSelectedAlert] = useState<Alert | null>(null);
+  const [isCopilotOpen, setIsCopilotOpen] = useState(false);
+  const [copilotContext, setCopilotContext] = useState<string>('');
 
   const combinedItems = useMemo(() => {
     const signals = signalData.map(signal => ({
@@ -105,21 +113,88 @@ const Signals = () => {
     sortBy,
   ]);
 
-  const handlePrioritizeSignals = () => {
-    if (prioritizeQuery.trim()) {
-      console.log('prioritizeSignals', prioritizeQuery);
-      // In a real app, this would call an API
-      setPrioritizeQuery('');
+  const handleSignalClick = (signal: Signal) => {
+    setSelectedSignal(signal);
+    setSelectedAlert(null);
+    setIsCopilotOpen(true);
+    setCopilotContext(
+      `Analyze this market signal: ${signal.headline}. Impact: ${signal.impact}, Priority: ${signal.priority}`,
+    );
+  };
+
+  const handleAlertClick = (alert: Alert) => {
+    setSelectedAlert(alert);
+    setSelectedSignal(null);
+    setIsCopilotOpen(true);
+    setCopilotContext(
+      `Analyze this alert: ${alert.title}. Severity: ${alert.severity}, Status: ${alert.status}`,
+    );
+  };
+
+  const handleCloseDetail = () => {
+    setSelectedSignal(null);
+    setSelectedAlert(null);
+    setIsCopilotOpen(false);
+  };
+
+  const handleAcknowledgeSignal = () => {
+    if (selectedSignal) {
+      console.log('Acknowledge signal', selectedSignal.id);
+      // Update the signal's acknowledged status
+      setSelectedSignal({ ...selectedSignal, acknowledged: true });
     }
   };
 
-  const handleAcknowledge = (id: number, type: 'signal' | 'alert') => {
-    console.log('acknowledge', { id, type });
+  const handleAcknowledgeAlert = () => {
+    if (selectedAlert) {
+      console.log('Acknowledge alert', selectedAlert.id);
+      // Update the alert's acknowledged status
+      setSelectedAlert({ ...selectedAlert, acknowledged: true });
+    }
   };
 
-  const handleExpand = (id: number, type: 'signal' | 'alert') => {
-    console.log('expand', { id, type });
+  const handleCopilotToggle = () => {
+    setIsCopilotOpen(!isCopilotOpen);
   };
+
+  // If a signal or alert is selected, show detail view
+  if (selectedSignal || selectedAlert) {
+    return (
+      <div className="signals-page signals-page--detail-view">
+        <div className="dashboard__kpi-detail-layout">
+          {/* Detail Panel on Left */}
+          <div className="dashboard__kpi-details">
+            {selectedSignal && (
+              <SignalDetailOverlay
+                signal={selectedSignal}
+                isOpen={true}
+                onClose={handleCloseDetail}
+                onAcknowledge={handleAcknowledgeSignal}
+                isEmbedded={true}
+              />
+            )}
+            {selectedAlert && (
+              <AlertDetailOverlay
+                alert={selectedAlert}
+                isOpen={true}
+                onClose={handleCloseDetail}
+                onAcknowledge={handleAcknowledgeAlert}
+                isEmbedded={true}
+              />
+            )}
+          </div>
+
+          {/* Copilot on Right */}
+          <CopilotChatPane
+            isOpen={true}
+            onToggle={handleCopilotToggle}
+            context={copilotContext}
+            isEmbedded={true}
+          />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="signals-page">
@@ -131,185 +206,129 @@ const Signals = () => {
         </p>
       </div>
 
-      {/* Search and Action Bar */}
+      {/* Search Bar */}
       <div className="signals-page__search-bar">
-        <div className="signals-page__search-container">
-          <div className="signals-page__search-input-group">
-            <Search className="w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground" />
-            <input
-              type="text"
-              placeholder="Search signals and alerts..."
-              value={searchQuery}
-              onChange={e => setSearchQuery(e.target.value)}
-              className="input signals-page__search-input pl-10"
-            />
-          </div>
-          <div className="signals-page__action-buttons">
-            <button
-              onClick={handlePrioritizeSignals}
-              className="btn btn--secondary signals-page__action-btn"
-            >
-              <TrendingUp className="w-4 h-4 mr-2" />
-              Prioritize
-            </button>
-            <button
-              onClick={() => console.log('Personalize clicked')}
-              className="btn btn--ghost signals-page__action-btn"
-            >
-              <Filter className="w-4 h-4 mr-2" />
-              Personalize
-            </button>
-          </div>
+        <div className="signals-page__search-input-group">
+          <Search className="w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground" />
+          <input
+            type="text"
+            placeholder="Search signals and alerts..."
+            value={searchQuery}
+            onChange={e => setSearchQuery(e.target.value)}
+            className="input signals-page__search-input pl-10"
+          />
         </div>
       </div>
 
-      {/* Filter Toolbar */}
-      <div className="signals-page__filters">
-        <div className="signals-page__filter-section">
-          <h3 className="signals-page__filter-title">Type</h3>
-          <div className="signals-page__filter-options">
-            <button
-              className={`signals-page__filter-btn ${typeFilter === 'all' ? 'signals-page__filter-btn--active' : ''}`}
-              onClick={() => setTypeFilter('all')}
+      {/* Compact Horizontal Filter Bar */}
+      <div className="signals-page__filter-bar">
+        {/* Type Filter */}
+        <div className="signals-page__filter-dropdown">
+          <label className="signals-page__filter-label">Type</label>
+          <div className="signals-page__select-wrapper">
+            <select
+              value={typeFilter}
+              onChange={e => setTypeFilter(e.target.value as FilterType)}
+              className="signals-page__select"
             >
-              All
-            </button>
-            <button
-              className={`signals-page__filter-btn ${typeFilter === 'signals' ? 'signals-page__filter-btn--active' : ''}`}
-              onClick={() => setTypeFilter('signals')}
-            >
-              Signals
-            </button>
-            <button
-              className={`signals-page__filter-btn ${typeFilter === 'alerts' ? 'signals-page__filter-btn--active' : ''}`}
-              onClick={() => setTypeFilter('alerts')}
-            >
-              Alerts
-            </button>
+              <option value="all">All Types</option>
+              <option value="signals">Signals Only</option>
+              <option value="alerts">Alerts Only</option>
+            </select>
+            <ChevronDown className="signals-page__select-icon" />
           </div>
         </div>
 
-        <div className="signals-page__filter-section">
-          <h3 className="signals-page__filter-title">Priority</h3>
-          <div className="signals-page__filter-options">
-            <button
-              className={`signals-page__filter-btn ${priorityFilter === 'all' ? 'signals-page__filter-btn--active' : ''}`}
-              onClick={() => setPriorityFilter('all')}
+        {/* Priority Filter */}
+        <div className="signals-page__filter-dropdown">
+          <label className="signals-page__filter-label">Priority</label>
+          <div className="signals-page__select-wrapper">
+            <select
+              value={priorityFilter}
+              onChange={e =>
+                setPriorityFilter(e.target.value as PriorityFilter)
+              }
+              className="signals-page__select"
             >
-              All
-            </button>
-            <button
-              className={`signals-page__filter-btn signals-page__filter-btn--critical ${priorityFilter === 'Critical' ? 'signals-page__filter-btn--active' : ''}`}
-              onClick={() => setPriorityFilter('Critical')}
-            >
-              Critical
-            </button>
-            <button
-              className={`signals-page__filter-btn signals-page__filter-btn--high ${priorityFilter === 'High' ? 'signals-page__filter-btn--active' : ''}`}
-              onClick={() => setPriorityFilter('High')}
-            >
-              High
-            </button>
-            <button
-              className={`signals-page__filter-btn signals-page__filter-btn--medium ${priorityFilter === 'Medium' ? 'signals-page__filter-btn--active' : ''}`}
-              onClick={() => setPriorityFilter('Medium')}
-            >
-              Medium
-            </button>
-            <button
-              className={`signals-page__filter-btn signals-page__filter-btn--low ${priorityFilter === 'Low' ? 'signals-page__filter-btn--active' : ''}`}
-              onClick={() => setPriorityFilter('Low')}
-            >
-              Low
-            </button>
+              <option value="all">All Priorities</option>
+              <option value="Critical">Critical</option>
+              <option value="High">High</option>
+              <option value="Medium">Medium</option>
+              <option value="Low">Low</option>
+            </select>
+            <ChevronDown className="signals-page__select-icon" />
           </div>
         </div>
 
-        <div className="signals-page__filter-section">
-          <h3 className="signals-page__filter-title">Category</h3>
-          <div className="signals-page__filter-options">
-            <button
-              className={`signals-page__filter-btn ${categoryFilter === 'all' ? 'signals-page__filter-btn--active' : ''}`}
-              onClick={() => setCategoryFilter('all')}
+        {/* Category Filter */}
+        <div className="signals-page__filter-dropdown">
+          <label className="signals-page__filter-label">Category</label>
+          <div className="signals-page__select-wrapper">
+            <select
+              value={categoryFilter}
+              onChange={e =>
+                setCategoryFilter(e.target.value as CategoryFilter)
+              }
+              className="signals-page__select"
             >
-              All
-            </button>
-            <button
-              className={`signals-page__filter-btn ${categoryFilter === 'market' ? 'signals-page__filter-btn--active' : ''}`}
-              onClick={() => setCategoryFilter('market')}
-            >
-              Market
-            </button>
-            <button
-              className={`signals-page__filter-btn ${categoryFilter === 'competitor' ? 'signals-page__filter-btn--active' : ''}`}
-              onClick={() => setCategoryFilter('competitor')}
-            >
-              Competitor
-            </button>
-            <button
-              className={`signals-page__filter-btn ${categoryFilter === 'regulatory' ? 'signals-page__filter-btn--active' : ''}`}
-              onClick={() => setCategoryFilter('regulatory')}
-            >
-              Regulatory
-            </button>
-            <button
-              className={`signals-page__filter-btn ${categoryFilter === 'technology' ? 'signals-page__filter-btn--active' : ''}`}
-              onClick={() => setCategoryFilter('technology')}
-            >
-              Technology
-            </button>
+              <option value="all">All Categories</option>
+              <option value="market">Market</option>
+              <option value="competitor">Competitor</option>
+              <option value="regulatory">Regulatory</option>
+              <option value="technology">Technology</option>
+              <option value="economic">Economic</option>
+              <option value="social">Social</option>
+              <option value="performance">Performance</option>
+              <option value="inventory">Inventory</option>
+              <option value="budget">Budget</option>
+              <option value="security">Security</option>
+              <option value="compliance">Compliance</option>
+              <option value="system">System</option>
+            </select>
+            <ChevronDown className="signals-page__select-icon" />
           </div>
         </div>
 
-        <div className="signals-page__filter-section">
-          <h3 className="signals-page__filter-title">Sort by</h3>
-          <div className="signals-page__filter-options">
-            <button
-              className={`signals-page__filter-btn ${sortBy === 'timestamp' ? 'signals-page__filter-btn--active' : ''}`}
-              onClick={() => setSortBy('timestamp')}
+        {/* Sort Filter */}
+        <div className="signals-page__filter-dropdown">
+          <label className="signals-page__filter-label">Sort By</label>
+          <div className="signals-page__select-wrapper">
+            <select
+              value={sortBy}
+              onChange={e =>
+                setSortBy(
+                  e.target.value as 'timestamp' | 'priority' | 'relevance',
+                )
+              }
+              className="signals-page__select"
             >
-              <Clock className="w-4 h-4 mr-1" />
-              Time
-            </button>
-            <button
-              className={`signals-page__filter-btn ${sortBy === 'priority' ? 'signals-page__filter-btn--active' : ''}`}
-              onClick={() => setSortBy('priority')}
-            >
-              <AlertTriangle className="w-4 h-4 mr-1" />
-              Priority
-            </button>
-            <button
-              className={`signals-page__filter-btn ${sortBy === 'relevance' ? 'signals-page__filter-btn--active' : ''}`}
-              onClick={() => setSortBy('relevance')}
-            >
-              <TrendingUp className="w-4 h-4 mr-1" />
-              Relevance
-            </button>
+              <option value="timestamp">Recent First</option>
+              <option value="priority">Priority</option>
+              <option value="relevance">Relevance</option>
+            </select>
+            <ChevronDown className="signals-page__select-icon" />
           </div>
+        </div>
+
+        {/* Results Count */}
+        <div className="signals-page__results-count">
+          {filteredItems.length} {filteredItems.length === 1 ? 'item' : 'items'}
         </div>
       </div>
 
-      {/* Signals Grid */}
+      {/* Single Column Grid */}
       <div className="signals-page__grid">
         {filteredItems.map(item => (
           <div key={`${item.type}-${item.id}`}>
             {item.type === 'signal' ? (
               <SignalCard
                 signal={item as Signal}
-                onAcknowledge={() => handleAcknowledge(item.id, 'signal')}
-                onExpand={() => handleExpand(item.id, 'signal')}
-                onOpenCopilot={() =>
-                  console.log('Open copilot for signal', item.id)
-                }
+                onClick={() => handleSignalClick(item as Signal)}
               />
             ) : (
               <AlertCard
                 alert={item as Alert}
-                onAcknowledge={() => handleAcknowledge(item.id, 'alert')}
-                onExpand={() => handleExpand(item.id, 'alert')}
-                onOpenCopilot={() =>
-                  console.log('Open copilot for alert', item.id)
-                }
+                onClick={() => handleAlertClick(item as Alert)}
               />
             )}
           </div>
@@ -318,7 +337,7 @@ const Signals = () => {
 
       {filteredItems.length === 0 && (
         <div className="signals-page__empty">
-          <AlertTriangle className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
+          <Search className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
           <h3 className="text-lg font-medium text-foreground mb-2">
             No signals or alerts found
           </h3>

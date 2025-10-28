@@ -1,41 +1,12 @@
-import { useState } from 'react';
 import { Signal } from '@/data/signalData';
-import {
-  CheckCircle,
-  ExternalLink,
-  Clock,
-  TrendingUp,
-  TrendingDown,
-  Minus,
-  Bot,
-} from 'lucide-react';
+import { Clock, TrendingUp, TrendingDown, Minus } from 'lucide-react';
 
 interface SignalCardProps {
   signal: Signal;
-  onAcknowledge: () => void;
-  onExpand: () => void;
-  onOpenCopilot?: () => void;
-  isNarrow?: boolean;
+  onClick: () => void;
 }
 
-const SignalCard = ({
-  signal,
-  onAcknowledge,
-  onExpand,
-  onOpenCopilot,
-  isNarrow = false,
-}: SignalCardProps) => {
-  const [isExpanded, setIsExpanded] = useState(signal.expanded);
-
-  const handleExpand = () => {
-    setIsExpanded(!isExpanded);
-    onExpand();
-  };
-
-  const handleAcknowledge = () => {
-    onAcknowledge();
-  };
-
+const SignalCard = ({ signal, onClick }: SignalCardProps) => {
   const getPriorityIcon = (priority: string) => {
     switch (priority) {
       case 'Critical':
@@ -66,28 +37,35 @@ const SignalCard = ({
 
   return (
     <div
-      className={`signal-card ${isExpanded ? 'signal-card--expanded' : ''} ${isNarrow ? 'signal-card--narrow' : ''}`}
-      onClick={handleExpand}
+      className="signal-card"
+      onClick={onClick}
       role="button"
       tabIndex={0}
       onKeyDown={e => {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
-          handleExpand();
+          onClick();
         }
       }}
       aria-label={`Signal: ${signal.headline}`}
     >
       <div className="signal-card__header">
-        <h3 className="signal-card__title">{signal.headline}</h3>
+        <div className="signal-card__header-top">
+          <h3 className="signal-card__title">{signal.headline}</h3>
+          <div className="signal-card__priority">
+            {getPriorityIcon(signal.priority)}
+            <span className="signal-card__priority-text">
+              {signal.priority}
+            </span>
+          </div>
+        </div>
         <div className="signal-card__meta">
           <span className="signal-card__meta-item">
-            {getPriorityIcon(signal.priority)}
-            {signal.priority}
-          </span>
-          <span className="signal-card__meta-item">
             {getImpactIcon(signal.impact)}
-            {signal.impact}
+            <span className="capitalize">{signal.impact} impact</span>
+          </span>
+          <span className="signal-card__meta-item signal-card__meta-separator">
+            •
           </span>
           <span className="signal-card__meta-item">
             <Clock className="w-3 h-3" />
@@ -100,80 +78,15 @@ const SignalCard = ({
         <p className="signal-card__description">{signal.description}</p>
 
         <div className="signal-card__badges">
+          <span className="signal-card__badge signal-card__badge--category">
+            {signal.category}
+          </span>
           <span
             className={`signal-card__badge signal-card__badge--${signal.relevance.toLowerCase()}`}
           >
             {signal.relevance} Relevance
           </span>
-          <span className="signal-card__badge signal-card__badge--medium">
-            {signal.category}
-          </span>
-          <span className="signal-card__badge signal-card__badge--low">
-            {signal.confidence}% confidence
-          </span>
         </div>
-
-        <div className="signal-card__actions">
-          <button
-            onClick={e => {
-              e.stopPropagation();
-              handleAcknowledge();
-            }}
-            className="btn btn--primary btn--sm signal-card__action-button"
-            aria-label={`Acknowledge signal: ${signal.headline}`}
-          >
-            <CheckCircle className="w-4 h-4 mr-1" />
-            Acknowledge
-          </button>
-          {!isNarrow && (
-            <button
-              onClick={e => {
-                e.stopPropagation();
-                handleExpand();
-              }}
-              className="btn btn--secondary btn--sm signal-card__action-button"
-              aria-label={`View details for: ${signal.headline}`}
-            >
-              <ExternalLink className="w-4 h-4 mr-1" />
-              {isExpanded ? 'Collapse' : 'Expand'}
-            </button>
-          )}
-          {onOpenCopilot && !isNarrow && (
-            <button
-              onClick={e => {
-                e.stopPropagation();
-                onOpenCopilot();
-              }}
-              className="btn btn--ghost btn--sm signal-card__action-button"
-              aria-label={`Open Copilot for: ${signal.headline}`}
-            >
-              <Bot className="w-4 h-4 mr-1" />
-              Open Copilot
-            </button>
-          )}
-        </div>
-
-        {isExpanded && (
-          <div className="signal-card__details">
-            <h4 className="signal-card__details-title">
-              Additional Information
-            </h4>
-            <div className="signal-card__details-content">
-              <p>
-                <strong>Source:</strong> {signal.source}
-              </p>
-              <p>
-                <strong>Publisher:</strong> {signal.publisher}
-              </p>
-              <p>
-                <strong>Tags:</strong> {signal.tags.join(', ')}
-              </p>
-              <p>
-                <strong>Confidence Level:</strong> {signal.confidence}%
-              </p>
-            </div>
-          </div>
-        )}
       </div>
     </div>
   );
