@@ -5,6 +5,7 @@ import {
   useEffect,
   ReactNode,
 } from 'react';
+import api from '@/services/api';
 
 interface User {
   id: string;
@@ -33,39 +34,31 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Check for existing auth token on app load
-    const token = localStorage.getItem('auth_token');
-    if (token) {
-      // In a real app, you'd validate the token with the server
-      // For now, we'll simulate a user
-      setUser({
-        id: '1',
-        name: 'John Doe',
-        email: 'john@example.com',
-        avatar:
-          'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=32&h=32&fit=crop&crop=face',
-      });
-    }
-    setIsLoading(false);
+    // Optionally, fetch profile to restore session
+    const restore = async () => {
+      try {
+        const resp = await api.get('/auth/profile/');
+        const u = resp.data?.data;
+        if (u?.email) {
+          setUser({ id: String(u.id || '1'), name: u.name || u.username || 'User', email: u.email, avatar: undefined });
+        }
+      } catch (_) {
+        // not logged in
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    restore();
   }, []);
 
-  const login = async (email: string, _password: string): Promise<void> => {
+  const login = async (email: string, password: string): Promise<void> => {
     setIsLoading(true);
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-
-      // In a real app, you'd make an API call here
-      const mockToken = 'mock-jwt-token';
-      localStorage.setItem('auth_token', mockToken);
-
-      setUser({
-        id: '1',
-        name: 'John Doe',
-        email: email,
-        avatar:
-          'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=32&h=32&fit=crop&crop=face',
-      });
+      await api.post('/auth/login/', { username: email, password });
+      // Fetch profile
+      const resp = await api.get('/auth/profile/');
+      const u = resp.data?.data;
+      setUser({ id: String(u.id || '1'), name: u.name || u.username || email, email: u.email || email });
     } catch (error) {
       throw new Error('Login failed');
     } finally {
@@ -74,8 +67,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   };
 
   const logout = (): void => {
-    localStorage.removeItem('auth_token');
-    setUser(null);
+    api.post('/auth/logout/').finally(() => {
+      setUser(null);
+    });
   };
 
   const updateUser = (userData: Partial<User>): void => {

@@ -4,15 +4,17 @@ import KpiDetailPanel from '@/components/dashboard/KpiDetailPanel';
 import KpiDetailOverlay from '@/components/dashboard/KpiDetailOverlay';
 import CopilotChatPane from '@/components/dashboard/CopilotChatPane';
 import SignalAlertCard from '@/components/shared/SignalAlertCard';
-import { marketingKpiData, MarketingKpi } from '@/data/marketingKpiData';
+import { MarketingKpi } from '@/data/marketingKpiData';
 import { alertData } from '@/data/alertData';
 import { signalData } from '@/data/signalData';
+import { useMarketingKpis } from '@/hooks/useMarketingKpis';
 
 const Dashboard = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const [isCopilotOpen, setIsCopilotOpen] = useState(false);
   const [selectedKpi, setSelectedKpi] = useState<MarketingKpi | null>(null);
+  const { data: kpis = [], isLoading: kpisLoading } = useMarketingKpis();
   const [copilotContext, setCopilotContext] = useState<string>('');
 
   useEffect(() => {
@@ -43,7 +45,7 @@ const Dashboard = () => {
   }, []);
 
   const handleKpiClick = (kpiId: string) => {
-    const kpi = marketingKpiData.find(k => k.id === kpiId);
+    const kpi = kpis.find(k => k.id === kpiId);
     if (kpi) {
       setSelectedKpi(kpi);
       setIsCopilotOpen(true);
@@ -107,7 +109,7 @@ const Dashboard = () => {
           {/* KPI Section */}
           <div className="dashboard__kpi-section">
             <KpiDetailPanel
-              kpis={marketingKpiData}
+              kpis={kpis}
               onKpiClick={handleKpiClick}
             />
           </div>

@@ -4,8 +4,11 @@ import axios, { AxiosInstance, AxiosResponse } from 'axios';
  * Configured Axios instance for API calls
  */
 const api: AxiosInstance = axios.create({
-  baseURL: (import.meta as any).env.VITE_API_BASE_URL || 'http://localhost:8000',
-  timeout: 10000,
+  baseURL:
+    ((import.meta as any).env.VITE_API_BASE_URL as string | undefined) ||
+    'http://localhost:8000/api/v1',
+  timeout: 15000,
+  withCredentials: true, // send cookies for Django SessionAuthentication
   headers: {
     'Content-Type': 'application/json',
   },
@@ -14,15 +17,18 @@ const api: AxiosInstance = axios.create({
 // Request interceptor to add auth token
 api.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('auth_token');
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+    // CSRF support for Django
+    // Django sets csrftoken cookie; send it back as X-CSRFToken on unsafe methods
+    const needsCsrf = (config.method || 'get').toUpperCase() !== 'GET';
+    if (needsCsrf) {
+      const csrfMatch = document.cookie.match(/(?:^|; )csrftoken=([^;]*)/);
+      if (csrfMatch) {
+        (config.headers as any)['X-CSRFToken'] = decodeURIComponent(csrfMatch[1]);
+      }
     }
     return config;
   },
-  (error) => {
-    return Promise.reject(error);
-  }
+  (error) => Promise.reject(error)
 );
 
 // Response interceptor for error handling
