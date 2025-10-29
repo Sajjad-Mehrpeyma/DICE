@@ -1,4 +1,4 @@
-.PHONY: build up down logs migrate seed test shell createsuperuser clean help
+.PHONY: build up down logs migrate seed test shell createsuperuser clean help infra-up infra-down infra-logs dev-install dev-migrate dev-seed dev-backend dev-frontend
 
 help:
 	@echo "DICE - Data Intelligence & Copilot Engine"
@@ -14,6 +14,9 @@ help:
 	@echo "  make shell            - Open Django shell"
 	@echo "  make createsuperuser  - Create Django superuser"
 	@echo "  make clean            - Clean volumes and containers"
+	@echo "  make infra-up         - Start only Postgres/Elasticsearch (dev)"
+	@echo "  make infra-down       - Stop only dev infra"
+	@echo "  make infra-logs       - Tail infra logs"
 
 build:
 	docker-compose build
@@ -51,6 +54,17 @@ createsuperuser:
 clean:
 	docker-compose down -v
 	@echo "All containers and volumes removed!"
+
+# Dev-only infra with separate compose file
+infra-up:
+	docker compose -f docker-compose.dev.yml up -d
+	@echo "Dev infra started: Postgres on 5432, Elasticsearch on 9200"
+
+infra-down:
+	docker compose -f docker-compose.dev.yml down
+
+infra-logs:
+	docker compose -f docker-compose.dev.yml logs -f
 
 # Development commands (without Docker)
 dev-install:

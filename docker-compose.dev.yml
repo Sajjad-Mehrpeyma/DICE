@@ -1,0 +1,93 @@
+version: "3.8"
+
+services:
+    postgres:
+        image: postgres:16-alpine
+        container_name: dice_dev_postgres
+        environment:
+            POSTGRES_DB: ${DB_NAME:-dice_db}
+            POSTGRES_USER: ${DB_USER:-dice_user}
+            POSTGRES_PASSWORD: ${DB_PASSWORD:-dice_password}
+        volumes:
+            - postgres_data:/var/lib/postgresql/data
+        ports:
+            - "5432:5432"
+        healthcheck:
+            test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-dice_user}"]
+            interval: 5s
+            timeout: 5s
+            retries: 5
+        networks:
+            - dice_dev
+
+    elasticsearch:
+        image: elasticsearch/elasticsearch:9.1.5
+        container_name: dice_dev_elasticsearch
+        environment:
+            - discovery.type=single-node
+            - xpack.security.enabled=false
+            - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
+        volumes:
+            - es_data:/usr/share/elasticsearch/data
+        ports:
+            - "9200:9200"
+        healthcheck:
+            test:
+                [
+                    "CMD-SHELL",
+                    "curl -f http://localhost:9200/_cluster/health || exit 1",
+                ]
+            interval: 10s
+            timeout: 5s
+            retries: 5
+        networks:
+            - dice_dev
+
+    kibana:
+        image: kibana:9.1.5
+        container_name: dice_dev_kibana
+        environment:
+            - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+        ports:
+            - "5601:5601"
+        depends_on:
+            - elasticsearch
+        networks:
+            - dice_dev
+
+    # Optional caching layer for future use
+    redis:
+        image: redis:7-alpine
+        container_name: dice_dev_redis
+        ports:
+            - "6379:6379"
+        networks:
+            - dice_dev
+        profiles:
+            - optional
+
+    # Optional: n8n workflow automation
+    n8n:
+        image: n8nio/n8n:latest
+        container_name: dice_dev_n8n
+        ports:
+            - "5678:5678"
+        environment:
+            - N8N_BASIC_AUTH_ACTIVE=true
+            - N8N_BASIC_AUTH_USER=${N8N_USER:-admin}
+            - N8N_BASIC_AUTH_PASSWORD=${N8N_PASSWORD:-admin}
+        volumes:
+            - n8n_data:/home/node/.n8n
+        networks:
+            - dice_dev
+        profiles:
+            - optional
+
+volumes:
+    postgres_data:
+    es_data:
+    n8n_data:
+
+networks:
+    dice_dev:
+        driver: bridge
