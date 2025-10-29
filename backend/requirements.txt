@@ -4,8 +4,7 @@ psycopg2-binary==2.9.11        # latest version :contentReference[oaicite:2]{ind
 python-dotenv                  # (no specific version pinned)
 langchain==1.0.2               # latest version :contentReference[oaicite:3]{index=3}
 langchain-openai==1.0.1        # latest version :contentReference[oaicite:4]{index=4}
-langchain-elasticsearch        # (no specific version retrieved)
-elasticsearch==9.1.1           # latest version of python client :contentReference[oaicite:5]{index=5}
+elasticsearch==8.19.2          # latest version of python client :contentReference[oaicite:5]{index=5}
 sentence-transformers==5.1.2   # latest version :contentReference[oaicite:6]{index=6}
 openai==2.6.1                  # latest version :contentReference[oaicite:7]{index=7}
 gunicorn                      # (no specific version pinned)

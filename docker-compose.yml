@@ -21,7 +21,7 @@ services:
             - dice_network
 
     elasticsearch:
-        image: elasticsearch:8.11.1
+        image: elasticsearch/elasticsearch:9.1.5
         container_name: dice_elasticsearch
         environment:
             - discovery.type=single-node
